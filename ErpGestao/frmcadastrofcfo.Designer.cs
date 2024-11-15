@@ -389,6 +389,8 @@
             cmbboxcidadefcfo.Name = "cmbboxcidadefcfo";
             cmbboxcidadefcfo.Size = new Size(364, 33);
             cmbboxcidadefcfo.TabIndex = 31;
+            cmbboxcidadefcfo.DropDown += cmbboxcidadefcfo_DropDown;
+            cmbboxcidadefcfo.TextUpdate += cmbboxcidadefcfo_TextUpdate;
             // 
             // btncidadefcfo
             // 
