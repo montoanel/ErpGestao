@@ -327,7 +327,7 @@
             // 
             // txtboxbairrofcfo
             // 
-            txtboxbairrofcfo.Location = new Point(570, 210);
+            txtboxbairrofcfo.Location = new Point(12, 285);
             txtboxbairrofcfo.Name = "txtboxbairrofcfo";
             txtboxbairrofcfo.Size = new Size(498, 31);
             txtboxbairrofcfo.TabIndex = 25;
@@ -335,7 +335,7 @@
             // lblbairrofcfo
             // 
             lblbairrofcfo.AutoSize = true;
-            lblbairrofcfo.Location = new Point(570, 182);
+            lblbairrofcfo.Location = new Point(12, 257);
             lblbairrofcfo.Name = "lblbairrofcfo";
             lblbairrofcfo.Size = new Size(58, 25);
             lblbairrofcfo.TabIndex = 24;
@@ -343,15 +343,15 @@
             // 
             // txtboxcomplementoenderecofcfo
             // 
-            txtboxcomplementoenderecofcfo.Location = new Point(12, 285);
+            txtboxcomplementoenderecofcfo.Location = new Point(570, 210);
             txtboxcomplementoenderecofcfo.Name = "txtboxcomplementoenderecofcfo";
-            txtboxcomplementoenderecofcfo.Size = new Size(529, 31);
+            txtboxcomplementoenderecofcfo.Size = new Size(498, 31);
             txtboxcomplementoenderecofcfo.TabIndex = 27;
             // 
             // lblcomplementoenderecofcfo
             // 
             lblcomplementoenderecofcfo.AutoSize = true;
-            lblcomplementoenderecofcfo.Location = new Point(12, 257);
+            lblcomplementoenderecofcfo.Location = new Point(570, 182);
             lblcomplementoenderecofcfo.Name = "lblcomplementoenderecofcfo";
             lblcomplementoenderecofcfo.Size = new Size(126, 25);
             lblcomplementoenderecofcfo.TabIndex = 26;
@@ -367,7 +367,7 @@
             // lblreferenciaenderecofcfo
             // 
             lblreferenciaenderecofcfo.AutoSize = true;
-            lblreferenciaenderecofcfo.Location = new Point(570, 257);
+            lblreferenciaenderecofcfo.Location = new Point(570, 244);
             lblreferenciaenderecofcfo.Name = "lblreferenciaenderecofcfo";
             lblreferenciaenderecofcfo.Size = new Size(92, 25);
             lblreferenciaenderecofcfo.TabIndex = 28;
@@ -389,7 +389,6 @@
             cmbboxcidadefcfo.Name = "cmbboxcidadefcfo";
             cmbboxcidadefcfo.Size = new Size(364, 33);
             cmbboxcidadefcfo.TabIndex = 31;
-            cmbboxcidadefcfo.SelectedIndexChanged += cmbboxcidadefcfo_SelectedIndexChanged;
             // 
             // btncidadefcfo
             // 

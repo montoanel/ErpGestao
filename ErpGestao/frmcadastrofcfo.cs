@@ -1,4 +1,4 @@
-using System.Diagnostics.Eventing.Reader;
+ï»¿using System.Diagnostics.Eventing.Reader;
 
 namespace ErpGestao
 {
@@ -52,23 +52,23 @@ namespace ErpGestao
         private void cmbtipofcfo_SelectedIndexChanged(object sender, EventArgs e)
         {
             // verifica o tipo de pessoa selecionado na ComboBox
-            if (cmbtipofcfo.SelectedItem.ToString() == "Jurídica")
+            if (cmbtipofcfo.SelectedItem.ToString() == "JurÃ­dica")
             {
-                msktxtboxcpfcnpjfcfo.Mask = "00,000,000/0000-00"; // Máscara para CNPJ
+                msktxtboxcpfcnpjfcfo.Mask = "00,000,000/0000-00"; // Mï¿½scara para CNPJ
                 txtboxrazaosocialfcfo.Text = ""; //limpa a razao social quando for pessoa juridica
             }
             else
             {
-                msktxtboxcpfcnpjfcfo.Mask = "000,000,000-00"; // Máscara para CPF
+                msktxtboxcpfcnpjfcfo.Mask = "000,000,000-00"; // Mï¿½scara para CPF
 
             }
         }
 
         private void txtboxnomefantasiafcfo_TextChanged(object sender, EventArgs e)
         {
-            // verifica se o combobox esta selecionado esta selecionado com o 'física ou rural'
+            // verifica se o combobox esta selecionado esta selecionado com o 'fï¿½sica ou rural'
             // muda em tempo real o valor do txtboxrazaosocialfcfo = txtboxnomefantasiafcfo
-            //if (cmbtipofcfo.selecteditem != null && (cmbtipofcfo.selecteditem.tostring() == "física" || cmbtipofcfo.selecteditem.tostring() == "rural"))
+            //if (cmbtipofcfo.selecteditem != null && (cmbtipofcfo.selecteditem.tostring() == "fï¿½sica" || cmbtipofcfo.selecteditem.tostring() == "rural"))
             //{
             //    //define o valor do txtboxrazaosocialfcfo como o mesmo valor de txtboxnomefantasiafcfo
             //    txtboxrazaosocialfcfo.text = txtboxnomefantasiafcfo.text;
@@ -78,8 +78,8 @@ namespace ErpGestao
 
         private void txtboxnomefantasiafcfo_Leave(object sender, EventArgs e)
         {
-            // verifica se o combobox esta selecionado como física ou rural
-            if (cmbtipofcfo.SelectedItem != null && (cmbtipofcfo.SelectedItem.ToString() == "Física" || cmbtipofcfo.SelectedItem.ToString() == "Rural"))
+            // verifica se o combobox esta selecionado como fÃ­sica ou rural
+            if (cmbtipofcfo.SelectedItem != null && (cmbtipofcfo.SelectedItem.ToString() == "FÃ­sica" || cmbtipofcfo.SelectedItem.ToString() == "Rural"))
             {
                 //define o valor do txtboxrazaosocialfcfo como o mesmo valor do txtboxnomefantasiafcfo
                 txtboxrazaosocialfcfo.Text = txtboxnomefantasiafcfo.Text;
@@ -88,30 +88,37 @@ namespace ErpGestao
 
         private void msktxtboxcpfcnpjfcfo_Leave(object sender, EventArgs e)
         {
-            //verifica o tipo de pessoa selecionada no combobox
+            // Verifica o tipo de pessoa selecionada no ComboBox
             if (cmbtipofcfo.SelectedItem != null)
             {
-                string documento = msktxtboxcpfcnpjfcfo.Text;
-                if (cmbtipofcfo.SelectedItem.ToString() == "Jurídica")
+                // Remove a mÃ¡scara do campo
+                string documento = msktxtboxcpfcnpjfcfo.Text.Replace(",", "").Replace("-", "").Replace("/", "").Replace(".", "").Trim();
+
+                // Verifica se o campo nÃ£o estÃ¡ vazio antes de validar
+                if (!string.IsNullOrEmpty(documento))
                 {
-                    //Valida o cnpj
-                    if (!cnpjValidador.ValidarCNPJ(documento))
+                    if (cmbtipofcfo.SelectedItem.ToString() == "JurÃ­dica")
                     {
-                        MessageBox.Show("CNPJ Inválido!", "Validação de CNPJ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //msktxtboxcpfcnpjfcfo.Focus();//volta foco para o campo cpfcnpj
+                        // Valida o CNPJ
+                        if (!cnpjValidador.ValidarCNPJ(documento))
+                        {
+                            MessageBox.Show("CNPJ invÃ¡lido!", "ValidaÃ§Ã£o de CNPJ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            // msktxtboxcpfcnpjfcfo.Focus(); // Volta o foco para o campo CNPJ
+                        }
                     }
-                }
-                else if (cmbtipofcfo.SelectedItem.ToString() == "Física" || cmbtipofcfo.SelectedItem.ToString() == "Rural")
-                {
-                    //valida CPF
-                    if (!cpfValidador.ValidarCPF(documento))
+                    else if (cmbtipofcfo.SelectedItem.ToString() == "FÃ­sica" || cmbtipofcfo.SelectedItem.ToString() == "Rural")
                     {
-                        MessageBox.Show("CPF Inválido!", "Validação de CPF", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        // msktxtboxcpfcnpjfcfo.Focus();//volta foco para o cpf
+                        // Valida o CPF
+                        if (!cpfValidador.ValidarCPF(documento))
+                        {
+                            MessageBox.Show("CPF invÃ¡lido!", "ValidaÃ§Ã£o de CPF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            // msktxtboxcpfcnpjfcfo.Focus(); // Volta o foco para o campo CPF
+                        }
                     }
                 }
             }
         }
+
 
         private void btncidadefcfo_Click(object sender, EventArgs e)
         {
@@ -126,11 +133,6 @@ namespace ErpGestao
                 }
 
             }
-        }
-
-        private void cmbboxcidadefcfo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

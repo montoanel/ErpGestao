@@ -60,7 +60,7 @@ namespace ErpGestao
             Controls.Add(listBoxCidades);
             Name = "frmSelecionarCidade";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "frmSelecionarCidade";
+            Text = "Lista de Cidades";
             Load += frmSelecionarCidade_Load;
             ResumeLayout(false);
         }

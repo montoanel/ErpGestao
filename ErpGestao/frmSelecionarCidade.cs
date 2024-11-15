@@ -8,28 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ErpGestao
-{
-    public partial class frmSelecionarCidade : Form
-    {
-        public Cidade CidadeSelecionada { get; private set; }
-        public frmSelecionarCidade()
-        {
+namespace ErpGestao 
+{ 
+    public partial class frmSelecionarCidade : Form 
+    { 
+        public Cidade CidadeSelecionada { get; private set;} 
+        public frmSelecionarCidade() 
+        { 
             InitializeComponent();
-            CarregarCidades();
-        }
+            CarregarCidades(); 
+        } 
         private void CarregarCidades()
-        {
-            List<Cidade> cidades = Cidade.ObterTodasCidades();
-            listBoxCidades.DataSource = cidades;
-            listBoxCidades.DisplayMember = "Nome";
-            listBoxCidades.ValueMember = "Estado";
-        }
-        private void btnSelecionar_Click(object sender, EventArgs e)
-        {
-            CidadeSelecionada = listBoxCidades.SelectedItem as Cidade;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+        { 
+            List<Cidade> cidades = Cidade.ObterTodasCidades(); 
+            listBoxCidades.DataSource = cidades; 
+            listBoxCidades.DisplayMember = "NomeComEstado"; // Exibe nome e estado
+             listBoxCidades.ValueMember = "Estado"; 
+        } 
+        private void btnSelecionar_Click(object sender, EventArgs e) 
+        { 
+            CidadeSelecionada = listBoxCidades.SelectedItem as Cidade; 
+            this.DialogResult = DialogResult.OK; 
+            this.Close(); 
         }
     }
 }
