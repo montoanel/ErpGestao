@@ -6,6 +6,7 @@ namespace ErpGestao
     {
 
         private readonly CpfValidador cpfValidador = new CpfValidador();
+        private readonly CnpjValidador cnpjValidador = new CnpjValidador();
 
         public frmcadastrofcfo()
         {
@@ -87,17 +88,49 @@ namespace ErpGestao
 
         private void msktxtboxcpfcnpjfcfo_Leave(object sender, EventArgs e)
         {
-            // Verifica se o ComboBox está selecionado como "Física" ou "Rural"
-            if (cmbtipofcfo.SelectedItem != null && (cmbtipofcfo.SelectedItem.ToString() == "Física" || cmbtipofcfo.SelectedItem.ToString() == "Rural"))
+            //verifica o tipo de pessoa selecionada no combobox
+            if (cmbtipofcfo.SelectedItem != null)
             {
-                // obtem o CPF digitado e verifica se é valido
-                string cpf = msktxtboxcpfcnpjfcfo.Text;
-                if (!cpfValidador.ValidarCPF(cpf))
+                string documento = msktxtboxcpfcnpjfcfo.Text;
+                if (cmbtipofcfo.SelectedItem.ToString() == "Jurídica")
                 {
-                    MessageBox.Show("CPF inválido!", "Validação de CPF", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    msktxtboxcpfcnpjfcfo.Focus();//volta o foco para o campo CPF
+                    //Valida o cnpj
+                    if (!cnpjValidador.ValidarCNPJ(documento))
+                    {
+                        MessageBox.Show("CNPJ Inválido!", "Validação de CNPJ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //msktxtboxcpfcnpjfcfo.Focus();//volta foco para o campo cpfcnpj
+                    }
+                }
+                else if (cmbtipofcfo.SelectedItem.ToString() == "Física" || cmbtipofcfo.SelectedItem.ToString() == "Rural")
+                {
+                    //valida CPF
+                    if (!cpfValidador.ValidarCPF(documento))
+                    {
+                        MessageBox.Show("CPF Inválido!", "Validação de CPF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // msktxtboxcpfcnpjfcfo.Focus();//volta foco para o cpf
+                    }
                 }
             }
         }
+
+        private void btncidadefcfo_Click(object sender, EventArgs e)
+        {
+            frmSelecionarCidade formSelecionarCidade = new frmSelecionarCidade();
+            if (formSelecionarCidade.ShowDialog() == DialogResult.OK)
+            {
+                Cidade cidadeSelecionada = formSelecionarCidade.CidadeSelecionada;
+                if (cidadeSelecionada != null)
+                {
+                    cmbboxcidadefcfo.Text = cidadeSelecionada.Nome;
+                    txtboxuffcfo.Text = cidadeSelecionada.Estado;
+                }
+
+            }
         }
+
+        private void cmbboxcidadefcfo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

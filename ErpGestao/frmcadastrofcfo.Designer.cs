@@ -389,6 +389,7 @@
             cmbboxcidadefcfo.Name = "cmbboxcidadefcfo";
             cmbboxcidadefcfo.Size = new Size(364, 33);
             cmbboxcidadefcfo.TabIndex = 31;
+            cmbboxcidadefcfo.SelectedIndexChanged += cmbboxcidadefcfo_SelectedIndexChanged;
             // 
             // btncidadefcfo
             // 
@@ -398,6 +399,7 @@
             btncidadefcfo.TabIndex = 32;
             btncidadefcfo.Text = "F1";
             btncidadefcfo.UseVisualStyleBackColor = true;
+            btncidadefcfo.Click += btncidadefcfo_Click;
             // 
             // lbluffcfo
             // 
@@ -419,7 +421,7 @@
             // 
             textBox3.Location = new Point(514, 355);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(53, 31);
+            textBox3.Size = new Size(151, 31);
             textBox3.TabIndex = 36;
             // 
             // lblcepfcfo
@@ -434,15 +436,15 @@
             // cmbboxrotaenderecofcfo
             // 
             cmbboxrotaenderecofcfo.FormattingEnabled = true;
-            cmbboxrotaenderecofcfo.Location = new Point(582, 355);
+            cmbboxrotaenderecofcfo.Location = new Point(697, 355);
             cmbboxrotaenderecofcfo.Name = "cmbboxrotaenderecofcfo";
-            cmbboxrotaenderecofcfo.Size = new Size(424, 33);
+            cmbboxrotaenderecofcfo.Size = new Size(309, 33);
             cmbboxrotaenderecofcfo.TabIndex = 38;
             // 
             // lblrotaenderecofcfo
             // 
             lblrotaenderecofcfo.AutoSize = true;
-            lblrotaenderecofcfo.Location = new Point(582, 327);
+            lblrotaenderecofcfo.Location = new Point(697, 328);
             lblrotaenderecofcfo.Name = "lblrotaenderecofcfo";
             lblrotaenderecofcfo.Size = new Size(48, 25);
             lblrotaenderecofcfo.TabIndex = 37;
@@ -704,7 +706,7 @@
             Controls.Add(pnldadoscadastraisfcfo);
             MaximizeBox = false;
             Name = "frmcadastrofcfo";
-            Text = "Cadastro Cliente";
+            Text = "Cadastro de Clientes e Fornecedores";
             Load += frmcadastrofcfo_Load;
             pnldadoscadastraisfcfo.ResumeLayout(false);
             pnldadoscadastraisfcfo.PerformLayout();
