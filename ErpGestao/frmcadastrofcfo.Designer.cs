@@ -64,11 +64,8 @@
             btncidadefcfo = new Button();
             lbluffcfo = new Label();
             txtboxuffcfo = new TextBox();
-            textBox3 = new TextBox();
             lblcepfcfo = new Label();
-            cmbboxrotaenderecofcfo = new ComboBox();
-            lblrotaenderecofcfo = new Label();
-            btnrotaenderecofcfo = new Button();
+            lblcoordenadafcfo = new Label();
             lbldatanascimentofcfo = new Label();
             msktxtboxdatanascimentofcfo = new MaskedTextBox();
             msktxtboxdatacadastrofcfo = new MaskedTextBox();
@@ -81,18 +78,22 @@
             msktxtboxtelefone1contatofcfo = new MaskedTextBox();
             msktxtboxtelefone2contatofcfo = new MaskedTextBox();
             lbltelefone2contatofcfo = new Label();
-            msktxtboxtelefone3contatofcfo = new MaskedTextBox();
-            lbltelefone3contatofcfo = new Label();
+            lblemailfcfo = new Label();
             btngravarfcfo = new Button();
             btnimprimirfcfo = new Button();
             btncancelarfcfo = new Button();
-            pictureBox1 = new PictureBox();
+            pctboxfcfo = new PictureBox();
             btninserirfotofcfo = new Button();
             btntakepicturefcfo = new Button();
             btncleanpicturefcfo = new Button();
+            txtboxcoordenadasfcfo = new TextBox();
+            txtboxemailfcfo = new TextBox();
+            txtboxinstagramfcfo = new TextBox();
+            lblinstagramfcfo = new Label();
+            msktxtboxcepfcfo = new MaskedTextBox();
             pnldadoscadastraisfcfo.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pctboxfcfo).BeginInit();
             SuspendLayout();
             // 
             // pnldadoscadastraisfcfo
@@ -390,7 +391,9 @@
             cmbboxcidadefcfo.Size = new Size(364, 33);
             cmbboxcidadefcfo.TabIndex = 31;
             cmbboxcidadefcfo.DropDown += cmbboxcidadefcfo_DropDown;
+            cmbboxcidadefcfo.SelectedIndexChanged += cmbboxcidadefcfo_SelectedIndexChanged;
             cmbboxcidadefcfo.TextUpdate += cmbboxcidadefcfo_TextUpdate;
+            cmbboxcidadefcfo.TextChanged += cmbboxcidadefcfo_TextChanged;
             // 
             // btncidadefcfo
             // 
@@ -418,47 +421,23 @@
             txtboxuffcfo.Size = new Size(53, 31);
             txtboxuffcfo.TabIndex = 34;
             // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(514, 355);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(151, 31);
-            textBox3.TabIndex = 36;
-            // 
             // lblcepfcfo
             // 
             lblcepfcfo.AutoSize = true;
-            lblcepfcfo.Location = new Point(518, 327);
+            lblcepfcfo.Location = new Point(539, 327);
             lblcepfcfo.Name = "lblcepfcfo";
             lblcepfcfo.Size = new Size(42, 25);
             lblcepfcfo.TabIndex = 35;
             lblcepfcfo.Text = "CEP";
             // 
-            // cmbboxrotaenderecofcfo
+            // lblcoordenadafcfo
             // 
-            cmbboxrotaenderecofcfo.FormattingEnabled = true;
-            cmbboxrotaenderecofcfo.Location = new Point(697, 355);
-            cmbboxrotaenderecofcfo.Name = "cmbboxrotaenderecofcfo";
-            cmbboxrotaenderecofcfo.Size = new Size(309, 33);
-            cmbboxrotaenderecofcfo.TabIndex = 38;
-            // 
-            // lblrotaenderecofcfo
-            // 
-            lblrotaenderecofcfo.AutoSize = true;
-            lblrotaenderecofcfo.Location = new Point(697, 328);
-            lblrotaenderecofcfo.Name = "lblrotaenderecofcfo";
-            lblrotaenderecofcfo.Size = new Size(48, 25);
-            lblrotaenderecofcfo.TabIndex = 37;
-            lblrotaenderecofcfo.Text = "Rota";
-            // 
-            // btnrotaenderecofcfo
-            // 
-            btnrotaenderecofcfo.Location = new Point(1012, 353);
-            btnrotaenderecofcfo.Name = "btnrotaenderecofcfo";
-            btnrotaenderecofcfo.Size = new Size(53, 33);
-            btnrotaenderecofcfo.TabIndex = 39;
-            btnrotaenderecofcfo.Text = "F1";
-            btnrotaenderecofcfo.UseVisualStyleBackColor = true;
+            lblcoordenadafcfo.AutoSize = true;
+            lblcoordenadafcfo.Location = new Point(675, 328);
+            lblcoordenadafcfo.Name = "lblcoordenadafcfo";
+            lblcoordenadafcfo.Size = new Size(110, 25);
+            lblcoordenadafcfo.TabIndex = 37;
+            lblcoordenadafcfo.Text = "Coordenada";
             // 
             // lbldatanascimentofcfo
             // 
@@ -561,21 +540,14 @@
             lbltelefone2contatofcfo.TabIndex = 49;
             lbltelefone2contatofcfo.Text = "Telefone 2";
             // 
-            // msktxtboxtelefone3contatofcfo
+            // lblemailfcfo
             // 
-            msktxtboxtelefone3contatofcfo.Location = new Point(401, 650);
-            msktxtboxtelefone3contatofcfo.Name = "msktxtboxtelefone3contatofcfo";
-            msktxtboxtelefone3contatofcfo.Size = new Size(182, 31);
-            msktxtboxtelefone3contatofcfo.TabIndex = 52;
-            // 
-            // lbltelefone3contatofcfo
-            // 
-            lbltelefone3contatofcfo.AutoSize = true;
-            lbltelefone3contatofcfo.Location = new Point(401, 622);
-            lbltelefone3contatofcfo.Name = "lbltelefone3contatofcfo";
-            lbltelefone3contatofcfo.Size = new Size(92, 25);
-            lbltelefone3contatofcfo.TabIndex = 51;
-            lbltelefone3contatofcfo.Text = "Telefone 3";
+            lblemailfcfo.AutoSize = true;
+            lblemailfcfo.Location = new Point(500, 622);
+            lblemailfcfo.Name = "lblemailfcfo";
+            lblemailfcfo.Size = new Size(54, 25);
+            lblemailfcfo.TabIndex = 51;
+            lblemailfcfo.Text = "Email";
             // 
             // btngravarfcfo
             // 
@@ -604,23 +576,24 @@
             btncancelarfcfo.Text = "Cancelar";
             btncancelarfcfo.UseVisualStyleBackColor = true;
             // 
-            // pictureBox1
+            // pctboxfcfo
             // 
-            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Location = new Point(716, 542);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(192, 156);
-            pictureBox1.TabIndex = 56;
-            pictureBox1.TabStop = false;
+            pctboxfcfo.BorderStyle = BorderStyle.FixedSingle;
+            pctboxfcfo.Location = new Point(660, 542);
+            pctboxfcfo.Name = "pctboxfcfo";
+            pctboxfcfo.Size = new Size(248, 182);
+            pctboxfcfo.TabIndex = 56;
+            pctboxfcfo.TabStop = false;
             // 
             // btninserirfotofcfo
             // 
             btninserirfotofcfo.Location = new Point(926, 542);
             btninserirfotofcfo.Name = "btninserirfotofcfo";
-            btninserirfotofcfo.Size = new Size(139, 34);
+            btninserirfotofcfo.Size = new Size(142, 34);
             btninserirfotofcfo.TabIndex = 57;
-            btninserirfotofcfo.Text = "Inserir Arquivo";
+            btninserirfotofcfo.Text = "Ins. de Arquivo";
             btninserirfotofcfo.UseVisualStyleBackColor = true;
+            btninserirfotofcfo.Click += btninserirfotofcfo_Click;
             // 
             // btntakepicturefcfo
             // 
@@ -630,6 +603,7 @@
             btntakepicturefcfo.TabIndex = 58;
             btntakepicturefcfo.Text = "Tirar Foto";
             btntakepicturefcfo.UseVisualStyleBackColor = true;
+            btntakepicturefcfo.Click += btntakepicturefcfo_Click;
             // 
             // btncleanpicturefcfo
             // 
@@ -637,23 +611,65 @@
             btncleanpicturefcfo.Name = "btncleanpicturefcfo";
             btncleanpicturefcfo.Size = new Size(133, 34);
             btncleanpicturefcfo.TabIndex = 59;
-            btncleanpicturefcfo.Text = "Remover Foto";
+            btncleanpicturefcfo.Text = "Limpar Foto";
             btncleanpicturefcfo.UseVisualStyleBackColor = true;
+            btncleanpicturefcfo.Click += btncleanpicturefcfo_Click;
+            // 
+            // txtboxcoordenadasfcfo
+            // 
+            txtboxcoordenadasfcfo.Location = new Point(643, 356);
+            txtboxcoordenadasfcfo.Name = "txtboxcoordenadasfcfo";
+            txtboxcoordenadasfcfo.Size = new Size(422, 31);
+            txtboxcoordenadasfcfo.TabIndex = 60;
+            // 
+            // txtboxemailfcfo
+            // 
+            txtboxemailfcfo.Location = new Point(407, 650);
+            txtboxemailfcfo.Name = "txtboxemailfcfo";
+            txtboxemailfcfo.Size = new Size(222, 31);
+            txtboxemailfcfo.TabIndex = 61;
+            // 
+            // txtboxinstagramfcfo
+            // 
+            txtboxinstagramfcfo.Location = new Point(12, 727);
+            txtboxinstagramfcfo.Name = "txtboxinstagramfcfo";
+            txtboxinstagramfcfo.Size = new Size(222, 31);
+            txtboxinstagramfcfo.TabIndex = 63;
+            // 
+            // lblinstagramfcfo
+            // 
+            lblinstagramfcfo.AutoSize = true;
+            lblinstagramfcfo.Location = new Point(73, 699);
+            lblinstagramfcfo.Name = "lblinstagramfcfo";
+            lblinstagramfcfo.Size = new Size(92, 25);
+            lblinstagramfcfo.TabIndex = 62;
+            lblinstagramfcfo.Text = "Instagram";
+            // 
+            // msktxtboxcepfcfo
+            // 
+            msktxtboxcepfcfo.Location = new Point(518, 358);
+            msktxtboxcepfcfo.Name = "msktxtboxcepfcfo";
+            msktxtboxcepfcfo.Size = new Size(93, 31);
+            msktxtboxcepfcfo.TabIndex = 65;
             // 
             // frmcadastrofcfo
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1080, 804);
+            Controls.Add(msktxtboxcepfcfo);
+            Controls.Add(txtboxinstagramfcfo);
+            Controls.Add(lblinstagramfcfo);
+            Controls.Add(txtboxemailfcfo);
+            Controls.Add(txtboxcoordenadasfcfo);
             Controls.Add(btncleanpicturefcfo);
             Controls.Add(btntakepicturefcfo);
             Controls.Add(btninserirfotofcfo);
-            Controls.Add(pictureBox1);
+            Controls.Add(pctboxfcfo);
             Controls.Add(btncancelarfcfo);
             Controls.Add(btnimprimirfcfo);
             Controls.Add(btngravarfcfo);
-            Controls.Add(msktxtboxtelefone3contatofcfo);
-            Controls.Add(lbltelefone3contatofcfo);
+            Controls.Add(lblemailfcfo);
             Controls.Add(msktxtboxtelefone2contatofcfo);
             Controls.Add(lbltelefone2contatofcfo);
             Controls.Add(msktxtboxtelefone1contatofcfo);
@@ -665,10 +681,7 @@
             Controls.Add(lbldatacadastrofcfo);
             Controls.Add(msktxtboxdatanascimentofcfo);
             Controls.Add(lbldatanascimentofcfo);
-            Controls.Add(btnrotaenderecofcfo);
-            Controls.Add(cmbboxrotaenderecofcfo);
-            Controls.Add(lblrotaenderecofcfo);
-            Controls.Add(textBox3);
+            Controls.Add(lblcoordenadafcfo);
             Controls.Add(lblcepfcfo);
             Controls.Add(txtboxuffcfo);
             Controls.Add(lbluffcfo);
@@ -713,7 +726,7 @@
             pnldadoscadastraisfcfo.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pctboxfcfo).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -756,11 +769,8 @@
         private Button btncidadefcfo;
         private Label lbluffcfo;
         private TextBox txtboxuffcfo;
-        private TextBox textBox3;
         private Label lblcepfcfo;
-        private ComboBox cmbboxrotaenderecofcfo;
-        private Label lblrotaenderecofcfo;
-        private Button btnrotaenderecofcfo;
+        private Label lblcoordenadafcfo;
         private Label lbldatanascimentofcfo;
         private MaskedTextBox msktxtboxdatanascimentofcfo;
         private MaskedTextBox msktxtboxdatacadastrofcfo;
@@ -773,14 +783,18 @@
         private MaskedTextBox msktxtboxtelefone1contatofcfo;
         private MaskedTextBox msktxtboxtelefone2contatofcfo;
         private Label lbltelefone2contatofcfo;
-        private MaskedTextBox msktxtboxtelefone3contatofcfo;
-        private Label lbltelefone3contatofcfo;
+        private Label lblemailfcfo;
         private Button btngravarfcfo;
         private Button btnimprimirfcfo;
         private Button btncancelarfcfo;
-        private PictureBox pictureBox1;
+        private PictureBox pctboxfcfo;
         private Button btninserirfotofcfo;
         private Button btntakepicturefcfo;
         private Button btncleanpicturefcfo;
+        private TextBox txtboxcoordenadasfcfo;
+        private TextBox txtboxemailfcfo;
+        private TextBox txtboxinstagramfcfo;
+        private Label lblinstagramfcfo;
+        private MaskedTextBox msktxtboxcepfcfo;
     }
 }
