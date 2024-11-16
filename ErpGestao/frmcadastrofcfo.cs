@@ -5,6 +5,9 @@ using System;
 using System.Windows.Forms;
 using System.Drawing.Text;
 using System.Diagnostics;
+using ZXing;
+using ZXing.Common;
+using System.Drawing;
 
 
 namespace ErpGestao
@@ -15,7 +18,7 @@ namespace ErpGestao
         private readonly CnpjValidador cnpjValidador = new CnpjValidador();
         private System.Windows.Forms.Timer timer;
 
-       
+        private static int codigoCliente = 1; //variavel estatica para auto incremento
 
 
 
@@ -23,6 +26,7 @@ namespace ErpGestao
         public frmcadastrofcfo()
         {
             InitializeComponent();
+            GerarCodigoCliente();
             //cmbboxcidadefcfo.DropDown += new System.EventHandler(this.cmbboxcidadefcfo_DropDown);
             //cmbboxcidadefcfo.TextUpdate += new System.EventHandler(this.cmbboxcidadefcfo_TextUpdate);
             //cmbboxcidadefcfo.SelectedIndexChanged += new System.EventHandler(this.cmbboxcidadefcfo_SelectedIndexChanged);
@@ -36,6 +40,12 @@ namespace ErpGestao
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000; // Intervalo em milissegundos (1 segundos)
             timer.Tick += new EventHandler(Timer_Tick);
+        }
+
+        private void GerarCodigoCliente()
+        {
+            txtboxcodigofcfo.Text = codigoCliente.ToString("D6"); //FORMATA o codigo para 6 digitos, exemplo: 000001
+            codigoCliente++;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -271,10 +281,10 @@ namespace ErpGestao
             }
         }
 
-        private void btncleanpicturefcfo_Click(object sender, EventArgs e) 
-        { 
-            pctboxfcfo.Image = null; 
-            
+        private void btncleanpicturefcfo_Click(object sender, EventArgs e)
+        {
+            pctboxfcfo.Image = null;
+
         }
 
         private void btntakepicturefcfo_Click(object sender, EventArgs e)
@@ -294,14 +304,66 @@ namespace ErpGestao
                 }
             }
 
-            
+
 
         }
 
-       
+
+        private void GerarQRCode()
+        {
+            string data =
+                  $"Pessoa: {cmbtipofcfo.Text}\n" +
+                  $"CPF/CNPJ: {msktxtboxcpfcnpjfcfo.Text}\n" +
+                  $"RG/IE: {txtboxrgiefcfo.Text}\n" +
+                  $"Nome: {txtboxnomefantasiafcfo.Text}\n" +
+                  $"Endereço: {txtboxenderecofcfo.Text}\n" +
+                  $"Número: {txtboxnumeroenderecofcfo.Text}\n" +
+                  $"Bairro: {txtboxbairrofcfo.Text}\n" +
+                  $"Cidade: {cmbboxcidadefcfo.Text}\n" +
+                  $"Estado: {txtboxuffcfo.Text}";
+
+            var qrCodeWriter = new BarcodeWriterPixelData
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions
+                {
+                    Height = pctqrcode.Height,
+                    Width = pctqrcode.Width,
+                }
+            };
+
+            var pixelData = qrCodeWriter.Write(data);
+            using (var bitmap = new Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
+            {
+                {
+                    using (var ms = new MemoryStream(pixelData.Pixels))
+                    {
+                        bitmap.SetResolution(72, 72);
+                        for (int y = 0; y < pixelData.Height; y++)
+                        {
+                            for (int x = 0; x < pixelData.Width; x++)
+                            {
+                                Color pixelColor = Color.FromArgb(pixelData.Pixels[4 * (y * pixelData.Width + x) + 3],
+                                                      pixelData.Pixels[4 * (y * pixelData.Width + x) + 2],
+                                                      pixelData.Pixels[4 * (y * pixelData.Width + x) + 1],
+                                                      pixelData.Pixels[4 * (y * pixelData.Width + x)]);
+                                bitmap.SetPixel(x, y, pixelColor);
+
+                            }
+                        }
+                        pctqrcode.Image = new Bitmap(bitmap);
+                    }
+                }
 
 
+            }
+        }
 
+        private void btnGerarQRCode_Click(object sender, EventArgs e)
+        {
+            GerarQRCode();
+        }
     }
 }
+
 

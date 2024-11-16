@@ -36,7 +36,7 @@
             lblgrupofcfo = new Label();
             cmbtipofcfo = new ComboBox();
             msktxtboxcpfcnpjfcfo = new MaskedTextBox();
-            textBox1 = new TextBox();
+            txtboxrgiefcfo = new TextBox();
             comboBox2 = new ComboBox();
             btngrupofcfo = new Button();
             btnlimpargrupofcfo = new Button();
@@ -91,9 +91,14 @@
             txtboxinstagramfcfo = new TextBox();
             lblinstagramfcfo = new Label();
             msktxtboxcepfcfo = new MaskedTextBox();
+            lblcodigofcfo = new Label();
+            txtboxcodigofcfo = new TextBox();
+            pctqrcode = new PictureBox();
+            btnGerarQRCode = new Button();
             pnldadoscadastraisfcfo.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pctboxfcfo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pctqrcode).BeginInit();
             SuspendLayout();
             // 
             // pnldadoscadastraisfcfo
@@ -173,12 +178,12 @@
             msktxtboxcpfcnpjfcfo.TabIndex = 6;
             msktxtboxcpfcnpjfcfo.Leave += msktxtboxcpfcnpjfcfo_Leave;
             // 
-            // textBox1
+            // txtboxrgiefcfo
             // 
-            textBox1.Location = new Point(381, 67);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(209, 31);
-            textBox1.TabIndex = 7;
+            txtboxrgiefcfo.Location = new Point(381, 67);
+            txtboxrgiefcfo.Name = "txtboxrgiefcfo";
+            txtboxrgiefcfo.Size = new Size(209, 31);
+            txtboxrgiefcfo.TabIndex = 7;
             // 
             // comboBox2
             // 
@@ -652,11 +657,51 @@
             msktxtboxcepfcfo.Size = new Size(93, 31);
             msktxtboxcepfcfo.TabIndex = 65;
             // 
+            // lblcodigofcfo
+            // 
+            lblcodigofcfo.AutoSize = true;
+            lblcodigofcfo.Location = new Point(923, 727);
+            lblcodigofcfo.Name = "lblcodigofcfo";
+            lblcodigofcfo.Size = new Size(145, 25);
+            lblcodigofcfo.TabIndex = 66;
+            lblcodigofcfo.Text = "Código Entidade";
+            // 
+            // txtboxcodigofcfo
+            // 
+            txtboxcodigofcfo.Location = new Point(963, 755);
+            txtboxcodigofcfo.Name = "txtboxcodigofcfo";
+            txtboxcodigofcfo.ReadOnly = true;
+            txtboxcodigofcfo.Size = new Size(69, 31);
+            txtboxcodigofcfo.TabIndex = 67;
+            // 
+            // pctqrcode
+            // 
+            pctqrcode.BorderStyle = BorderStyle.FixedSingle;
+            pctqrcode.Location = new Point(502, 298);
+            pctqrcode.Name = "pctqrcode";
+            pctqrcode.Size = new Size(357, 190);
+            pctqrcode.TabIndex = 68;
+            pctqrcode.TabStop = false;
+            // 
+            // btnGerarQRCode
+            // 
+            btnGerarQRCode.Location = new Point(865, 404);
+            btnGerarQRCode.Name = "btnGerarQRCode";
+            btnGerarQRCode.Size = new Size(132, 39);
+            btnGerarQRCode.TabIndex = 69;
+            btnGerarQRCode.Text = "Gerar qrCode";
+            btnGerarQRCode.UseVisualStyleBackColor = true;
+            btnGerarQRCode.Click += btnGerarQRCode_Click;
+            // 
             // frmcadastrofcfo
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1080, 804);
+            Controls.Add(btnGerarQRCode);
+            Controls.Add(pctqrcode);
+            Controls.Add(txtboxcodigofcfo);
+            Controls.Add(lblcodigofcfo);
             Controls.Add(msktxtboxcepfcfo);
             Controls.Add(txtboxinstagramfcfo);
             Controls.Add(lblinstagramfcfo);
@@ -710,7 +755,7 @@
             Controls.Add(btnlimpargrupofcfo);
             Controls.Add(btngrupofcfo);
             Controls.Add(comboBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtboxrgiefcfo);
             Controls.Add(msktxtboxcpfcnpjfcfo);
             Controls.Add(cmbtipofcfo);
             Controls.Add(lblgrupofcfo);
@@ -727,6 +772,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pctboxfcfo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pctqrcode).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -741,7 +787,7 @@
         private Label lblgrupofcfo;
         private ComboBox cmbtipofcfo;
         private MaskedTextBox msktxtboxcpfcnpjfcfo;
-        private TextBox textBox1;
+        private TextBox txtboxrgiefcfo;
         private ComboBox comboBox2;
         private Button btngrupofcfo;
         private Button btnlimpargrupofcfo;
@@ -796,5 +842,9 @@
         private TextBox txtboxinstagramfcfo;
         private Label lblinstagramfcfo;
         private MaskedTextBox msktxtboxcepfcfo;
+        private Label lblcodigofcfo;
+        private TextBox txtboxcodigofcfo;
+        private PictureBox pctqrcode;
+        private Button btnGerarQRCode;
     }
 }
