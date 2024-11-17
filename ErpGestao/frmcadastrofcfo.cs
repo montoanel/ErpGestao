@@ -20,6 +20,8 @@ namespace ErpGestao
 
         private static int codigoCliente = 1; //variavel estatica para auto incremento
 
+        private int clienteId;
+
 
 
 
@@ -38,6 +40,14 @@ namespace ErpGestao
             timer.Interval = 1000; // Intervalo em milissegundos (1 segundos)
             timer.Tick += new EventHandler(Timer_Tick);
         }
+
+        public frmcadastrofcfo(int clienteId)
+        {
+            InitializeComponent();
+            this.clienteId = clienteId;
+
+        }
+
 
         private void GerarCodigoCliente()
         {
@@ -108,6 +118,31 @@ namespace ErpGestao
 
         private void frmcadastrofcfo_Load(object sender, EventArgs e)
         {
+
+            //valore default para teste
+
+            cmbtipofcfo.Text = "Física";
+            msktxtboxcpfcnpjfcfo.Text = "000.000.000-00";
+            txtboxrgiefcfo.Text = "00000000";
+            txtboxnomefantasiafcfo.Text = "Jõao do Chá Verde";
+            txtboxrazaosocialfcfo.Text = "Jõao do Chá Verde";
+            txtboxenderecofcfo.Text = "Alameda do Chá";
+            txtboxnumeroenderecofcfo.Text = "420";
+            txtboxcomplementoenderecofcfo.Text = " w";
+            txtboxbairrofcfo.Text = "Bairro dos Magos";
+            txtboxreferenciaenderecofcfo.Text = "Esquina 420";
+            cmbboxcidadefcfo.Text = "Tangará da Serra";
+            txtboxuffcfo.Text = "MT";
+            msktxtboxcepfcfo.Text = "78303-609";
+            msktxtboxdatanascimentofcfo.Text = "04/20/1420";
+            msktxtboxdatacadastrofcfo.Text = "17/11/2024";
+            msktxtboxtelefone1contatofcfo.Text = "(65)99999-9999";
+
+
+
+
+
+
             // Valores default combo box
             chkboxcliente.Checked = true;
             chkboxmembro.Checked = true;
@@ -315,7 +350,9 @@ namespace ErpGestao
                           $"Número: {txtboxnumeroenderecofcfo.Text}\n" +
                           $"Bairro: {txtboxbairrofcfo.Text}\n" +
                           $"Cidade: {cmbboxcidadefcfo.Text}\n" +
-                          $"Estado: {txtboxuffcfo.Text}";
+                          $"Estado: {txtboxuffcfo.Text}"+
+                          $"Telefone: {msktxtboxtelefone1contatofcfo.Text}\n" +
+                          $"E-mail: {txtboxemailfcfo.Text}";
 
             // Gere o QR Code usando a classe QRCodeGenerator
             Bitmap qrCode = QRCodeGenerator.GenerateQRCode(data, 250, 250); // Tamanho do QR Code
@@ -339,16 +376,38 @@ namespace ErpGestao
             string bairro = txtboxbairrofcfo.Text;
             string cidade = cmbboxcidadefcfo.Text;
             string estado = txtboxuffcfo.Text;
+            string telefone = msktxtboxtelefone1contatofcfo.Text;
+            string email = txtboxemailfcfo.Text;
+
+
 
             System.Drawing.Image fotoCliente = pctboxfcfo.Image;
             System.Drawing.Image qrCodeImage = pctqrcode.Image;
 
             PDFGeneratorCadastroFCFO.ImprimirFrmCadastrofcfo(
-                pessoa, cpfCnpj, rgIe, nome, endereco, numero, bairro, cidade, estado, fotoCliente, qrCodeImage);
+                pessoa, cpfCnpj, rgIe, nome, endereco, numero, bairro, cidade, estado,telefone,email, fotoCliente, qrCodeImage);
         }
 
+        private void btncancelarfcfo_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
 
+        private void btnimprimirfcfo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.KeyCode == Keys.I)
+            {
+                btnimprimirfcfo.PerformClick();//executa a ação do botao
+            }
+        }
 
+        private void btncancelarfcfo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Alt && e.KeyCode == Keys.C)
+            {
+                btncancelarfcfo.PerformClick();//executa a acao do botao
+            }
+        }
     }
 }
 

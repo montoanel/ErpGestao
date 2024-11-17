@@ -193,7 +193,7 @@
             cmbtipofcfo.Location = new Point(12, 65);
             cmbtipofcfo.Name = "cmbtipofcfo";
             cmbtipofcfo.Size = new Size(138, 33);
-            cmbtipofcfo.TabIndex = 5;
+            cmbtipofcfo.TabIndex = 1;
             cmbtipofcfo.SelectedIndexChanged += cmbtipofcfo_SelectedIndexChanged;
             // 
             // msktxtboxcpfcnpjfcfo
@@ -201,7 +201,7 @@
             msktxtboxcpfcnpjfcfo.Location = new Point(177, 67);
             msktxtboxcpfcnpjfcfo.Name = "msktxtboxcpfcnpjfcfo";
             msktxtboxcpfcnpjfcfo.Size = new Size(166, 31);
-            msktxtboxcpfcnpjfcfo.TabIndex = 6;
+            msktxtboxcpfcnpjfcfo.TabIndex = 2;
             msktxtboxcpfcnpjfcfo.Leave += msktxtboxcpfcnpjfcfo_Leave;
             // 
             // txtboxrgiefcfo
@@ -209,7 +209,7 @@
             txtboxrgiefcfo.Location = new Point(381, 67);
             txtboxrgiefcfo.Name = "txtboxrgiefcfo";
             txtboxrgiefcfo.Size = new Size(209, 31);
-            txtboxrgiefcfo.TabIndex = 7;
+            txtboxrgiefcfo.TabIndex = 3;
             // 
             // comboBox2
             // 
@@ -218,7 +218,7 @@
             comboBox2.Location = new Point(613, 67);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(214, 33);
-            comboBox2.TabIndex = 8;
+            comboBox2.TabIndex = 5;
             // 
             // btngrupofcfo
             // 
@@ -234,7 +234,7 @@
             btnlimpargrupofcfo.Location = new Point(884, 67);
             btnlimpargrupofcfo.Name = "btnlimpargrupofcfo";
             btnlimpargrupofcfo.Size = new Size(45, 31);
-            btnlimpargrupofcfo.TabIndex = 10;
+            btnlimpargrupofcfo.TabIndex = 98;
             btnlimpargrupofcfo.Text = "F1";
             btnlimpargrupofcfo.UseVisualStyleBackColor = true;
             // 
@@ -244,7 +244,7 @@
             chkboxcliente.Location = new Point(952, 40);
             chkboxcliente.Name = "chkboxcliente";
             chkboxcliente.Size = new Size(91, 29);
-            chkboxcliente.TabIndex = 11;
+            chkboxcliente.TabIndex = 6;
             chkboxcliente.Text = "Cliente";
             chkboxcliente.UseVisualStyleBackColor = true;
             chkboxcliente.CheckedChanged += chkboxcliente_CheckedChanged;
@@ -255,7 +255,7 @@
             chkboxfornecedor.Location = new Point(952, 75);
             chkboxfornecedor.Name = "chkboxfornecedor";
             chkboxfornecedor.Size = new Size(128, 29);
-            chkboxfornecedor.TabIndex = 12;
+            chkboxfornecedor.TabIndex = 7;
             chkboxfornecedor.Text = "Fornecedor";
             chkboxfornecedor.UseVisualStyleBackColor = true;
             chkboxfornecedor.CheckedChanged += checkBox2_CheckedChanged;
@@ -266,7 +266,7 @@
             chkboxfuncionario.Location = new Point(952, 110);
             chkboxfuncionario.Name = "chkboxfuncionario";
             chkboxfuncionario.Size = new Size(130, 29);
-            chkboxfuncionario.TabIndex = 13;
+            chkboxfuncionario.TabIndex = 8;
             chkboxfuncionario.Text = "Funcionário";
             chkboxfuncionario.UseVisualStyleBackColor = true;
             // 
@@ -276,7 +276,7 @@
             chkboxmembro.Location = new Point(952, 145);
             chkboxmembro.Name = "chkboxmembro";
             chkboxmembro.Size = new Size(107, 29);
-            chkboxmembro.TabIndex = 14;
+            chkboxmembro.TabIndex = 9;
             chkboxmembro.Text = "Membro";
             chkboxmembro.UseVisualStyleBackColor = true;
             chkboxmembro.CheckedChanged += checkBox4_CheckedChanged;
@@ -287,7 +287,7 @@
             chkboxcisentofcfo.Location = new Point(524, 36);
             chkboxcisentofcfo.Name = "chkboxcisentofcfo";
             chkboxcisentofcfo.Size = new Size(87, 29);
-            chkboxcisentofcfo.TabIndex = 15;
+            chkboxcisentofcfo.TabIndex = 4;
             chkboxcisentofcfo.Text = "Isento";
             chkboxcisentofcfo.UseVisualStyleBackColor = true;
             // 
@@ -305,7 +305,7 @@
             txtboxnomefantasiafcfo.Location = new Point(12, 138);
             txtboxnomefantasiafcfo.Name = "txtboxnomefantasiafcfo";
             txtboxnomefantasiafcfo.Size = new Size(465, 31);
-            txtboxnomefantasiafcfo.TabIndex = 17;
+            txtboxnomefantasiafcfo.TabIndex = 10;
             txtboxnomefantasiafcfo.TextChanged += txtboxnomefantasiafcfo_TextChanged;
             txtboxnomefantasiafcfo.Leave += txtboxnomefantasiafcfo_Leave;
             // 
@@ -314,7 +314,7 @@
             txtboxrazaosocialfcfo.Location = new Point(500, 138);
             txtboxrazaosocialfcfo.Name = "txtboxrazaosocialfcfo";
             txtboxrazaosocialfcfo.Size = new Size(429, 31);
-            txtboxrazaosocialfcfo.TabIndex = 19;
+            txtboxrazaosocialfcfo.TabIndex = 11;
             // 
             // lblrazaosocialfcfo
             // 
@@ -330,7 +330,7 @@
             txtboxenderecofcfo.Location = new Point(12, 210);
             txtboxenderecofcfo.Name = "txtboxenderecofcfo";
             txtboxenderecofcfo.Size = new Size(406, 31);
-            txtboxenderecofcfo.TabIndex = 21;
+            txtboxenderecofcfo.TabIndex = 12;
             // 
             // lblenderecofcfo
             // 
@@ -346,7 +346,7 @@
             txtboxnumeroenderecofcfo.Location = new Point(444, 210);
             txtboxnumeroenderecofcfo.Name = "txtboxnumeroenderecofcfo";
             txtboxnumeroenderecofcfo.Size = new Size(97, 31);
-            txtboxnumeroenderecofcfo.TabIndex = 23;
+            txtboxnumeroenderecofcfo.TabIndex = 13;
             // 
             // lblnumeroenderecofcfo
             // 
@@ -362,7 +362,7 @@
             txtboxbairrofcfo.Location = new Point(12, 285);
             txtboxbairrofcfo.Name = "txtboxbairrofcfo";
             txtboxbairrofcfo.Size = new Size(498, 31);
-            txtboxbairrofcfo.TabIndex = 25;
+            txtboxbairrofcfo.TabIndex = 15;
             // 
             // lblbairrofcfo
             // 
@@ -378,7 +378,7 @@
             txtboxcomplementoenderecofcfo.Location = new Point(570, 210);
             txtboxcomplementoenderecofcfo.Name = "txtboxcomplementoenderecofcfo";
             txtboxcomplementoenderecofcfo.Size = new Size(498, 31);
-            txtboxcomplementoenderecofcfo.TabIndex = 27;
+            txtboxcomplementoenderecofcfo.TabIndex = 14;
             // 
             // lblcomplementoenderecofcfo
             // 
@@ -394,7 +394,7 @@
             txtboxreferenciaenderecofcfo.Location = new Point(570, 285);
             txtboxreferenciaenderecofcfo.Name = "txtboxreferenciaenderecofcfo";
             txtboxreferenciaenderecofcfo.Size = new Size(498, 31);
-            txtboxreferenciaenderecofcfo.TabIndex = 29;
+            txtboxreferenciaenderecofcfo.TabIndex = 16;
             // 
             // lblreferenciaenderecofcfo
             // 
@@ -420,7 +420,7 @@
             cmbboxcidadefcfo.Location = new Point(12, 356);
             cmbboxcidadefcfo.Name = "cmbboxcidadefcfo";
             cmbboxcidadefcfo.Size = new Size(364, 33);
-            cmbboxcidadefcfo.TabIndex = 31;
+            cmbboxcidadefcfo.TabIndex = 17;
             cmbboxcidadefcfo.DropDown += cmbboxcidadefcfo_DropDown;
             cmbboxcidadefcfo.SelectedIndexChanged += cmbboxcidadefcfo_SelectedIndexChanged;
             cmbboxcidadefcfo.TextUpdate += cmbboxcidadefcfo_TextUpdate;
@@ -450,7 +450,7 @@
             txtboxuffcfo.Location = new Point(440, 356);
             txtboxuffcfo.Name = "txtboxuffcfo";
             txtboxuffcfo.Size = new Size(53, 31);
-            txtboxuffcfo.TabIndex = 34;
+            txtboxuffcfo.TabIndex = 99;
             // 
             // lblcepfcfo
             // 
@@ -537,7 +537,7 @@
             txtboxnomecontatofcfo.Location = new Point(12, 570);
             txtboxnomecontatofcfo.Name = "txtboxnomecontatofcfo";
             txtboxnomecontatofcfo.Size = new Size(465, 31);
-            txtboxnomecontatofcfo.TabIndex = 46;
+            txtboxnomecontatofcfo.TabIndex = 20;
             // 
             // lbltelefone1contatofcfo
             // 
@@ -553,14 +553,14 @@
             msktxtboxtelefone1contatofcfo.Location = new Point(499, 570);
             msktxtboxtelefone1contatofcfo.Name = "msktxtboxtelefone1contatofcfo";
             msktxtboxtelefone1contatofcfo.Size = new Size(182, 31);
-            msktxtboxtelefone1contatofcfo.TabIndex = 48;
+            msktxtboxtelefone1contatofcfo.TabIndex = 21;
             // 
             // msktxtboxtelefone2contatofcfo
             // 
             msktxtboxtelefone2contatofcfo.Location = new Point(690, 570);
             msktxtboxtelefone2contatofcfo.Name = "msktxtboxtelefone2contatofcfo";
             msktxtboxtelefone2contatofcfo.Size = new Size(182, 31);
-            msktxtboxtelefone2contatofcfo.TabIndex = 50;
+            msktxtboxtelefone2contatofcfo.TabIndex = 22;
             // 
             // lbltelefone2contatofcfo
             // 
@@ -585,8 +585,8 @@
             btngravarfcfo.Location = new Point(412, 632);
             btngravarfcfo.Name = "btngravarfcfo";
             btngravarfcfo.Size = new Size(141, 44);
-            btngravarfcfo.TabIndex = 53;
-            btngravarfcfo.Text = "Gravar";
+            btngravarfcfo.TabIndex = 28;
+            btngravarfcfo.Text = "&Gravar";
             btngravarfcfo.UseVisualStyleBackColor = true;
             // 
             // btnimprimirfcfo
@@ -594,19 +594,22 @@
             btnimprimirfcfo.Location = new Point(705, 632);
             btnimprimirfcfo.Name = "btnimprimirfcfo";
             btnimprimirfcfo.Size = new Size(141, 44);
-            btnimprimirfcfo.TabIndex = 54;
-            btnimprimirfcfo.Text = "Imprimir";
+            btnimprimirfcfo.TabIndex = 29;
+            btnimprimirfcfo.Text = "&Imprimir";
             btnimprimirfcfo.UseVisualStyleBackColor = true;
             btnimprimirfcfo.Click += btnimprimirfcfo_Click;
+            btnimprimirfcfo.KeyDown += btnimprimirfcfo_KeyDown;
             // 
             // btncancelarfcfo
             // 
             btncancelarfcfo.Location = new Point(952, 632);
             btncancelarfcfo.Name = "btncancelarfcfo";
             btncancelarfcfo.Size = new Size(141, 44);
-            btncancelarfcfo.TabIndex = 55;
-            btncancelarfcfo.Text = "Cancelar";
+            btncancelarfcfo.TabIndex = 30;
+            btncancelarfcfo.Text = "&Cancelar";
             btncancelarfcfo.UseVisualStyleBackColor = true;
+            btncancelarfcfo.Click += btncancelarfcfo_Click;
+            btncancelarfcfo.KeyDown += btncancelarfcfo_KeyDown;
             // 
             // pctboxfcfo
             // 
@@ -622,7 +625,7 @@
             btninserirfotofcfo.Location = new Point(1351, 59);
             btninserirfotofcfo.Name = "btninserirfotofcfo";
             btninserirfotofcfo.Size = new Size(142, 34);
-            btninserirfotofcfo.TabIndex = 57;
+            btninserirfotofcfo.TabIndex = 24;
             btninserirfotofcfo.Text = "Ins. de Arquivo";
             btninserirfotofcfo.UseVisualStyleBackColor = true;
             btninserirfotofcfo.Click += btninserirfotofcfo_Click;
@@ -632,7 +635,7 @@
             btntakepicturefcfo.Location = new Point(1360, 99);
             btntakepicturefcfo.Name = "btntakepicturefcfo";
             btntakepicturefcfo.Size = new Size(133, 34);
-            btntakepicturefcfo.TabIndex = 58;
+            btntakepicturefcfo.TabIndex = 25;
             btntakepicturefcfo.Text = "Tirar Foto";
             btntakepicturefcfo.UseVisualStyleBackColor = true;
             btntakepicturefcfo.Click += btntakepicturefcfo_Click;
@@ -642,7 +645,7 @@
             btncleanpicturefcfo.Location = new Point(1360, 145);
             btncleanpicturefcfo.Name = "btncleanpicturefcfo";
             btncleanpicturefcfo.Size = new Size(133, 34);
-            btncleanpicturefcfo.TabIndex = 59;
+            btncleanpicturefcfo.TabIndex = 26;
             btncleanpicturefcfo.Text = "Limpar Foto";
             btncleanpicturefcfo.UseVisualStyleBackColor = true;
             btncleanpicturefcfo.Click += btncleanpicturefcfo_Click;
@@ -652,14 +655,14 @@
             txtboxcoordenadasfcfo.Location = new Point(643, 356);
             txtboxcoordenadasfcfo.Name = "txtboxcoordenadasfcfo";
             txtboxcoordenadasfcfo.Size = new Size(422, 31);
-            txtboxcoordenadasfcfo.TabIndex = 60;
+            txtboxcoordenadasfcfo.TabIndex = 19;
             // 
             // txtboxemailfcfo
             // 
             txtboxemailfcfo.Location = new Point(891, 570);
             txtboxemailfcfo.Name = "txtboxemailfcfo";
             txtboxemailfcfo.Size = new Size(304, 31);
-            txtboxemailfcfo.TabIndex = 61;
+            txtboxemailfcfo.TabIndex = 23;
             // 
             // txtboxinstagramfcfo
             // 
@@ -682,7 +685,7 @@
             msktxtboxcepfcfo.Location = new Point(518, 358);
             msktxtboxcepfcfo.Name = "msktxtboxcepfcfo";
             msktxtboxcepfcfo.Size = new Size(93, 31);
-            msktxtboxcepfcfo.TabIndex = 65;
+            msktxtboxcepfcfo.TabIndex = 18;
             // 
             // pctqrcode
             // 
@@ -698,7 +701,7 @@
             btnGerarQRCode.Location = new Point(1163, 407);
             btnGerarQRCode.Name = "btnGerarQRCode";
             btnGerarQRCode.Size = new Size(132, 39);
-            btnGerarQRCode.TabIndex = 69;
+            btnGerarQRCode.TabIndex = 27;
             btnGerarQRCode.Text = "Gerar qrCode";
             btnGerarQRCode.UseVisualStyleBackColor = true;
             btnGerarQRCode.Click += btnGerarQRCode_Click;
