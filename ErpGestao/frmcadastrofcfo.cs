@@ -27,10 +27,7 @@ namespace ErpGestao
         {
             InitializeComponent();
             GerarCodigoCliente();
-            //cmbboxcidadefcfo.DropDown += new System.EventHandler(this.cmbboxcidadefcfo_DropDown);
-            //cmbboxcidadefcfo.TextUpdate += new System.EventHandler(this.cmbboxcidadefcfo_TextUpdate);
-            //cmbboxcidadefcfo.SelectedIndexChanged += new System.EventHandler(this.cmbboxcidadefcfo_SelectedIndexChanged);
-            //cmbboxcidadefcfo.TextChanged += new System.EventHandler(this.cmbboxcidadefcfo_TextChanged);
+
 
             // Configurar propriedades de autocompletar
             cmbboxcidadefcfo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -308,62 +305,50 @@ namespace ErpGestao
 
         }
 
-
         private void GerarQRCode()
         {
-            string data =
-                  $"Pessoa: {cmbtipofcfo.Text}\n" +
-                  $"CPF/CNPJ: {msktxtboxcpfcnpjfcfo.Text}\n" +
-                  $"RG/IE: {txtboxrgiefcfo.Text}\n" +
-                  $"Nome: {txtboxnomefantasiafcfo.Text}\n" +
-                  $"Endereço: {txtboxenderecofcfo.Text}\n" +
-                  $"Número: {txtboxnumeroenderecofcfo.Text}\n" +
-                  $"Bairro: {txtboxbairrofcfo.Text}\n" +
-                  $"Cidade: {cmbboxcidadefcfo.Text}\n" +
-                  $"Estado: {txtboxuffcfo.Text}";
+            string data = $"Pessoa: {cmbtipofcfo.Text}\n" +
+                          $"CPF/CNPJ: {msktxtboxcpfcnpjfcfo.Text}\n" +
+                          $"RG/IE: {txtboxrgiefcfo.Text}\n" +
+                          $"Nome: {txtboxnomefantasiafcfo.Text}\n" +
+                          $"Endereço: {txtboxenderecofcfo.Text}\n" +
+                          $"Número: {txtboxnumeroenderecofcfo.Text}\n" +
+                          $"Bairro: {txtboxbairrofcfo.Text}\n" +
+                          $"Cidade: {cmbboxcidadefcfo.Text}\n" +
+                          $"Estado: {txtboxuffcfo.Text}";
 
-            var qrCodeWriter = new BarcodeWriterPixelData
-            {
-                Format = BarcodeFormat.QR_CODE,
-                Options = new EncodingOptions
-                {
-                    Height = pctqrcode.Height,
-                    Width = pctqrcode.Width,
-                }
-            };
-
-            var pixelData = qrCodeWriter.Write(data);
-            using (var bitmap = new Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
-            {
-                {
-                    using (var ms = new MemoryStream(pixelData.Pixels))
-                    {
-                        bitmap.SetResolution(72, 72);
-                        for (int y = 0; y < pixelData.Height; y++)
-                        {
-                            for (int x = 0; x < pixelData.Width; x++)
-                            {
-                                Color pixelColor = Color.FromArgb(pixelData.Pixels[4 * (y * pixelData.Width + x) + 3],
-                                                      pixelData.Pixels[4 * (y * pixelData.Width + x) + 2],
-                                                      pixelData.Pixels[4 * (y * pixelData.Width + x) + 1],
-                                                      pixelData.Pixels[4 * (y * pixelData.Width + x)]);
-                                bitmap.SetPixel(x, y, pixelColor);
-
-                            }
-                        }
-                        pctqrcode.Image = new Bitmap(bitmap);
-                    }
-                }
-
-
-            }
+            // Gere o QR Code usando a classe QRCodeGenerator
+            Bitmap qrCode = QRCodeGenerator.GenerateQRCode(data, 250, 250); // Tamanho do QR Code
+            pctqrcode.Image = qrCode;
+            pctqrcode.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void btnGerarQRCode_Click(object sender, EventArgs e)
         {
             GerarQRCode();
         }
+
+        private void btnimprimirfcfo_Click(object sender, EventArgs e)
+        {
+            string pessoa = cmbtipofcfo.Text;
+            string cpfCnpj = msktxtboxcpfcnpjfcfo.Text;
+            string rgIe = txtboxrgiefcfo.Text;
+            string nome = txtboxnomefantasiafcfo.Text;
+            string endereco = txtboxenderecofcfo.Text;
+            string numero = txtboxnumeroenderecofcfo.Text;
+            string bairro = txtboxbairrofcfo.Text;
+            string cidade = cmbboxcidadefcfo.Text;
+            string estado = txtboxuffcfo.Text;
+
+            System.Drawing.Image fotoCliente = pctboxfcfo.Image;
+            System.Drawing.Image qrCodeImage = pctqrcode.Image;
+
+            PDFGeneratorCadastroFCFO.ImprimirFrmCadastrofcfo(
+                pessoa, cpfCnpj, rgIe, nome, endereco, numero, bairro, cidade, estado, fotoCliente, qrCodeImage);
+        }
+
+
+
     }
 }
-
 

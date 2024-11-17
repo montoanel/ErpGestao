@@ -30,6 +30,8 @@
         {
             pnldadoscadastraisfcfo = new Panel();
             label1 = new Label();
+            lblcodigofcfo = new Label();
+            txtboxcodigofcfo = new TextBox();
             lbltipofcfo = new Label();
             lblcpfcnpjfcfo = new Label();
             lblrgiefcfo = new Label();
@@ -91,8 +93,6 @@
             txtboxinstagramfcfo = new TextBox();
             lblinstagramfcfo = new Label();
             msktxtboxcepfcfo = new MaskedTextBox();
-            lblcodigofcfo = new Label();
-            txtboxcodigofcfo = new TextBox();
             pctqrcode = new PictureBox();
             btnGerarQRCode = new Button();
             pnldadoscadastraisfcfo.SuspendLayout();
@@ -105,10 +105,12 @@
             // 
             pnldadoscadastraisfcfo.BackColor = Color.FromArgb(0, 192, 0);
             pnldadoscadastraisfcfo.Controls.Add(label1);
+            pnldadoscadastraisfcfo.Controls.Add(lblcodigofcfo);
+            pnldadoscadastraisfcfo.Controls.Add(txtboxcodigofcfo);
             pnldadoscadastraisfcfo.Dock = DockStyle.Top;
             pnldadoscadastraisfcfo.Location = new Point(0, 0);
             pnldadoscadastraisfcfo.Name = "pnldadoscadastraisfcfo";
-            pnldadoscadastraisfcfo.Size = new Size(1080, 34);
+            pnldadoscadastraisfcfo.Size = new Size(1513, 34);
             pnldadoscadastraisfcfo.TabIndex = 0;
             // 
             // label1
@@ -116,12 +118,36 @@
             label1.AutoSize = true;
             label1.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(501, 0);
+            label1.Location = new Point(756, -2);
             label1.Name = "label1";
             label1.Size = new Size(179, 29);
             label1.TabIndex = 0;
             label1.Text = "Dados Cadastrais";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblcodigofcfo
+            // 
+            lblcodigofcfo.AutoSize = true;
+            lblcodigofcfo.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblcodigofcfo.ForeColor = SystemColors.ControlLightLight;
+            lblcodigofcfo.Location = new Point(1272, 6);
+            lblcodigofcfo.Name = "lblcodigofcfo";
+            lblcodigofcfo.Size = new Size(154, 21);
+            lblcodigofcfo.TabIndex = 66;
+            lblcodigofcfo.Text = "Código Entidade";
+            // 
+            // txtboxcodigofcfo
+            // 
+            txtboxcodigofcfo.BackColor = Color.FromArgb(0, 192, 0);
+            txtboxcodigofcfo.BorderStyle = BorderStyle.None;
+            txtboxcodigofcfo.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtboxcodigofcfo.ForeColor = SystemColors.HighlightText;
+            txtboxcodigofcfo.Location = new Point(1432, 5);
+            txtboxcodigofcfo.Name = "txtboxcodigofcfo";
+            txtboxcodigofcfo.ReadOnly = true;
+            txtboxcodigofcfo.Size = new Size(69, 21);
+            txtboxcodigofcfo.TabIndex = 67;
+            txtboxcodigofcfo.TabStop = false;
             // 
             // lbltipofcfo
             // 
@@ -483,7 +509,7 @@
             panel1.Controls.Add(lbldadoscontatofcfo);
             panel1.Location = new Point(2, 491);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1080, 34);
+            panel1.Size = new Size(1511, 34);
             panel1.TabIndex = 44;
             // 
             // lbldadoscontatofcfo
@@ -491,7 +517,7 @@
             lbldadoscontatofcfo.AutoSize = true;
             lbldadoscontatofcfo.Font = new Font("Arial Narrow", 12F, FontStyle.Bold);
             lbldadoscontatofcfo.ForeColor = Color.Transparent;
-            lbldadoscontatofcfo.Location = new Point(500, 0);
+            lbldadoscontatofcfo.Location = new Point(756, 0);
             lbldadoscontatofcfo.Name = "lbldadoscontatofcfo";
             lbldadoscontatofcfo.Size = new Size(181, 29);
             lbldadoscontatofcfo.TabIndex = 0;
@@ -516,7 +542,7 @@
             // lbltelefone1contatofcfo
             // 
             lbltelefone1contatofcfo.AutoSize = true;
-            lbltelefone1contatofcfo.Location = new Point(12, 622);
+            lbltelefone1contatofcfo.Location = new Point(539, 542);
             lbltelefone1contatofcfo.Name = "lbltelefone1contatofcfo";
             lbltelefone1contatofcfo.Size = new Size(92, 25);
             lbltelefone1contatofcfo.TabIndex = 47;
@@ -524,14 +550,14 @@
             // 
             // msktxtboxtelefone1contatofcfo
             // 
-            msktxtboxtelefone1contatofcfo.Location = new Point(12, 650);
+            msktxtboxtelefone1contatofcfo.Location = new Point(499, 570);
             msktxtboxtelefone1contatofcfo.Name = "msktxtboxtelefone1contatofcfo";
             msktxtboxtelefone1contatofcfo.Size = new Size(182, 31);
             msktxtboxtelefone1contatofcfo.TabIndex = 48;
             // 
             // msktxtboxtelefone2contatofcfo
             // 
-            msktxtboxtelefone2contatofcfo.Location = new Point(206, 650);
+            msktxtboxtelefone2contatofcfo.Location = new Point(690, 570);
             msktxtboxtelefone2contatofcfo.Name = "msktxtboxtelefone2contatofcfo";
             msktxtboxtelefone2contatofcfo.Size = new Size(182, 31);
             msktxtboxtelefone2contatofcfo.TabIndex = 50;
@@ -539,7 +565,7 @@
             // lbltelefone2contatofcfo
             // 
             lbltelefone2contatofcfo.AutoSize = true;
-            lbltelefone2contatofcfo.Location = new Point(206, 622);
+            lbltelefone2contatofcfo.Location = new Point(735, 542);
             lbltelefone2contatofcfo.Name = "lbltelefone2contatofcfo";
             lbltelefone2contatofcfo.Size = new Size(92, 25);
             lbltelefone2contatofcfo.TabIndex = 49;
@@ -548,7 +574,7 @@
             // lblemailfcfo
             // 
             lblemailfcfo.AutoSize = true;
-            lblemailfcfo.Location = new Point(500, 622);
+            lblemailfcfo.Location = new Point(984, 542);
             lblemailfcfo.Name = "lblemailfcfo";
             lblemailfcfo.Size = new Size(54, 25);
             lblemailfcfo.TabIndex = 51;
@@ -556,7 +582,7 @@
             // 
             // btngravarfcfo
             // 
-            btngravarfcfo.Location = new Point(293, 748);
+            btngravarfcfo.Location = new Point(412, 632);
             btngravarfcfo.Name = "btngravarfcfo";
             btngravarfcfo.Size = new Size(141, 44);
             btngravarfcfo.TabIndex = 53;
@@ -565,16 +591,17 @@
             // 
             // btnimprimirfcfo
             // 
-            btnimprimirfcfo.Location = new Point(524, 748);
+            btnimprimirfcfo.Location = new Point(705, 632);
             btnimprimirfcfo.Name = "btnimprimirfcfo";
             btnimprimirfcfo.Size = new Size(141, 44);
             btnimprimirfcfo.TabIndex = 54;
             btnimprimirfcfo.Text = "Imprimir";
             btnimprimirfcfo.UseVisualStyleBackColor = true;
+            btnimprimirfcfo.Click += btnimprimirfcfo_Click;
             // 
             // btncancelarfcfo
             // 
-            btncancelarfcfo.Location = new Point(728, 748);
+            btncancelarfcfo.Location = new Point(952, 632);
             btncancelarfcfo.Name = "btncancelarfcfo";
             btncancelarfcfo.Size = new Size(141, 44);
             btncancelarfcfo.TabIndex = 55;
@@ -584,7 +611,7 @@
             // pctboxfcfo
             // 
             pctboxfcfo.BorderStyle = BorderStyle.FixedSingle;
-            pctboxfcfo.Location = new Point(660, 542);
+            pctboxfcfo.Location = new Point(1097, 59);
             pctboxfcfo.Name = "pctboxfcfo";
             pctboxfcfo.Size = new Size(248, 182);
             pctboxfcfo.TabIndex = 56;
@@ -592,7 +619,7 @@
             // 
             // btninserirfotofcfo
             // 
-            btninserirfotofcfo.Location = new Point(926, 542);
+            btninserirfotofcfo.Location = new Point(1351, 59);
             btninserirfotofcfo.Name = "btninserirfotofcfo";
             btninserirfotofcfo.Size = new Size(142, 34);
             btninserirfotofcfo.TabIndex = 57;
@@ -602,7 +629,7 @@
             // 
             // btntakepicturefcfo
             // 
-            btntakepicturefcfo.Location = new Point(926, 582);
+            btntakepicturefcfo.Location = new Point(1360, 99);
             btntakepicturefcfo.Name = "btntakepicturefcfo";
             btntakepicturefcfo.Size = new Size(133, 34);
             btntakepicturefcfo.TabIndex = 58;
@@ -612,7 +639,7 @@
             // 
             // btncleanpicturefcfo
             // 
-            btncleanpicturefcfo.Location = new Point(926, 631);
+            btncleanpicturefcfo.Location = new Point(1360, 145);
             btncleanpicturefcfo.Name = "btncleanpicturefcfo";
             btncleanpicturefcfo.Size = new Size(133, 34);
             btncleanpicturefcfo.TabIndex = 59;
@@ -629,14 +656,14 @@
             // 
             // txtboxemailfcfo
             // 
-            txtboxemailfcfo.Location = new Point(407, 650);
+            txtboxemailfcfo.Location = new Point(891, 570);
             txtboxemailfcfo.Name = "txtboxemailfcfo";
-            txtboxemailfcfo.Size = new Size(222, 31);
+            txtboxemailfcfo.Size = new Size(304, 31);
             txtboxemailfcfo.TabIndex = 61;
             // 
             // txtboxinstagramfcfo
             // 
-            txtboxinstagramfcfo.Location = new Point(12, 727);
+            txtboxinstagramfcfo.Location = new Point(1271, 570);
             txtboxinstagramfcfo.Name = "txtboxinstagramfcfo";
             txtboxinstagramfcfo.Size = new Size(222, 31);
             txtboxinstagramfcfo.TabIndex = 63;
@@ -644,7 +671,7 @@
             // lblinstagramfcfo
             // 
             lblinstagramfcfo.AutoSize = true;
-            lblinstagramfcfo.Location = new Point(73, 699);
+            lblinstagramfcfo.Location = new Point(1336, 542);
             lblinstagramfcfo.Name = "lblinstagramfcfo";
             lblinstagramfcfo.Size = new Size(92, 25);
             lblinstagramfcfo.TabIndex = 62;
@@ -657,35 +684,18 @@
             msktxtboxcepfcfo.Size = new Size(93, 31);
             msktxtboxcepfcfo.TabIndex = 65;
             // 
-            // lblcodigofcfo
-            // 
-            lblcodigofcfo.AutoSize = true;
-            lblcodigofcfo.Location = new Point(923, 727);
-            lblcodigofcfo.Name = "lblcodigofcfo";
-            lblcodigofcfo.Size = new Size(145, 25);
-            lblcodigofcfo.TabIndex = 66;
-            lblcodigofcfo.Text = "Código Entidade";
-            // 
-            // txtboxcodigofcfo
-            // 
-            txtboxcodigofcfo.Location = new Point(963, 755);
-            txtboxcodigofcfo.Name = "txtboxcodigofcfo";
-            txtboxcodigofcfo.ReadOnly = true;
-            txtboxcodigofcfo.Size = new Size(69, 31);
-            txtboxcodigofcfo.TabIndex = 67;
-            // 
             // pctqrcode
             // 
             pctqrcode.BorderStyle = BorderStyle.FixedSingle;
-            pctqrcode.Location = new Point(502, 298);
+            pctqrcode.Location = new Point(1121, 247);
             pctqrcode.Name = "pctqrcode";
-            pctqrcode.Size = new Size(357, 190);
+            pctqrcode.Size = new Size(206, 154);
             pctqrcode.TabIndex = 68;
             pctqrcode.TabStop = false;
             // 
             // btnGerarQRCode
             // 
-            btnGerarQRCode.Location = new Point(865, 404);
+            btnGerarQRCode.Location = new Point(1163, 407);
             btnGerarQRCode.Name = "btnGerarQRCode";
             btnGerarQRCode.Size = new Size(132, 39);
             btnGerarQRCode.TabIndex = 69;
@@ -697,11 +707,9 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1080, 804);
+            ClientSize = new Size(1513, 694);
             Controls.Add(btnGerarQRCode);
             Controls.Add(pctqrcode);
-            Controls.Add(txtboxcodigofcfo);
-            Controls.Add(lblcodigofcfo);
             Controls.Add(msktxtboxcepfcfo);
             Controls.Add(txtboxinstagramfcfo);
             Controls.Add(lblinstagramfcfo);
