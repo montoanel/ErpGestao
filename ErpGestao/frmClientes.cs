@@ -189,7 +189,7 @@ namespace ErpGestao
                                 "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_cpfcnpj, '-', ''), '.', ''), '/', ''), ' ', ''), '(', '') LIKE '%' + @valor + '%' " +
                                 "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone1, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
                                 "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone2, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
-                                "OR REPLACE(REPLACE(REPLACE(fcfo_rgie, '-', ''), '.', ''), ' ', '') LIKE '%' + @valor + '%' ";
+                                "OR REPLACE(REPLACE(REPLACE(REPLACE(fcfo_rgie, '-', ''), '.', ''), '/', ''), ' ', '') LIKE '%' + @valor + '%'";
                         cmd = new SqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@valor", valor);
                     }
@@ -209,6 +209,7 @@ namespace ErpGestao
                 MessageBox.Show($"Erro: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
 

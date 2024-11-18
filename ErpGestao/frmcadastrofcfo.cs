@@ -119,6 +119,8 @@ namespace ErpGestao
         private void frmcadastrofcfo_Load(object sender, EventArgs e)
         {
 
+            
+
             //valore default para teste
 
             cmbtipofcfo.Text = "Física";
@@ -186,6 +188,7 @@ namespace ErpGestao
                 //Define o valor do txtboxrazaosocialfcfo como o mesmo valor do txtboxnomefantasiafcfo
 
                 txtboxrazaosocialfcfo.Text = txtboxnomefantasiafcfo.Text;
+                txtboxnomecontatofcfo.Text = txtboxnomefantasiafcfo.Text;
             }
         }
 

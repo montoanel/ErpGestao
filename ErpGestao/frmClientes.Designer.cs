@@ -86,7 +86,7 @@
             // dgvClientes
             // 
             dgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvClientes.Location = new Point(12, 102);
+            dgvClientes.Location = new Point(21, 102);
             dgvClientes.Name = "dgvClientes";
             dgvClientes.RowHeadersWidth = 62;
             dgvClientes.Size = new Size(1900, 553);
@@ -105,6 +105,7 @@
             Controls.Add(btnnovofcfo);
             MaximizeBox = false;
             Name = "frmClientes";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Clientes";
             Load += frmClientes_Load;
             ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();

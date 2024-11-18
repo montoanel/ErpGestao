@@ -449,6 +449,7 @@
             // 
             txtboxuffcfo.Location = new Point(440, 356);
             txtboxuffcfo.Name = "txtboxuffcfo";
+            txtboxuffcfo.ReadOnly = true;
             txtboxuffcfo.Size = new Size(53, 31);
             txtboxuffcfo.TabIndex = 99;
             // 
@@ -776,6 +777,7 @@
             Controls.Add(pnldadoscadastraisfcfo);
             MaximizeBox = false;
             Name = "frmcadastrofcfo";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Clientes e Fornecedores";
             Load += frmcadastrofcfo_Load;
             pnldadoscadastraisfcfo.ResumeLayout(false);
