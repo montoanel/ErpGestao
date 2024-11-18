@@ -1,24 +1,72 @@
 ﻿using System;
 using System.Data;
+using Microsoft.Data.SqlClient;  // Certifique-se de que este namespace está incluído
+using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace ErpGestao
 {
     public partial class frmClientes : Form
     {
+        private string connectionString = "Data Source=CAIXA\\SQLEXPRESS;Initial Catalog=erpgestao;Integrated Security=True;TrustServerCertificate=True";
+
         public frmClientes()
         {
             InitializeComponent();
         }
 
+        private Dictionary<string, string> colunaMapeada = new Dictionary<string, string>()
+        {
+            {"fcfo_codigo", "ID" },
+            {"fcfo_nome_fantasia", "Nome Fantasia" },
+            { "fcfo_razao_social", "Razão Social" },
+            {"fcfo_endereco", "Endereço" },
+            {"fcfo_cpfcnpj", "CPF/CNPJ" },
+            {"fcfo_rgie","RG/IE" },
+            {"fcfo_telefone1", "Telefone" },
+            {"fcfo_email", "E-mail" }
+        };
+
         private void frmClientes_Load(object sender, EventArgs e)
         {
-            // Configurar ComboBox Buscar Por
-            cmbbuscarpor.Items.AddRange(new object[] { "fcfo_codigo", "fcfo_nome_fantasia", "fcfo_endereco", "fcfo_cpfcnpj" });
+            // Configurar ComboBox Buscar Por com rótulos amigáveis e opção automática
+            cmbbuscarpor.Items.Add("Automática");
+            foreach (var item in colunaMapeada)
+            {
+                cmbbuscarpor.Items.Add(item.Value);
+            }
             cmbbuscarpor.SelectedIndex = 0;
 
-            // Buscar clientes ao carregar o formulário
-            BuscarClientes();
+            // Carregar clientes ao abrir o formulário
+            CarregarClientes();
+        }
+
+        private void CarregarClientes()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT * FROM fcfo";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvClientes.DataSource = dt;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Erro de SQL: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnnovofcfo_Click(object sender, EventArgs e)
@@ -27,7 +75,7 @@ namespace ErpGestao
             frmcadastrofcfo frmCadastro = new frmcadastrofcfo();
             frmCadastro.ShowDialog();
             // Após fechar o formulário de cadastro, atualizar a lista de clientes
-            BuscarClientes();
+            CarregarClientes();
         }
 
         private void btnalterarfcfo_Click(object sender, EventArgs e)
@@ -40,7 +88,7 @@ namespace ErpGestao
                 frmcadastrofcfo frmCadastro = new frmcadastrofcfo(clienteId);
                 frmCadastro.ShowDialog();
                 // Após fechar o formulário de cadastro, atualizar a lista de clientes
-                BuscarClientes();
+                CarregarClientes();
             }
             else
             {
@@ -51,57 +99,117 @@ namespace ErpGestao
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             // Realizar busca com base no critério e valor informados
-            BuscarClientes();
-        }
-
-        private void BuscarClientes()
-        {
-            // Esta função deve buscar os clientes no banco de dados com base no critério e valor informados
-            string criterio = cmbbuscarpor.SelectedItem.ToString();
             string valor = txtBuscar.Text.Trim();
-
-            // Exemplo de preenchimento do DataGridView com dados fictícios
-            DataTable dtClientes = new DataTable();
-            dtClientes.Columns.Add("fcfo_codigo", typeof(int));
-            dtClientes.Columns.Add("fcfo_nome_fantasia", typeof(string));
-            dtClientes.Columns.Add("fcfo_endereco", typeof(string));
-            dtClientes.Columns.Add("fcfo_cpfcnpj", typeof(string));
-
-            // Adicionar dados fictícios
-            dtClientes.Rows.Add(1, "João do Chá Verde", "Rua Exemplo, 123", "123.456.789-00");
-            dtClientes.Rows.Add(2, "Maria das Couves", "Av. Principal, 456", "987.654.321-00");
-
-            // Filtrar os dados fictícios (simulando a busca no banco de dados)
-            DataRow[] filteredRows;
-
-            if (!string.IsNullOrEmpty(valor))
+            string selectedColumn = cmbbuscarpor.SelectedItem.ToString();
+            if (selectedColumn == "Automática")
             {
-                if (criterio == "fcfo_codigo")
-                {
-                    int codigo;
-                    if (int.TryParse(valor, out codigo))
-                    {
-                        filteredRows = dtClientes.Select($"{criterio} = {codigo}");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Por favor, insira um valor válido para o código.");
-                        return;
-                    }
-                }
-                else
-                {
-                    filteredRows = dtClientes.Select($"{criterio} LIKE '%{valor}%'");
-                }
+                BuscarClientesAutomaticamente(valor);
             }
             else
             {
-                filteredRows = dtClientes.Select();
+                string columnName = colunaMapeada.FirstOrDefault(x => x.Value == selectedColumn).Key;
+                BuscarClientes(columnName, valor);
             }
-
-            // Atualizar DataGridView com os dados filtrados
-            dgvClientes.DataSource = filteredRows.Length > 0 ? filteredRows.CopyToDataTable() : dtClientes.Clone();
         }
+
+        private void BuscarClientes(string coluna, string valor)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = string.Empty;
+
+                    if (coluna == "fcfo_codigo" || coluna == "fcfo_endereco_numero")
+                    {
+                        // Para colunas numéricas
+                        query = $"SELECT * FROM fcfo WHERE {coluna} = @valor";
+                    }
+                    else
+                    {
+                        // Para colunas de texto
+                        query = $"SELECT * FROM fcfo WHERE {coluna} COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI";
+                    }
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        // Adicionar parâmetro de valor
+                        if (coluna == "fcfo_codigo" || coluna == "fcfo_endereco_numero")
+                        {
+                            cmd.Parameters.AddWithValue("@valor", int.Parse(valor));
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@valor", valor);
+                        }
+
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvClientes.DataSource = dt;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Erro de SQL: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BuscarClientesAutomaticamente(string valor)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "";
+                    SqlCommand cmd = new SqlCommand();
+
+                    // Detectar se a entrada é um número ou texto
+                    if (int.TryParse(valor, out int numero))
+                    {
+                        // Buscar por número (ID ou número de casa)
+                        query = "SELECT * FROM fcfo WHERE fcfo_codigo = @valor OR fcfo_endereco_numero = @valor";
+                        cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@valor", numero);
+                    }
+                    else
+                    {
+                        // Buscar por texto (nome, endereço, etc.)
+                        query = "SELECT * FROM fcfo WHERE " +
+                                "REPLACE(REPLACE(REPLACE(fcfo_nome_fantasia, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
+                                "OR REPLACE(REPLACE(REPLACE(fcfo_razao_social, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
+                                "OR REPLACE(REPLACE(REPLACE(fcfo_endereco, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
+                                "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_cpfcnpj, '-', ''), '.', ''), '/', ''), ' ', ''), '(', '') LIKE '%' + @valor + '%' " +
+                                "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone1, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
+                                "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone2, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
+                                "OR REPLACE(REPLACE(REPLACE(fcfo_rgie, '-', ''), '.', ''), ' ', '') LIKE '%' + @valor + '%' ";
+                        cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@valor", valor);
+                    }
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dgvClientes.DataSource = dt;
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Erro de SQL: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
 
     }

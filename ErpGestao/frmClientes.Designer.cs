@@ -59,6 +59,7 @@
             // 
             // cmbbuscarpor
             // 
+            cmbbuscarpor.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbbuscarpor.FormattingEnabled = true;
             cmbbuscarpor.Location = new Point(12, 52);
             cmbbuscarpor.Name = "cmbbuscarpor";
@@ -69,14 +70,14 @@
             // 
             txtBuscar.Location = new Point(174, 54);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(1566, 31);
+            txtBuscar.Size = new Size(275, 31);
             txtBuscar.TabIndex = 3;
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(1746, 54);
+            btnBuscar.Location = new Point(455, 54);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(140, 34);
+            btnBuscar.Size = new Size(140, 33);
             btnBuscar.TabIndex = 4;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
@@ -85,23 +86,24 @@
             // dgvClientes
             // 
             dgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvClientes.Location = new Point(12, 100);
+            dgvClientes.Location = new Point(12, 102);
             dgvClientes.Name = "dgvClientes";
             dgvClientes.RowHeadersWidth = 62;
-            dgvClientes.Size = new Size(1844, 820);
+            dgvClientes.Size = new Size(1900, 553);
             dgvClientes.TabIndex = 5;
             // 
             // frmClientes
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1898, 1024);
+            ClientSize = new Size(1898, 712);
             Controls.Add(dgvClientes);
             Controls.Add(btnBuscar);
             Controls.Add(txtBuscar);
             Controls.Add(cmbbuscarpor);
             Controls.Add(btnalterarfcfo);
             Controls.Add(btnnovofcfo);
+            MaximizeBox = false;
             Name = "frmClientes";
             Text = "Clientes";
             Load += frmClientes_Load;
