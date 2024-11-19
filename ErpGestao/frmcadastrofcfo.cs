@@ -10,6 +10,7 @@ using ZXing.Common;
 using System.Drawing;
 
 
+
 namespace ErpGestao
 {
     public partial class frmcadastrofcfo : Form
@@ -32,13 +33,9 @@ namespace ErpGestao
 
 
             // Configurar propriedades de autocompletar
-            cmbboxcidadefcfo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbboxcidadefcfo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            cmbboxcidadefcfo.AutoCompleteMode = AutoCompleteMode.None;
+            cmbboxcidadefcfo.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-            // Inicializar o temporizador
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 1000; // Intervalo em milissegundos (1 segundos)
-            timer.Tick += new EventHandler(Timer_Tick);
         }
 
         public frmcadastrofcfo(int clienteId)
@@ -55,47 +52,14 @@ namespace ErpGestao
             codigoCliente++;
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            timer.Stop(); // Parar o temporizador para evitar execuções repetidas
-
-            ComboBox comboBox = cmbboxcidadefcfo;
-            string textoDigitado = comboBox.Text;
-
-            // Filtrar a lista de cidades com base no texto digitado
-            List<Cidade> cidadesFiltradas = Cidade.ObterTodasCidades()
-                .Where(c => c.Nome.StartsWith(textoDigitado, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-
-            // Configurar a lista de autocompletar
-            AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
-            foreach (var cidade in cidadesFiltradas)
-            {
-                collection.Add($"{cidade.Nome} - {cidade.Estado}");
-            }
-
-            // Atualizar a fonte de autocompletar da ComboBox
-            cmbboxcidadefcfo.AutoCompleteCustomSource = collection;
-
-            // Limpar e adicionar itens filtrados na ComboBox
-            cmbboxcidadefcfo.Items.Clear();
-            foreach (var cidade in cidadesFiltradas)
-            {
-                cmbboxcidadefcfo.Items.Add($"{cidade.Nome} - {cidade.Estado}");
-            }
-
-            // Ajustar a seleção do cursor
-            comboBox.SelectionStart = textoDigitado.Length;
-        }
-
+        
 
         private void cmbboxcidadefcfo_TextUpdate(object sender, EventArgs e)
         {
-            timer.Stop();
-            timer.Start(); // Reiniciar o temporizador para atualizar a lista após um intervalo
+           
         }
 
-
+        
         private void label1_Click(object sender, EventArgs e)
         {
             // Lógica do evento de clique no label
@@ -119,7 +83,7 @@ namespace ErpGestao
         private void frmcadastrofcfo_Load(object sender, EventArgs e)
         {
 
-            
+
 
             //valore default para teste
 
@@ -159,6 +123,26 @@ namespace ErpGestao
 
             //mascara cep
             msktxtboxcepfcfo.Mask = "00000-000";
+
+            try
+            {
+                PreencherComboBoxCidades();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar as cidades:{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PreencherComboBoxCidades()
+        {
+            // Obter a lista de cidades
+            List<Cidade> cidades = Cidade.ObterTodasCidades(); 
+            // Configurar as propriedades do ComboBox
+            cmbboxcidadefcfo.DisplayMember = "NomeComEstado";
+            cmbboxcidadefcfo.ValueMember = "Id";
+            cmbboxcidadefcfo.DataSource = cidades;
         }
 
         private void cmbtipofcfo_SelectedIndexChanged(object sender, EventArgs e)
@@ -242,19 +226,11 @@ namespace ErpGestao
         // Evento DropDown do ComboBox
         private void cmbboxcidadefcfo_DropDown(object sender, EventArgs e)
         {
-            // Obter a lista de cidades
-            List<Cidade> cidades = Cidade.ObterTodasCidades();
-
-            // Limpar os itens existentes na ComboBox
-            cmbboxcidadefcfo.Items.Clear();
-
-            // Adicionar as cidades na ComboBox
-            foreach (var cidade in cidades)
+            if (cmbboxcidadefcfo.DataSource == null)
             {
-                cmbboxcidadefcfo.Items.Add($"{cidade.Nome} - {cidade.Estado}");
+                PreencherComboBoxCidades();
             }
         }
-
         private void cmbboxcidadefcfo_TextChanged(object sender, EventArgs e)
         {
             AtualizarEstadoCidade();
@@ -267,27 +243,11 @@ namespace ErpGestao
 
         private void AtualizarEstadoCidade()
         {
-            string textoDigitado = cmbboxcidadefcfo.Text;
-
-            //verifica se a entrada contem um hífen Cuiaba '-'MT
-
-            if (textoDigitado.Contains(" - "))
+            if (cmbboxcidadefcfo.SelectedItem is Cidade cidadeSelecionada)
             {
-                string[] partes = textoDigitado.Split(new string[] { " - " }, StringSplitOptions.None);
-                if (partes.Length == 2)
-                {
-                    string nomeCidade = partes[0].Trim();
-                    string estado = partes[1].Trim();
-
-                    // Verifica se a cidade realmente existe na lista de cidades
-                    Cidade cidadeSelecionada = Cidade.ObterTodasCidades().FirstOrDefault(c => c.Nome.Equals(nomeCidade, StringComparison.OrdinalIgnoreCase) && c.Estado.Equals(estado, StringComparison.OrdinalIgnoreCase));
-                    if (cidadeSelecionada != null)
-                    {
-                        txtboxuffcfo.Text = cidadeSelecionada.Estado;
-                    }
-
-                }
+                txtboxuffcfo.Text = cidadeSelecionada.Estado;
             }
+
         }
 
         private void btninserirfotofcfo_Click(object sender, EventArgs e)

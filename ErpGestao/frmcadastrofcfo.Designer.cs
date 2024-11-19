@@ -416,6 +416,8 @@
             // 
             // cmbboxcidadefcfo
             // 
+            cmbboxcidadefcfo.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbboxcidadefcfo.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbboxcidadefcfo.FormattingEnabled = true;
             cmbboxcidadefcfo.Location = new Point(12, 356);
             cmbboxcidadefcfo.Name = "cmbboxcidadefcfo";

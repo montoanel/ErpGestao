@@ -30,39 +30,93 @@ namespace ErpGestao
         private void InitializeComponent()
         {
             listBoxCidades = new ListBox();
-            btnSelecionar = new Button();
+            btnselecionar = new Button();
+            lblbuscarcodade = new Label();
+            cmbfiltrocidades = new ComboBox();
+            btncancelar = new Button();
+            btnfiltrarcidade = new Button();
+            txtboxfiltrarcidade = new TextBox();
             SuspendLayout();
             // 
             // listBoxCidades
             // 
             listBoxCidades.FormattingEnabled = true;
             listBoxCidades.ItemHeight = 25;
-            listBoxCidades.Location = new Point(12, 12);
+            listBoxCidades.Location = new Point(12, 50);
             listBoxCidades.Name = "listBoxCidades";
-            listBoxCidades.Size = new Size(555, 404);
+            listBoxCidades.Size = new Size(541, 354);
             listBoxCidades.TabIndex = 0;
             // 
-            // btnSelecionar
+            // btnselecionar
             // 
-            btnSelecionar.Location = new Point(573, 12);
-            btnSelecionar.Name = "btnSelecionar";
-            btnSelecionar.Size = new Size(119, 48);
-            btnSelecionar.TabIndex = 1;
-            btnSelecionar.Text = "Selecionar";
-            btnSelecionar.UseVisualStyleBackColor = true;
+            btnselecionar.Location = new Point(125, 410);
+            btnselecionar.Name = "btnselecionar";
+            btnselecionar.Size = new Size(119, 48);
+            btnselecionar.TabIndex = 1;
+            btnselecionar.Text = "Selecionar";
+            btnselecionar.UseVisualStyleBackColor = true;
+            // 
+            // lblbuscarcodade
+            // 
+            lblbuscarcodade.AutoSize = true;
+            lblbuscarcodade.Location = new Point(12, 12);
+            lblbuscarcodade.Name = "lblbuscarcodade";
+            lblbuscarcodade.Size = new Size(63, 25);
+            lblbuscarcodade.TabIndex = 2;
+            lblbuscarcodade.Text = "Buscar";
+            // 
+            // cmbfiltrocidades
+            // 
+            cmbfiltrocidades.FormattingEnabled = true;
+            cmbfiltrocidades.Location = new Point(81, 12);
+            cmbfiltrocidades.Name = "cmbfiltrocidades";
+            cmbfiltrocidades.Size = new Size(146, 33);
+            cmbfiltrocidades.TabIndex = 3;
+            // 
+            // btncancelar
+            // 
+            btncancelar.Location = new Point(326, 410);
+            btncancelar.Name = "btncancelar";
+            btncancelar.Size = new Size(119, 48);
+            btncancelar.TabIndex = 4;
+            btncancelar.Text = "Cancelar";
+            btncancelar.UseVisualStyleBackColor = true;
+            btncancelar.Click += btncancelar_Click;
+            // 
+            // btnfiltrarcidade
+            // 
+            btnfiltrarcidade.Location = new Point(468, 12);
+            btnfiltrarcidade.Name = "btnfiltrarcidade";
+            btnfiltrarcidade.Size = new Size(85, 33);
+            btnfiltrarcidade.TabIndex = 5;
+            btnfiltrarcidade.Text = "Filtrar";
+            btnfiltrarcidade.UseVisualStyleBackColor = true;
+            // 
+            // txtboxfiltrarcidade
+            // 
+            txtboxfiltrarcidade.Location = new Point(233, 12);
+            txtboxfiltrarcidade.Name = "txtboxfiltrarcidade";
+            txtboxfiltrarcidade.Size = new Size(229, 31);
+            txtboxfiltrarcidade.TabIndex = 6;
             // 
             // frmSelecionarCidade
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(btnSelecionar);
+            ClientSize = new Size(584, 464);
+            Controls.Add(txtboxfiltrarcidade);
+            Controls.Add(btnfiltrarcidade);
+            Controls.Add(btncancelar);
+            Controls.Add(cmbfiltrocidades);
+            Controls.Add(lblbuscarcodade);
+            Controls.Add(btnselecionar);
             Controls.Add(listBoxCidades);
             Name = "frmSelecionarCidade";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Lista de Cidades";
             Load += frmSelecionarCidade_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         private void frmSelecionarCidade_Load(object sender, EventArgs e)
@@ -73,6 +127,11 @@ namespace ErpGestao
         #endregion
 
         private ListBox listBoxCidades;
-        private Button btnSelecionar;
+        private Button btnselecionar;
+        private Label lblbuscarcodade;
+        private ComboBox cmbfiltrocidades;
+        private Button btncancelar;
+        private Button btnfiltrarcidade;
+        private TextBox txtboxfiltrarcidade;
     }
 }
