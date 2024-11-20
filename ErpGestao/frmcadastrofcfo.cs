@@ -82,32 +82,6 @@ namespace ErpGestao
         private void frmcadastrofcfo_Load(object sender, EventArgs e)
         {
 
-
-
-            //valore default para teste
-
-            cmbtipofcfo.Text = "Física";
-            msktxtboxcpfcnpjfcfo.Text = "000.000.000-00";
-            txtboxrgiefcfo.Text = "00000000";
-            txtboxnomefantasiafcfo.Text = "Jõao do Chá Verde";
-            txtboxrazaosocialfcfo.Text = "Jõao do Chá Verde";
-            txtboxenderecofcfo.Text = "Alameda do Chá";
-            txtboxnumeroenderecofcfo.Text = "420";
-            txtboxcomplementoenderecofcfo.Text = " w";
-            txtboxbairrofcfo.Text = "Bairro dos Magos";
-            txtboxreferenciaenderecofcfo.Text = "Esquina 420";
-            cmbboxcidadefcfo.Text = "Tangará da Serra";
-            txtboxuffcfo.Text = "MT";
-            msktxtboxcepfcfo.Text = "78303-609";
-            msktxtboxdatanascimentofcfo.Text = "04/20/1420";
-            msktxtboxdatacadastrofcfo.Text = "17/11/2024";
-            msktxtboxtelefone1contatofcfo.Text = "(65)99999-9999";
-
-
-
-
-
-
             // Valores default combo box
             chkboxcliente.Checked = true;
             chkboxmembro.Checked = true;
@@ -188,7 +162,7 @@ namespace ErpGestao
                         if (!cnpjValidador.ValidarCNPJ(documento))
                         {
                             MessageBox.Show("CNPJ inválido!", "Validação de CNPJ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            // msktxtboxcpfcnpjfcfo.Focus(); // Volta o foco para o campo CNPJ
+                            msktxtboxcpfcnpjfcfo.Focus(); // Volta o foco para o campo CNPJ
                         }
                     }
                     else if (cmbtipofcfo.SelectedItem.ToString() == "Física" || cmbtipofcfo.SelectedItem.ToString() == "Rural")
@@ -197,7 +171,7 @@ namespace ErpGestao
                         if (!cpfValidador.ValidarCPF(documento))
                         {
                             MessageBox.Show("CPF inválido!", "Validação de CPF", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            // msktxtboxcpfcnpjfcfo.Focus(); // Volta o foco para o campo CPF
+                            msktxtboxcpfcnpjfcfo.Focus(); // Volta o foco para o campo CPF
                         }
                     }
                 }
@@ -236,20 +210,50 @@ namespace ErpGestao
         private void btncidadefcfo_Click(object sender, EventArgs e)
         {
             using (var frmSelecionarCidade = new frmSelecionarCidade())
-            { 
+            {
                 if (frmSelecionarCidade.ShowDialog() == DialogResult.OK)
-                { 
-                    var cidadeSelecionada = frmSelecionarCidade.CidadeSelecionada; 
-                    if (cidadeSelecionada != null) 
+                {
+                    var cidadeSelecionada = frmSelecionarCidade.CidadeSelecionada;
+                    if (cidadeSelecionada != null)
                     {
-                        cmbboxcidadefcfo.Text = $"{cidadeSelecionada.Nome} - {cidadeSelecionada.Estado}";
-                    } 
+                        // Atualizar o ComboBox apenas com o Nome da Cidade
+                        cmbboxcidadefcfo.Text = cidadeSelecionada.Nome;
+
+                        // Atualizar o TextBox com a UF do Estado
+                        txtboxuffcfo.Text = cidadeSelecionada.Uf;
+
+                        // Redefinir o DataSource para garantir a atualização
+                        cmbboxcidadefcfo.DataSource = null;
+                        cmbboxcidadefcfo.DataSource = Cidade.ObterTodasCidades();
+                        cmbboxcidadefcfo.DisplayMember = "Nome"; // Mudança para exibir apenas o nome
+                        cmbboxcidadefcfo.ValueMember = "Id";
+
+                        // Set the selected value explicitly
+                        foreach (var item in cmbboxcidadefcfo.Items)
+                        {
+                            if (((Cidade)item).Id == cidadeSelecionada.Id)
+                            {
+                                cmbboxcidadefcfo.SelectedItem = item;
+                                break;
+                            }
+                        }
+
+                        // Remover mensagem de depuração
+                        //MessageBox.Show($"Novo valor do ComboBox: {cmbboxcidadefcfo.Text}");
+                    }
                 }
             }
         }
-    
 
-    private void btninserirfotofcfo_Click(object sender, EventArgs e)
+
+
+
+
+
+
+
+
+        private void btninserirfotofcfo_Click(object sender, EventArgs e)
         {
             //verifica se ja existe uma foto adicionada
 

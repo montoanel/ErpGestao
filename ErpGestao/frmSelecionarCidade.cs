@@ -21,6 +21,9 @@ namespace ErpGestao
             // Preencher o ComboBox de filtro
             cmbfiltrocidades.Items.AddRange(new string[] { "ID", "Código", "Nome", "UF", "Nome Estado" });
 
+            // Definir o item padrão selecionado
+            cmbfiltrocidades.SelectedIndex = 2;
+
             // Configurar as colunas do DataGridView
             dgvcidades.AutoGenerateColumns = false;
             dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
@@ -49,8 +52,15 @@ namespace ErpGestao
                 DataPropertyName = "Uf"
             });
 
-            // Vincular evento do botão ao método
+            // Vincular evento dos botões aos métodos
             btnfiltrarcidade.Click += new EventHandler(btnfiltrarcidade_Click);
+            btnselecionar.Click += new EventHandler(btnselecionar_Click);
+
+            // Adicionar evento KeyPress ao TextBox
+            txtboxfiltrarcidade.KeyPress += new KeyPressEventHandler(txtboxfiltrarcidade_KeyPress);
+
+            // Adicionar evento KeyDown ao DataGridView
+            dgvcidades.KeyDown += new KeyEventHandler(dgvcidades_KeyDown);
         }
 
         private void CarregarTodasCidades()
@@ -73,16 +83,13 @@ namespace ErpGestao
                 {
                     MessageBox.Show("Nenhuma cidade encontrada para os critérios de busca.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
-                {
-                    MessageBox.Show($"Total de cidades encontradas para exibição: {cidadesFiltradas.Count}");
-                }
             }
             else
             {
                 MessageBox.Show("Por favor, selecione um critério de filtro e insira um valor.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private List<Cidade> BuscarCidades(string filtro, string valor)
         {
@@ -147,11 +154,56 @@ namespace ErpGestao
             return cidades;
         }
 
-       
-            private void btncancelar_Click(object sender, EventArgs e)
+        private void btnselecionar_Click(object sender, EventArgs e)
+        {
+            if (dgvcidades.SelectedCells.Count > 0)
+            {
+                int selectedRowIndex = dgvcidades.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvcidades.Rows[selectedRowIndex];
+                CidadeSelecionada = selectedRow.DataBoundItem as Cidade;
+
+                if (CidadeSelecionada != null)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecione uma cidade válida.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecione uma cidade.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+
+        private void btncancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void txtboxfiltrarcidade_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                btnfiltrarcidade.PerformClick(); // Executar o clique do botão
+            }
+        }
+        
+        // Novo método para tratar o evento KeyDown do DataGridView
+        private void dgvcidades_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                btnselecionar_Click(sender, e); // Chamar a função do botão selecionar
+            }
+
         }
     }
 }
