@@ -29,23 +29,15 @@ namespace ErpGestao
         /// </summary>
         private void InitializeComponent()
         {
-            listBoxCidades = new ListBox();
             btnselecionar = new Button();
             lblbuscarcodade = new Label();
             cmbfiltrocidades = new ComboBox();
             btncancelar = new Button();
             btnfiltrarcidade = new Button();
             txtboxfiltrarcidade = new TextBox();
+            dgvcidades = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvcidades).BeginInit();
             SuspendLayout();
-            // 
-            // listBoxCidades
-            // 
-            listBoxCidades.FormattingEnabled = true;
-            listBoxCidades.ItemHeight = 25;
-            listBoxCidades.Location = new Point(12, 50);
-            listBoxCidades.Name = "listBoxCidades";
-            listBoxCidades.Size = new Size(541, 354);
-            listBoxCidades.TabIndex = 0;
             // 
             // btnselecionar
             // 
@@ -99,22 +91,32 @@ namespace ErpGestao
             txtboxfiltrarcidade.Size = new Size(229, 31);
             txtboxfiltrarcidade.TabIndex = 6;
             // 
+            // dgvcidades
+            // 
+            dgvcidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvcidades.Location = new Point(12, 51);
+            dgvcidades.Name = "dgvcidades";
+            dgvcidades.RowHeadersWidth = 62;
+            dgvcidades.Size = new Size(792, 353);
+            dgvcidades.TabIndex = 7;
+            // 
             // frmSelecionarCidade
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(584, 464);
+            ClientSize = new Size(819, 464);
+            Controls.Add(dgvcidades);
             Controls.Add(txtboxfiltrarcidade);
             Controls.Add(btnfiltrarcidade);
             Controls.Add(btncancelar);
             Controls.Add(cmbfiltrocidades);
             Controls.Add(lblbuscarcodade);
             Controls.Add(btnselecionar);
-            Controls.Add(listBoxCidades);
             Name = "frmSelecionarCidade";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Lista de Cidades";
             Load += frmSelecionarCidade_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvcidades).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -124,14 +126,13 @@ namespace ErpGestao
            // throw new NotImplementedException();
         }
 
-        #endregion
-
-        private ListBox listBoxCidades;
+#endregion
         private Button btnselecionar;
         private Label lblbuscarcodade;
         private ComboBox cmbfiltrocidades;
         private Button btncancelar;
         private Button btnfiltrarcidade;
         private TextBox txtboxfiltrarcidade;
+        private DataGridView dgvcidades;
     }
 }

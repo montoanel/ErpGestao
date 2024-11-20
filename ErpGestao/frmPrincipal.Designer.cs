@@ -56,8 +56,8 @@
             // entidadesToolStripMenuItem
             // 
             entidadesToolStripMenuItem.Name = "entidadesToolStripMenuItem";
-            entidadesToolStripMenuItem.Size = new Size(105, 29);
-            entidadesToolStripMenuItem.Text = "Entidades";
+            entidadesToolStripMenuItem.Size = new Size(213, 29);
+            entidadesToolStripMenuItem.Text = "Clientes / Fornecedores";
             entidadesToolStripMenuItem.Click += entidadesToolStripMenuItem_Click;
             // 
             // frmPrincipal

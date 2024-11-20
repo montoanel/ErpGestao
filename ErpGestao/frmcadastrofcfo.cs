@@ -51,8 +51,7 @@ namespace ErpGestao
             txtboxcodigofcfo.Text = codigoCliente.ToString("D6"); //FORMATA o codigo para 6 digitos, exemplo: 000001
             codigoCliente++;
         }
-
-        
+             
 
         private void cmbboxcidadefcfo_TextUpdate(object sender, EventArgs e)
         {
@@ -114,15 +113,11 @@ namespace ErpGestao
             chkboxmembro.Checked = true;
             cmbtipofcfo.SelectedIndex = 0;
 
-            // Máscara datas
+            // Máscaras
             msktxtboxdatanascimentofcfo.Mask = "00/00/0000";
             msktxtboxdatacadastrofcfo.Mask = "00/00/0000";
-
-            // Máscara CPF
             msktxtboxcpfcnpjfcfo.Mask = "000,000,000-00";
-
-            //mascara cep
-            msktxtboxcepfcfo.Mask = "00000-000";
+           msktxtboxcepfcfo.Mask = "00000-000";
 
             try
             {
@@ -134,7 +129,7 @@ namespace ErpGestao
                 MessageBox.Show($"Erro ao carregar as cidades:{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        
         private void PreencherComboBoxCidades()
         {
             // Obter a lista de cidades
@@ -209,20 +204,7 @@ namespace ErpGestao
             }
         }
 
-        private void btncidadefcfo_Click(object sender, EventArgs e)
-        {
-            frmSelecionarCidade formSelecionarCidade = new frmSelecionarCidade();
-            if (formSelecionarCidade.ShowDialog() == DialogResult.OK)
-            {
-                Cidade cidadeSelecionada = formSelecionarCidade.CidadeSelecionada;
-                if (cidadeSelecionada != null)
-                {
-                    cmbboxcidadefcfo.Text = cidadeSelecionada.Nome;
-                    txtboxuffcfo.Text = cidadeSelecionada.Estado;
-                }
-            }
-        }
-
+       
         // Evento DropDown do ComboBox
         private void cmbboxcidadefcfo_DropDown(object sender, EventArgs e)
         {
@@ -250,7 +232,24 @@ namespace ErpGestao
 
         }
 
-        private void btninserirfotofcfo_Click(object sender, EventArgs e)
+
+        private void btncidadefcfo_Click(object sender, EventArgs e)
+        {
+            using (var frmSelecionarCidade = new frmSelecionarCidade())
+            { 
+                if (frmSelecionarCidade.ShowDialog() == DialogResult.OK)
+                { 
+                    var cidadeSelecionada = frmSelecionarCidade.CidadeSelecionada; 
+                    if (cidadeSelecionada != null) 
+                    {
+                        cmbboxcidadefcfo.Text = $"{cidadeSelecionada.Nome} - {cidadeSelecionada.Estado}";
+                    } 
+                }
+            }
+        }
+    
+
+    private void btninserirfotofcfo_Click(object sender, EventArgs e)
         {
             //verifica se ja existe uma foto adicionada
 
