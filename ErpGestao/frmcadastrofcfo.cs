@@ -229,7 +229,7 @@ namespace ErpGestao
                         // Redefinir o DataSource para garantir a atualização
                         cmbboxcidadefcfo.DataSource = null;
                         cmbboxcidadefcfo.DataSource = Cidade.ObterTodasCidades();
-                        cmbboxcidadefcfo.DisplayMember = "Nome"; // Mudança para exibir apenas o nome
+                        cmbboxcidadefcfo.DisplayMember = "NomeComEstado"; // Mudança para exibir apenas o nome
                         cmbboxcidadefcfo.ValueMember = "Id";
 
                         // Set the selected value explicitly
