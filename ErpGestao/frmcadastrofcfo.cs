@@ -96,16 +96,26 @@ namespace ErpGestao
                 MessageBox.Show($"Erro ao carregar as cidades:{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
         private void PreencherComboBoxCidades()
         {
             // Obter a lista de cidades
-            List<Cidade> cidades = Cidade.ObterTodasCidades(); 
+            List<Cidade> cidades = Cidade.ObterTodasCidades();
+
             // Configurar as propriedades do ComboBox
             cmbboxcidadefcfo.DisplayMember = "NomeComEstado";
             cmbboxcidadefcfo.ValueMember = "Id";
             cmbboxcidadefcfo.DataSource = cidades;
+
+            // Definir o índice 0 como o selecionado por padrão
+            if (cmbboxcidadefcfo.Items.Count > 0)
+            {
+                cmbboxcidadefcfo.SelectedIndex = 0;
+            }
         }
+
+
+
 
         private void cmbtipofcfo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -196,11 +206,10 @@ namespace ErpGestao
         {
             if (cmbboxcidadefcfo.SelectedItem is Cidade cidadeSelecionada)
             {
-                txtboxuffcfo.Text = cidadeSelecionada.Estado;
+                txtboxuffcfo.Text = cidadeSelecionada.Uf;
             }
 
         }
-
 
         private void btncidadefcfo_Click(object sender, EventArgs e)
         {
@@ -239,14 +248,6 @@ namespace ErpGestao
                 }
             }
         }
-
-
-
-
-
-
-
-
 
         private void btninserirfotofcfo_Click(object sender, EventArgs e)
         {

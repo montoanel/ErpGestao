@@ -5,6 +5,8 @@ namespace ErpGestao
 {
     public static class GeradorCodigo
     {
+        private static ConexaoBancoDeDados conexaoBancoDeDados = new ConexaoBancoDeDados();
+
         public static string GerarNovoCodigoCliente()
         {
             int novoCodigo = ObterProximoCodigoDisponivel();
@@ -14,21 +16,13 @@ namespace ErpGestao
         private static int ObterProximoCodigoDisponivel()
         {
             int codigo = 1;
-            string connectionString = "Data Source=CAIXA\\SQLEXPRESS;Initial Catalog=erpgestao;Integrated Security=True;TrustServerCertificate=True";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "SELECT MAX(fcfo_codigo) FROM fcfo";
+
+            var resultado = conexaoBancoDeDados.ExecuteScalar(query, null);
+            if (resultado != DBNull.Value)
             {
-                connection.Open();
-                string query = "SELECT MAX(fcfo_codigo) FROM fcfo";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    var result = command.ExecuteScalar();
-                    if (result != DBNull.Value)
-                    {
-                        codigo = Convert.ToInt32(result) + 1;
-                    }
-                }
+                codigo = Convert.ToInt32(resultado) + 1;
             }
 
             return codigo;

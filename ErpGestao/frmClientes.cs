@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Data;
-using Microsoft.Data.SqlClient;  // Certifique-se de que este namespace está incluído
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Microsoft.Data.SqlClient;  // Certifique-se de que este namespace está incluído
 
 namespace ErpGestao
 {
     public partial class frmClientes : Form
     {
-        private string connectionString = "Data Source=CAIXA\\SQLEXPRESS;Initial Catalog=erpgestao;Integrated Security=True;TrustServerCertificate=True";
+        private ConexaoBancoDeDados conexaoBancoDeDados = new ConexaoBancoDeDados();
 
         public frmClientes()
         {
@@ -46,18 +46,9 @@ namespace ErpGestao
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM fcfo";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        dgvClientes.DataSource = dt;
-                    }
-                }
+                string query = "SELECT * FROM fcfo";
+                var dataTable = conexaoBancoDeDados.ExecuteQueryWithDataTable(query, null);
+                dgvClientes.DataSource = dataTable;
             }
             catch (SqlException ex)
             {
@@ -116,40 +107,32 @@ namespace ErpGestao
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = string.Empty;
+                string query = string.Empty;
 
+                if (coluna == "fcfo_codigo" || coluna == "fcfo_endereco_numero")
+                {
+                    // Para colunas numéricas
+                    query = $"SELECT * FROM fcfo WHERE {coluna} = @valor";
+                }
+                else
+                {
+                    // Para colunas de texto
+                    query = $"SELECT * FROM fcfo WHERE {coluna} COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI";
+                }
+
+                var dataTable = conexaoBancoDeDados.ExecuteQueryWithDataTable(query, (cmd) =>
+                {
                     if (coluna == "fcfo_codigo" || coluna == "fcfo_endereco_numero")
                     {
-                        // Para colunas numéricas
-                        query = $"SELECT * FROM fcfo WHERE {coluna} = @valor";
+                        cmd.Parameters.AddWithValue("@valor", int.Parse(valor));
                     }
                     else
                     {
-                        // Para colunas de texto
-                        query = $"SELECT * FROM fcfo WHERE {coluna} COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI";
+                        cmd.Parameters.AddWithValue("@valor", valor);
                     }
+                });
 
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        // Adicionar parâmetro de valor
-                        if (coluna == "fcfo_codigo" || coluna == "fcfo_endereco_numero")
-                        {
-                            cmd.Parameters.AddWithValue("@valor", int.Parse(valor));
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue("@valor", valor);
-                        }
-
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        dgvClientes.DataSource = dt;
-                    }
-                }
+                dgvClientes.DataSource = dataTable;
             }
             catch (SqlException ex)
             {
@@ -165,40 +148,31 @@ namespace ErpGestao
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                string query = "";
+                Action<SqlCommand> configureCommand = null;
+
+                if (int.TryParse(valor, out int numero))
                 {
-                    conn.Open();
-                    string query = "";
-                    SqlCommand cmd = new SqlCommand();
-
-                    // Detectar se a entrada é um número ou texto
-                    if (int.TryParse(valor, out int numero))
-                    {
-                        // Buscar por número (ID ou número de casa)
-                        query = "SELECT * FROM fcfo WHERE fcfo_codigo = @valor OR fcfo_endereco_numero = @valor";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@valor", numero);
-                    }
-                    else
-                    {
-                        // Buscar por texto (nome, endereço, etc.)
-                        query = "SELECT * FROM fcfo WHERE " +
-                                "REPLACE(REPLACE(REPLACE(fcfo_nome_fantasia, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
-                                "OR REPLACE(REPLACE(REPLACE(fcfo_razao_social, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
-                                "OR REPLACE(REPLACE(REPLACE(fcfo_endereco, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
-                                "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_cpfcnpj, '-', ''), '.', ''), '/', ''), ' ', ''), '(', '') LIKE '%' + @valor + '%' " +
-                                "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone1, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
-                                "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone2, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
-                                "OR REPLACE(REPLACE(REPLACE(REPLACE(fcfo_rgie, '-', ''), '.', ''), '/', ''), ' ', '') LIKE '%' + @valor + '%'";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@valor", valor);
-                    }
-
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dgvClientes.DataSource = dt;
+                    // Buscar por número (ID ou número de casa)
+                    query = "SELECT * FROM fcfo WHERE fcfo_codigo = @valor OR fcfo_endereco_numero = @valor";
+                    configureCommand = (cmd) => cmd.Parameters.AddWithValue("@valor", numero);
                 }
+                else
+                {
+                    // Buscar por texto (nome, endereço, etc.)
+                    query = "SELECT * FROM fcfo WHERE " +
+                            "REPLACE(REPLACE(REPLACE(fcfo_nome_fantasia, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
+                            "OR REPLACE(REPLACE(REPLACE(fcfo_razao_social, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
+                            "OR REPLACE(REPLACE(REPLACE(fcfo_endereco, '-', ''), '.', ''), ' ', '') COLLATE Latin1_General_CI_AI LIKE '%' + @valor + '%' COLLATE Latin1_General_CI_AI " +
+                            "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_cpfcnpj, '-', ''), '.', ''), '/', ''), ' ', ''), '(', '') LIKE '%' + @valor + '%' " +
+                            "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone1, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
+                            "OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(fcfo_telefone2, '-', ''), '(', ''), ')', ''), ' ', ''), '+', '') LIKE '%' + @valor + '%' " +
+                            "OR REPLACE(REPLACE(REPLACE(REPLACE(fcfo_rgie, '-', ''), '.', ''), '/', ''), ' ', '') LIKE '%' + @valor + '%'";
+                    configureCommand = (cmd) => cmd.Parameters.AddWithValue("@valor", valor);
+                }
+
+                var dataTable = conexaoBancoDeDados.ExecuteQueryWithDataTable(query, configureCommand);
+                dgvClientes.DataSource = dataTable;
             }
             catch (SqlException ex)
             {
@@ -209,9 +183,5 @@ namespace ErpGestao
                 MessageBox.Show($"Erro: {ex.Message}", "Erro de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-
     }
 }

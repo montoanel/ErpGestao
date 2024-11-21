@@ -8,11 +8,13 @@ namespace ErpGestao
     public partial class frmSelecionarCidade : Form
     {
         public Cidade CidadeSelecionada { get; private set; }
+        private ConexaoBancoDeDados conexaoBancoDeDados;
 
         public frmSelecionarCidade()
         {
             InitializeComponent();
             InicializarComponentes();
+            conexaoBancoDeDados = new ConexaoBancoDeDados();
             CarregarTodasCidades(); // Carregar todas as cidades ao inicializar
         }
 
@@ -90,69 +92,44 @@ namespace ErpGestao
             }
         }
 
-
         private List<Cidade> BuscarCidades(string filtro, string valor)
         {
-            var cidades = new List<Cidade>();
+            var query = @"
+        SELECT c.id, c.codigo, c.nome, c.uf, e.nome AS estado
+        FROM cidade c
+        JOIN estado e ON c.estadoid = e.id";
 
-            using (SqlConnection conn = new SqlConnection("Data Source=CAIXA\\SQLEXPRESS;Initial Catalog=erpgestao;Integrated Security=True;TrustServerCertificate=True"))
+            if (!string.IsNullOrEmpty(filtro))
             {
-                conn.Open();
-
-                // Adaptar a consulta SQL conforme o filtro selecionado
-                string query = @"
-                    SELECT c.id, c.codigo, c.nome, c.uf, e.nome AS estado
-                    FROM cidade c
-                    JOIN estado e ON c.estadoid = e.id";
-
-                if (!string.IsNullOrEmpty(filtro))
+                switch (filtro)
                 {
-                    switch (filtro)
-                    {
-                        case "ID":
-                            query += " WHERE c.id = @valor";
-                            break;
-                        case "Código":
-                            query += " WHERE c.codigo COLLATE Latin1_General_CI_AI LIKE @valor";
-                            break;
-                        case "Nome":
-                            query += " WHERE c.nome COLLATE Latin1_General_CI_AI LIKE @valor";
-                            break;
-                        case "UF":
-                            query += " WHERE c.uf COLLATE Latin1_General_CI_AI LIKE @valor";
-                            break;
-                        case "Nome Estado":
-                            query += " WHERE e.nome COLLATE Latin1_General_CI_AI LIKE @valor";
-                            break;
-                    }
-                }
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    if (!string.IsNullOrEmpty(valor))
-                    {
-                        cmd.Parameters.AddWithValue("@valor", $"%{valor}%");
-                    }
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            cidades.Add(new Cidade
-                            {
-                                Id = reader.GetInt32(0),
-                                Codigo = reader.GetString(1),
-                                Nome = reader.GetString(2),
-                                Uf = reader.GetString(3),
-                                Estado = reader.GetString(4)
-                            });
-                        }
-                    }
+                    case "ID":
+                        query += " WHERE c.id = @valor";
+                        break;
+                    case "Código":
+                        query += " WHERE c.codigo COLLATE Latin1_General_CI_AI LIKE @valor";
+                        break;
+                    case "Nome":
+                        query += " WHERE c.nome COLLATE Latin1_General_CI_AI LIKE @valor";
+                        break;
+                    case "UF":
+                        query += " WHERE c.uf COLLATE Latin1_General_CI_AI LIKE @valor";
+                        break;
+                    case "Nome Estado":
+                        query += " WHERE e.nome COLLATE Latin1_General_CI_AI LIKE @valor";
+                        break;
                 }
             }
 
-            return cidades;
+            return conexaoBancoDeDados.ExecuteQueryWithReader(query, (cmd) =>
+            {
+                if (!string.IsNullOrEmpty(valor))
+                {
+                    cmd.Parameters.AddWithValue("@valor", $"%{valor}%");
+                }
+            });
         }
+
 
         private void btnselecionar_Click(object sender, EventArgs e)
         {
@@ -178,8 +155,6 @@ namespace ErpGestao
             }
         }
 
-
-
         private void btncancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -194,7 +169,7 @@ namespace ErpGestao
                 btnfiltrarcidade.PerformClick(); // Executar o clique do botão
             }
         }
-        
+
         // Novo método para tratar o evento KeyDown do DataGridView
         private void dgvcidades_KeyDown(object sender, KeyEventArgs e)
         {
@@ -203,7 +178,6 @@ namespace ErpGestao
                 e.Handled = true;
                 btnselecionar_Click(sender, e); // Chamar a função do botão selecionar
             }
-
         }
     }
 }
