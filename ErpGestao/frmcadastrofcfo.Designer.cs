@@ -130,11 +130,11 @@
             lblcodigofcfo.AutoSize = true;
             lblcodigofcfo.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblcodigofcfo.ForeColor = SystemColors.ControlLightLight;
-            lblcodigofcfo.Location = new Point(1272, 6);
+            lblcodigofcfo.Location = new Point(1228, 4);
             lblcodigofcfo.Name = "lblcodigofcfo";
-            lblcodigofcfo.Size = new Size(154, 21);
+            lblcodigofcfo.Size = new Size(117, 21);
             lblcodigofcfo.TabIndex = 66;
-            lblcodigofcfo.Text = "Código Entidade";
+            lblcodigofcfo.Text = "Cod. Cliente";
             // 
             // txtboxcodigofcfo
             // 
@@ -142,10 +142,10 @@
             txtboxcodigofcfo.BorderStyle = BorderStyle.None;
             txtboxcodigofcfo.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txtboxcodigofcfo.ForeColor = SystemColors.HighlightText;
-            txtboxcodigofcfo.Location = new Point(1432, 5);
+            txtboxcodigofcfo.Location = new Point(1370, 5);
             txtboxcodigofcfo.Name = "txtboxcodigofcfo";
             txtboxcodigofcfo.ReadOnly = true;
-            txtboxcodigofcfo.Size = new Size(69, 21);
+            txtboxcodigofcfo.Size = new Size(117, 21);
             txtboxcodigofcfo.TabIndex = 67;
             txtboxcodigofcfo.TabStop = false;
             // 
@@ -258,7 +258,7 @@
             chkboxfornecedor.TabIndex = 7;
             chkboxfornecedor.Text = "Fornecedor";
             chkboxfornecedor.UseVisualStyleBackColor = true;
-            chkboxfornecedor.CheckedChanged += checkBox2_CheckedChanged;
+            chkboxfornecedor.CheckedChanged += chkboxcliente_CheckedChanged;
             // 
             // chkboxfuncionario
             // 
@@ -269,6 +269,7 @@
             chkboxfuncionario.TabIndex = 8;
             chkboxfuncionario.Text = "Funcionário";
             chkboxfuncionario.UseVisualStyleBackColor = true;
+            chkboxfuncionario.CheckedChanged += chkboxcliente_CheckedChanged;
             // 
             // chkboxmembro
             // 
@@ -279,7 +280,7 @@
             chkboxmembro.TabIndex = 9;
             chkboxmembro.Text = "Membro";
             chkboxmembro.UseVisualStyleBackColor = true;
-            chkboxmembro.CheckedChanged += checkBox4_CheckedChanged;
+            chkboxmembro.CheckedChanged += chkboxcliente_CheckedChanged;
             // 
             // chkboxcisentofcfo
             // 
@@ -547,9 +548,9 @@
             lbltelefone1contatofcfo.AutoSize = true;
             lbltelefone1contatofcfo.Location = new Point(539, 542);
             lbltelefone1contatofcfo.Name = "lbltelefone1contatofcfo";
-            lbltelefone1contatofcfo.Size = new Size(92, 25);
+            lbltelefone1contatofcfo.Size = new Size(114, 25);
             lbltelefone1contatofcfo.TabIndex = 47;
-            lbltelefone1contatofcfo.Text = "Telefone 1";
+            lbltelefone1contatofcfo.Text = "Telefone Fixo";
             // 
             // msktxtboxtelefone1contatofcfo
             // 
@@ -570,9 +571,9 @@
             lbltelefone2contatofcfo.AutoSize = true;
             lbltelefone2contatofcfo.Location = new Point(735, 542);
             lbltelefone2contatofcfo.Name = "lbltelefone2contatofcfo";
-            lbltelefone2contatofcfo.Size = new Size(92, 25);
+            lbltelefone2contatofcfo.Size = new Size(65, 25);
             lbltelefone2contatofcfo.TabIndex = 49;
-            lbltelefone2contatofcfo.Text = "Telefone 2";
+            lbltelefone2contatofcfo.Text = "Celular";
             // 
             // lblemailfcfo
             // 

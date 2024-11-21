@@ -17,7 +17,7 @@ namespace ErpGestao
     {
         private readonly CpfValidador cpfValidador = new CpfValidador();
         private readonly CnpjValidador cnpjValidador = new CnpjValidador();
-        private System.Windows.Forms.Timer timer;
+        //private System.Windows.Forms.Timer timer;
 
         private static int codigoCliente = 1; //variavel estatica para auto incremento
 
@@ -32,7 +32,7 @@ namespace ErpGestao
             GerarCodigoCliente();
 
 
-            // Configurar propriedades de autocompletar
+            // Configurar propriedades de autocompletar combo box cidades
             cmbboxcidadefcfo.AutoCompleteMode = AutoCompleteMode.None;
             cmbboxcidadefcfo.AutoCompleteSource = AutoCompleteSource.ListItems;
 
@@ -48,8 +48,7 @@ namespace ErpGestao
 
         private void GerarCodigoCliente()
         {
-            txtboxcodigofcfo.Text = codigoCliente.ToString("D6"); //FORMATA o codigo para 6 digitos, exemplo: 000001
-            codigoCliente++;
+            txtboxcodigofcfo.Text = GeradorCodigo.GerarNovoCodigoCliente();
         }
              
 
@@ -64,19 +63,13 @@ namespace ErpGestao
             // Lógica do evento de clique no label
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            // Lógica do evento CheckedChanged para checkBox2
-        }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
-            // Lógica do evento CheckedChanged para checkBox4
-        }
-
         private void chkboxcliente_CheckedChanged(object sender, EventArgs e)
         {
-            // Lógica do evento CheckedChanged para chkboxcliente
+            // Verificar se pelo menos um CheckBox está marcado
+            if (!chkboxcliente.Checked && !chkboxfornecedor.Checked && !chkboxfuncionario.Checked && !chkboxmembro.Checked) 
+            { //Marcar chkboxcliente se todos estiverem desmarcados
+              chkboxcliente.Checked = true; 
+            }
         }
 
         private void frmcadastrofcfo_Load(object sender, EventArgs e)
@@ -121,6 +114,7 @@ namespace ErpGestao
             {
                 msktxtboxcpfcnpjfcfo.Mask = "00,000,000/0000-00"; // Máscara para CNPJ
                 txtboxrazaosocialfcfo.Text = ""; // Limpa a razão social quando for pessoa jurídica
+                msktxtboxcpfcnpjfcfo.Clear();// limpa cpf/cnpj ao trocar entre pessoa fisica e juridica para nao haver erro de cadastro
             }
             else
             {
@@ -151,7 +145,8 @@ namespace ErpGestao
             if (cmbtipofcfo.SelectedItem != null)
             {
                 // Remove a máscara do campo
-                string documento = msktxtboxcpfcnpjfcfo.Text.Replace(",", "").Replace("-", "").Replace("/", "").Replace(".", "").Trim();
+                string documento = UtilitariosRemoverMascaras.RemoverMascara(msktxtboxcpfcnpjfcfo);
+
 
                 // Verifica se o campo não está vazio antes de validar
                 if (!string.IsNullOrEmpty(documento))
@@ -333,26 +328,48 @@ namespace ErpGestao
 
         private void btnimprimirfcfo_Click(object sender, EventArgs e)
         {
-            string pessoa = cmbtipofcfo.Text;
-            string cpfCnpj = msktxtboxcpfcnpjfcfo.Text;
-            string rgIe = txtboxrgiefcfo.Text;
-            string nome = txtboxnomefantasiafcfo.Text;
-            string endereco = txtboxenderecofcfo.Text;
-            string numero = txtboxnumeroenderecofcfo.Text;
-            string bairro = txtboxbairrofcfo.Text;
-            string cidade = cmbboxcidadefcfo.Text;
-            string estado = txtboxuffcfo.Text;
-            string telefone = msktxtboxtelefone1contatofcfo.Text;
-            string email = txtboxemailfcfo.Text;
+            if (ValidadorFormularioFCFO.VerificarCamposObrigatorios(
+                msktxtboxcpfcnpjfcfo,
+                txtboxrgiefcfo,
+                txtboxnomefantasiafcfo,
+                txtboxrazaosocialfcfo,
+                txtboxenderecofcfo,
+                txtboxnumeroenderecofcfo,
+               // txtboxcomplementoenderecofcfo,
+                txtboxbairrofcfo,
+               // txtboxreferenciaenderecofcfo,
+                cmbboxcidadefcfo,
+                msktxtboxcepfcfo,
+               // txtboxcoordenadasfcfo,
+                msktxtboxdatanascimentofcfo,
+                msktxtboxdatacadastrofcfo,
+                pctboxfcfo,
+                pctqrcode))
+            {
+                // Lógica para imprimir
+
+                string pessoa = cmbtipofcfo.Text;
+                string cpfCnpj = msktxtboxcpfcnpjfcfo.Text;
+                string rgIe = txtboxrgiefcfo.Text;
+                string nome = txtboxnomefantasiafcfo.Text;
+                string endereco = txtboxenderecofcfo.Text;
+                string numero = txtboxnumeroenderecofcfo.Text;
+                string bairro = txtboxbairrofcfo.Text;
+                string cidade = cmbboxcidadefcfo.Text;
+                string estado = txtboxuffcfo.Text;
+                string telefone = msktxtboxtelefone1contatofcfo.Text;
+                string email = txtboxemailfcfo.Text;
 
 
 
-            System.Drawing.Image fotoCliente = pctboxfcfo.Image;
-            System.Drawing.Image qrCodeImage = pctqrcode.Image;
+                System.Drawing.Image fotoCliente = pctboxfcfo.Image;
+                System.Drawing.Image qrCodeImage = pctqrcode.Image;
 
-            PDFGeneratorCadastroFCFO.ImprimirFrmCadastrofcfo(
-                pessoa, cpfCnpj, rgIe, nome, endereco, numero, bairro, cidade, estado,telefone,email, fotoCliente, qrCodeImage);
+                PDFGeneratorCadastroFCFO.ImprimirFrmCadastrofcfo(
+                    pessoa, cpfCnpj, rgIe, nome, endereco, numero, bairro, cidade, estado, telefone, email, fotoCliente, qrCodeImage);
+            }
         }
+
 
         private void btncancelarfcfo_Click(object sender, EventArgs e)
         {
