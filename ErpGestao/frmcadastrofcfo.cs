@@ -47,12 +47,26 @@ namespace ErpGestao
             InitializeComponent();
             this.clienteId = clienteId;
             this.conexaoBancoDeDados = conexaoBancoDeDados;
-            CarregarDadosCliente();
+            CarregarDadosCliente(clienteId);  // Chama o método para carregar os dados do cliente
         }
         // Método para carregar os dados do cliente
-        private void CarregarDadosCliente()
+        public void CarregarDadosCliente(int clienteId)
         {
-            string query = "SELECT * FROM fcfo WHERE fcfo_codigo = @clienteId";
+            string query = @"
+        SELECT 
+            f.fcfo_codigo, f.fcfo_tipo_pessoa, f.fcfo_cpfcnpj, f.fcfo_rgie, f.fcfo_isento,
+            f.fcfo_nome_fantasia, f.fcfo_razao_social, f.fcfo_endereco, f.fcfo_endereco_numero,
+            f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
+            f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
+            f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
+            f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
+        FROM 
+            fcfo f
+        LEFT JOIN 
+            cidade c ON f.fcfo_id_cidade = c.id
+        WHERE 
+            f.fcfo_codigo = @clienteId";
+
             SqlCommand cmd = new SqlCommand(query, conexaoBancoDeDados.ObterConexao());
             cmd.Parameters.AddWithValue("@clienteId", clienteId);
 
@@ -60,11 +74,61 @@ namespace ErpGestao
             if (reader.Read())
             {
                 // Carregar os dados do cliente nos controles do formulário
-                txtboxnomefantasiafcfo.Text = reader["fcfo_nome_fantasia"].ToString(); // Certifique-se de que os controles existem
-                // Preencha outros campos conforme necessário
+                txtboxnomefantasiafcfo.Text = reader["fcfo_nome_fantasia"].ToString();
+                msktxtboxcpfcnpjfcfo.Text = reader["fcfo_cpfcnpj"].ToString();
+                txtboxrgiefcfo.Text = reader["fcfo_rgie"].ToString();
+                txtboxenderecofcfo.Text = reader["fcfo_endereco"].ToString();
+                txtboxnumeroenderecofcfo.Text = reader["fcfo_endereco_numero"].ToString();
+                txtboxcomplementoenderecofcfo.Text = reader["fcfo_endereco_complemento"].ToString();
+                txtboxcoordenadasfcfo.Text = reader["fcfo_coordenada"].ToString();
+                msktxtboxdatanascimentofcfo.Text = reader["fcfo_data_nascimento"] != DBNull.Value ? Convert.ToDateTime(reader["fcfo_data_nascimento"]).ToString("dd/MM/yyyy") : string.Empty;
+                msktxtboxdatacadastrofcfo.Text = Convert.ToDateTime(reader["fcfo_data_cadastro"]).ToString("dd/MM/yyyy");
+                txtboxnomecontatofcfo.Text = reader["fcfo_nome_contato"].ToString();
+                msktxtboxtelefone1contatofcfo.Text = reader["fcfo_telefone1"].ToString();
+                msktxtboxtelefone2contatofcfo.Text = reader["fcfo_telefone2"].ToString();
+                txtboxemailfcfo.Text = reader["fcfo_email"].ToString();
+                txtboxinstagramfcfo.Text = reader["fcfo_instagram"].ToString();
+
+                if (reader["fcfo_foto"] != DBNull.Value)
+                {
+                    pctboxfcfo.Image = ByteArrayToImage((byte[])reader["fcfo_foto"]);
+                }
+                else
+                {
+                    pctboxfcfo.Image = null;
+                }
+
+                if (reader["fcfo_qrcode"] != DBNull.Value)
+                {
+                    pctqrcode.Image = ByteArrayToImage((byte[])reader["fcfo_qrcode"]);
+                }
+                else
+                {
+                    pctqrcode.Image = null;
+                }
+
+                chkboxcliente.Checked = reader["fcfo_cliente"].ToString() == "S";
+                chkboxfornecedor.Checked = reader["fcfo_fornecedor"].ToString() == "S";
+                chkboxfuncionario.Checked = reader["fcfo_funcionario"].ToString() == "S";
+                chkboxmembro.Checked = reader["fcfo_membro"].ToString() == "S";
+                cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
             }
             reader.Close();
         }
+
+        private Image ByteArrayToImage(byte[] byteArray)
+        {
+            if (byteArray == null || byteArray.Length == 0) return null;
+            using (var ms = new MemoryStream(byteArray))
+            {
+                return Image.FromStream(ms);
+            }
+        }
+                   
+        
+               
+
+
 
         private void GerarCodigoCliente()
         {

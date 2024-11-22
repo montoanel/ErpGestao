@@ -142,6 +142,7 @@ namespace ErpGestao
                     if (conexaoBancoDeDados.AbrirConexao())
                     {
                         frmcadastrofcfo frmCadastro = new frmcadastrofcfo(clienteId, conexaoBancoDeDados);
+                        frmCadastro.CarregarDadosCliente(clienteId);  // Chama o método para carregar os dados do cliente
                         frmCadastro.ShowDialog();
 
                         conexaoBancoDeDados.FecharConexao();
