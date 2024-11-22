@@ -53,19 +53,19 @@ namespace ErpGestao
         public void CarregarDadosCliente(int clienteId)
         {
             string query = @"
-        SELECT 
-            f.fcfo_codigo, f.fcfo_tipo_pessoa, f.fcfo_cpfcnpj, f.fcfo_rgie, f.fcfo_isento,
-            f.fcfo_nome_fantasia, f.fcfo_razao_social, f.fcfo_endereco, f.fcfo_endereco_numero,
-            f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
-            f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
-            f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
-            f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
-        FROM 
-            fcfo f
-        LEFT JOIN 
-            cidade c ON f.fcfo_id_cidade = c.id
-        WHERE 
-            f.fcfo_codigo = @clienteId";
+    SELECT 
+        f.fcfo_codigo, f.fcfo_tipo_pessoa, f.fcfo_cpfcnpj, f.fcfo_rgie, f.fcfo_isento,
+        f.fcfo_nome_fantasia, f.fcfo_razao_social, f.fcfo_endereco, f.fcfo_endereco_numero,
+        f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
+        f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
+        f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
+        f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
+    FROM 
+        fcfo f
+    LEFT JOIN 
+        cidade c ON f.fcfo_id_cidade = c.id
+    WHERE 
+        f.fcfo_codigo = @clienteId";
 
             SqlCommand cmd = new SqlCommand(query, conexaoBancoDeDados.ObterConexao());
             cmd.Parameters.AddWithValue("@clienteId", clienteId);
@@ -74,14 +74,14 @@ namespace ErpGestao
             if (reader.Read())
             {
                 // Carregar os dados do cliente nos controles do formulário
-                //txtboxcodigofcfo.Text = reader["id_fcfo"].ToString();
+                txtboxcodigofcfo.Text = reader["fcfo_codigo"].ToString();
                 txtboxnomefantasiafcfo.Text = reader["fcfo_nome_fantasia"].ToString();
                 msktxtboxcpfcnpjfcfo.Text = reader["fcfo_cpfcnpj"].ToString();
                 txtboxrgiefcfo.Text = reader["fcfo_rgie"].ToString();
                 txtboxenderecofcfo.Text = reader["fcfo_endereco"].ToString();
                 txtboxnumeroenderecofcfo.Text = reader["fcfo_endereco_numero"].ToString();
                 txtboxcomplementoenderecofcfo.Text = reader["fcfo_endereco_complemento"].ToString();
-               // cmbboxcidadefcfo.Text = reader["cidade_nome"].ToString() ;
+                cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
                 txtboxcoordenadasfcfo.Text = reader["fcfo_coordenada"].ToString();
                 msktxtboxdatanascimentofcfo.Text = reader["fcfo_data_nascimento"] != DBNull.Value ? Convert.ToDateTime(reader["fcfo_data_nascimento"]).ToString("dd/MM/yyyy") : string.Empty;
                 msktxtboxdatacadastrofcfo.Text = Convert.ToDateTime(reader["fcfo_data_cadastro"]).ToString("dd/MM/yyyy");
@@ -113,7 +113,6 @@ namespace ErpGestao
                 chkboxfornecedor.Checked = reader["fcfo_fornecedor"].ToString() == "S";
                 chkboxfuncionario.Checked = reader["fcfo_funcionario"].ToString() == "S";
                 chkboxmembro.Checked = reader["fcfo_membro"].ToString() == "S";
-                cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
             }
             reader.Close();
         }
@@ -126,8 +125,9 @@ namespace ErpGestao
                 return Image.FromStream(ms);
             }
         }
-                   
-                  
+
+
+
 
 
 
