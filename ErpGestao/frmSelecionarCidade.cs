@@ -131,29 +131,21 @@ namespace ErpGestao
         }
 
 
+        // Declarando a instância do seletor DataGridViewSelector.cs
+        private DataGridViewSelector<Cidade> cidadeSelector = new DataGridViewSelector<Cidade>();
+
         private void btnselecionar_Click(object sender, EventArgs e)
         {
-            if (dgvcidades.SelectedCells.Count > 0)
-            {
-                int selectedRowIndex = dgvcidades.SelectedCells[0].RowIndex;
-                DataGridViewRow selectedRow = dgvcidades.Rows[selectedRowIndex];
-                CidadeSelecionada = selectedRow.DataBoundItem as Cidade;
+            Cidade cidadeSelecionada = cidadeSelector.Selecionar(dgvcidades);
 
-                if (CidadeSelecionada != null)
-                {
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Por favor, selecione uma cidade válida.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
+            if (cidadeSelecionada != null)
             {
-                MessageBox.Show("Por favor, selecione uma cidade.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CidadeSelecionada = cidadeSelecionada;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
+
 
         private void btncancelar_Click(object sender, EventArgs e)
         {

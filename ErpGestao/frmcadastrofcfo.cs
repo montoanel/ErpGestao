@@ -8,6 +8,7 @@ using System.Diagnostics;
 using ZXing;
 using ZXing.Common;
 using System.Drawing;
+using Microsoft.Data.SqlClient;
 
 
 
@@ -15,6 +16,7 @@ namespace ErpGestao
 {
     public partial class frmcadastrofcfo : Form
     {
+        //validarcpf e cnpj
         private readonly CpfValidador cpfValidador = new CpfValidador();
         private readonly CnpjValidador cnpjValidador = new CnpjValidador();
         //private System.Windows.Forms.Timer timer;
@@ -22,6 +24,8 @@ namespace ErpGestao
         private static int codigoCliente = 1; //variavel estatica para auto incremento
 
         private int clienteId;
+        private ConexaoBancoDeDados conexaoBancoDeDados;
+
 
 
 
@@ -37,14 +41,30 @@ namespace ErpGestao
             cmbboxcidadefcfo.AutoCompleteSource = AutoCompleteSource.ListItems;
 
         }
-
-        public frmcadastrofcfo(int clienteId)
+        // Construtor atualizado para aceitar clienteId e conexaoBancoDeDados
+        public frmcadastrofcfo(int clienteId, ConexaoBancoDeDados conexaoBancoDeDados)
         {
             InitializeComponent();
             this.clienteId = clienteId;
-
+            this.conexaoBancoDeDados = conexaoBancoDeDados;
+            CarregarDadosCliente();
         }
+        // Método para carregar os dados do cliente
+        private void CarregarDadosCliente()
+        {
+            string query = "SELECT * FROM fcfo WHERE fcfo_codigo = @clienteId";
+            SqlCommand cmd = new SqlCommand(query, conexaoBancoDeDados.ObterConexao());
+            cmd.Parameters.AddWithValue("@clienteId", clienteId);
 
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                // Carregar os dados do cliente nos controles do formulário
+                txtboxnomefantasiafcfo.Text = reader["fcfo_nome_fantasia"].ToString(); // Certifique-se de que os controles existem
+                // Preencha outros campos conforme necessário
+            }
+            reader.Close();
+        }
 
         private void GerarCodigoCliente()
         {

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using System.Configuration;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Windows.Forms;
 
 namespace ErpGestao
 {
     public class ConexaoBancoDeDados
     {
         private readonly string connectionString;
+        private SqlConnection conexao;
 
         public ConexaoBancoDeDados()
         {
             connectionString = ConfigurationManager.ConnectionStrings["ErpGestaoConnectionString"].ConnectionString;
+            conexao = new SqlConnection(connectionString);
         }
 
         public void ExecuteQuery(string query)
@@ -54,8 +57,6 @@ namespace ErpGestao
             return cidades;
         }
 
-
-
         public object ExecuteScalar(string query, Action<SqlCommand> configureCommand)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -82,6 +83,36 @@ namespace ErpGestao
                 }
             }
             return dataTable;
+        }
+
+        // Método para abrir a conexão
+        public bool AbrirConexao()
+        {
+            try
+            {
+                conexao.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao abrir a conexão: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        // Método para fechar a conexão
+        public void FecharConexao()
+        {
+            if (conexao.State == ConnectionState.Open)
+            {
+                conexao.Close();
+            }
+        }
+
+        // Método para obter a conexão
+        public SqlConnection ObterConexao()
+        {
+            return conexao;
         }
     }
 }
