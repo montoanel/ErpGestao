@@ -61,11 +61,13 @@ namespace ErpGestao
             FROM 
                 fcfo f
             LEFT JOIN 
-                cidade c ON f.fcfo_id_cidade = c.id";
+                cidade c ON f.fcfo_id_cidade = c.id
+            ORDER BY f.fcfo_codigo";  // Ordenar pelo ID do cliente para garantir que todos são carregados
 
                 var dataTable = conexaoBancoDeDados.ExecuteQueryWithDataTable(query, null);
 
                 // Adicionar depuração para exibir o conteúdo de cada linha
+                Console.WriteLine("Dados carregados do banco de dados:");
                 foreach (DataRow row in dataTable.Rows)
                 {
                     Console.WriteLine($"fcfo_codigo: {row["fcfo_codigo"]}, fcfo_tipo_pessoa: {row["fcfo_tipo_pessoa"]}, fcfo_isento: {row["fcfo_isento"]}, fcfo_cliente: {row["fcfo_cliente"]}, fcfo_fornecedor: {row["fcfo_fornecedor"]}, fcfo_funcionario: {row["fcfo_funcionario"]}, fcfo_membro: {row["fcfo_membro"]}");
@@ -93,10 +95,10 @@ namespace ErpGestao
                     Instagram = row.Field<string>("fcfo_instagram"),
                     Foto = row.Field<byte[]>("fcfo_foto"),
                     QrCode = row.Field<byte[]>("fcfo_qrcode"),
-                    ClienteFlag = row.Field<string>("fcfo_cliente")[0],  // Ajustado para char
+                    ClienteFlag = row.Field<string>("fcfo_cliente")[0],
                     FornecedorFlag = row.Field<string>("fcfo_fornecedor")?.FirstOrDefault() ?? '\0',
                     FuncionarioFlag = row.Field<string>("fcfo_funcionario")?.FirstOrDefault() ?? '\0',
-                    MembroFlag = row.Field<string>("fcfo_membro")?.FirstOrDefault() ?? '\0',
+                   MembroFlag = row.Field<string>("fcfo_membro")?.FirstOrDefault() ?? '\0',
                     IdCidade = row.Field<int>("fcfo_id_cidade"),
                     CidadeNome = row.Field<string>("cidade_nome"),
                     CidadeUf = row.Field<string>("cidade_uf")
@@ -109,14 +111,6 @@ namespace ErpGestao
                 MessageBox.Show($"Erro ao carregar clientes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-
-
-
-
-
 
 
 
@@ -163,8 +157,6 @@ namespace ErpGestao
                 MessageBox.Show($"Erro ao selecionar cliente: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
 
         private void btnBuscar_Click(object sender, EventArgs e)

@@ -74,12 +74,14 @@ namespace ErpGestao
             if (reader.Read())
             {
                 // Carregar os dados do cliente nos controles do formulário
+                //txtboxcodigofcfo.Text = reader["id_fcfo"].ToString();
                 txtboxnomefantasiafcfo.Text = reader["fcfo_nome_fantasia"].ToString();
                 msktxtboxcpfcnpjfcfo.Text = reader["fcfo_cpfcnpj"].ToString();
                 txtboxrgiefcfo.Text = reader["fcfo_rgie"].ToString();
                 txtboxenderecofcfo.Text = reader["fcfo_endereco"].ToString();
                 txtboxnumeroenderecofcfo.Text = reader["fcfo_endereco_numero"].ToString();
                 txtboxcomplementoenderecofcfo.Text = reader["fcfo_endereco_complemento"].ToString();
+               // cmbboxcidadefcfo.Text = reader["cidade_nome"].ToString() ;
                 txtboxcoordenadasfcfo.Text = reader["fcfo_coordenada"].ToString();
                 msktxtboxdatanascimentofcfo.Text = reader["fcfo_data_nascimento"] != DBNull.Value ? Convert.ToDateTime(reader["fcfo_data_nascimento"]).ToString("dd/MM/yyyy") : string.Empty;
                 msktxtboxdatacadastrofcfo.Text = Convert.ToDateTime(reader["fcfo_data_cadastro"]).ToString("dd/MM/yyyy");
@@ -125,8 +127,7 @@ namespace ErpGestao
             }
         }
                    
-        
-               
+                  
 
 
 
