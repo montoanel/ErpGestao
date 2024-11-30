@@ -85,6 +85,7 @@
             // 
             // dgvClientes
             // 
+            dgvClientes.AllowUserToOrderColumns = true;
             dgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClientes.Location = new Point(21, 102);
             dgvClientes.Name = "dgvClientes";
