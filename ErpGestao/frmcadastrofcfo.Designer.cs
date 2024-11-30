@@ -62,7 +62,6 @@
             txtboxreferenciaenderecofcfo = new TextBox();
             lblreferenciaenderecofcfo = new Label();
             lblcidadefcfo = new Label();
-            cmbboxcidadefcfo = new ComboBox();
             btncidadefcfo = new Button();
             lbluffcfo = new Label();
             txtboxuffcfo = new TextBox();
@@ -95,6 +94,7 @@
             msktxtboxcepfcfo = new MaskedTextBox();
             pctqrcode = new PictureBox();
             btnGerarQRCode = new Button();
+            txtboxcidade = new TextBox();
             pnldadoscadastraisfcfo.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pctboxfcfo).BeginInit();
@@ -415,23 +415,9 @@
             lblcidadefcfo.TabIndex = 30;
             lblcidadefcfo.Text = "Cidade";
             // 
-            // cmbboxcidadefcfo
-            // 
-            cmbboxcidadefcfo.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cmbboxcidadefcfo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbboxcidadefcfo.FormattingEnabled = true;
-            cmbboxcidadefcfo.Location = new Point(12, 356);
-            cmbboxcidadefcfo.Name = "cmbboxcidadefcfo";
-            cmbboxcidadefcfo.Size = new Size(364, 33);
-            cmbboxcidadefcfo.TabIndex = 17;
-            cmbboxcidadefcfo.DropDown += cmbboxcidadefcfo_DropDown;
-            cmbboxcidadefcfo.SelectedIndexChanged += cmbboxcidadefcfo_SelectedIndexChanged;
-            cmbboxcidadefcfo.TextUpdate += cmbboxcidadefcfo_TextUpdate;
-            cmbboxcidadefcfo.TextChanged += cmbboxcidadefcfo_TextChanged;
-            // 
             // btncidadefcfo
             // 
-            btncidadefcfo.Location = new Point(381, 356);
+            btncidadefcfo.Location = new Point(381, 358);
             btncidadefcfo.Name = "btncidadefcfo";
             btncidadefcfo.Size = new Size(53, 33);
             btncidadefcfo.TabIndex = 32;
@@ -442,7 +428,7 @@
             // lbluffcfo
             // 
             lbluffcfo.AutoSize = true;
-            lbluffcfo.Location = new Point(444, 328);
+            lbluffcfo.Location = new Point(450, 328);
             lbluffcfo.Name = "lbluffcfo";
             lbluffcfo.Size = new Size(33, 25);
             lbluffcfo.TabIndex = 33;
@@ -450,7 +436,7 @@
             // 
             // txtboxuffcfo
             // 
-            txtboxuffcfo.Location = new Point(440, 356);
+            txtboxuffcfo.Location = new Point(440, 358);
             txtboxuffcfo.Name = "txtboxuffcfo";
             txtboxuffcfo.ReadOnly = true;
             txtboxuffcfo.Size = new Size(53, 31);
@@ -656,7 +642,7 @@
             // 
             // txtboxcoordenadasfcfo
             // 
-            txtboxcoordenadasfcfo.Location = new Point(643, 356);
+            txtboxcoordenadasfcfo.Location = new Point(643, 358);
             txtboxcoordenadasfcfo.Name = "txtboxcoordenadasfcfo";
             txtboxcoordenadasfcfo.Size = new Size(422, 31);
             txtboxcoordenadasfcfo.TabIndex = 19;
@@ -710,11 +696,20 @@
             btnGerarQRCode.UseVisualStyleBackColor = true;
             btnGerarQRCode.Click += btnGerarQRCode_Click;
             // 
+            // txtboxcidade
+            // 
+            txtboxcidade.Location = new Point(12, 358);
+            txtboxcidade.Name = "txtboxcidade";
+            txtboxcidade.ReadOnly = true;
+            txtboxcidade.Size = new Size(363, 31);
+            txtboxcidade.TabIndex = 100;
+            // 
             // frmcadastrofcfo
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1513, 694);
+            Controls.Add(txtboxcidade);
             Controls.Add(btnGerarQRCode);
             Controls.Add(pctqrcode);
             Controls.Add(msktxtboxcepfcfo);
@@ -746,7 +741,6 @@
             Controls.Add(txtboxuffcfo);
             Controls.Add(lbluffcfo);
             Controls.Add(btncidadefcfo);
-            Controls.Add(cmbboxcidadefcfo);
             Controls.Add(lblcidadefcfo);
             Controls.Add(txtboxreferenciaenderecofcfo);
             Controls.Add(lblreferenciaenderecofcfo);
@@ -827,7 +821,6 @@
         private TextBox txtboxreferenciaenderecofcfo;
         private Label lblreferenciaenderecofcfo;
         private Label lblcidadefcfo;
-        private ComboBox cmbboxcidadefcfo;
         private Button btncidadefcfo;
         private Label lbluffcfo;
         private TextBox txtboxuffcfo;
@@ -862,5 +855,6 @@
         private TextBox txtboxcodigofcfo;
         private PictureBox pctqrcode;
         private Button btnGerarQRCode;
+        private TextBox txtboxcidade;
     }
 }

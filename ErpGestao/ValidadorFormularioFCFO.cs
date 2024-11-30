@@ -17,7 +17,7 @@ namespace ErpGestao
             TextBox endereco,
             TextBox numeroEndereco,
             TextBox bairro,
-            ComboBox cidade,
+            TextBox cidade,
             MaskedTextBox cep,
             MaskedTextBox dataNascimento,
             MaskedTextBox dataCadastro,
@@ -48,6 +48,13 @@ namespace ErpGestao
                 razaoSocial.Focus();
                 return false;
             }
+            if (string.IsNullOrWhiteSpace(cidade.Text))
+            {
+                MessageBox.Show("Por favor, preencha a Cidade.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cidade.Focus();
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(endereco.Text))
             {
                 MessageBox.Show("Por favor, preencha o Endereço.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -66,12 +73,7 @@ namespace ErpGestao
                 bairro.Focus();
                 return false;
             }
-            if (cidade.SelectedIndex == -1)
-            {
-                MessageBox.Show("Por favor, selecione uma Cidade.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cidade.Focus();
-                return false;
-            }
+
             if (string.IsNullOrWhiteSpace(UtilitariosRemoverMascaras.RemoverMascara(cep)))
             {
                 MessageBox.Show("Por favor, preencha o CEP.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);

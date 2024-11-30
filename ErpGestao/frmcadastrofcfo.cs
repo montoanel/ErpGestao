@@ -37,8 +37,7 @@ namespace ErpGestao
 
 
             // Configurar propriedades de autocompletar combo box cidades
-            cmbboxcidadefcfo.AutoCompleteMode = AutoCompleteMode.None;
-            cmbboxcidadefcfo.AutoCompleteSource = AutoCompleteSource.ListItems;
+           
 
         }
         // Construtor atualizado para aceitar clienteId e conexaoBancoDeDados
@@ -50,22 +49,23 @@ namespace ErpGestao
             CarregarDadosCliente(clienteId);  // Chama o método para carregar os dados do cliente
         }
         // Método para carregar os dados do cliente
+        // Método para carregar os dados do cliente
         public void CarregarDadosCliente(int clienteId)
         {
             string query = @"
-        SELECT 
-            f.fcfo_codigo, f.fcfo_tipo_pessoa, f.fcfo_cpfcnpj, f.fcfo_rgie, f.fcfo_isento,
-            f.fcfo_nome_fantasia, f.fcfo_razao_social, f.fcfo_endereco, f.fcfo_endereco_numero,
-            f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
-            f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
-            f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
-            f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
-        FROM 
-            fcfo f
-        LEFT JOIN 
-            cidade c ON f.fcfo_id_cidade = c.id
-        WHERE 
-            f.fcfo_codigo = @clienteId";
+SELECT 
+    f.fcfo_codigo, f.fcfo_tipo_pessoa, f.fcfo_cpfcnpj, f.fcfo_rgie, f.fcfo_isento,
+    f.fcfo_nome_fantasia, f.fcfo_razao_social, f.fcfo_endereco, f.fcfo_endereco_numero,
+    f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
+    f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
+    f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
+    f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
+FROM 
+    fcfo f
+LEFT JOIN 
+    cidade c ON f.fcfo_id_cidade = c.id
+WHERE 
+    f.fcfo_codigo = @clienteId";
 
             SqlCommand cmd = new SqlCommand(query, conexaoBancoDeDados.ObterConexao());
             cmd.Parameters.AddWithValue("@clienteId", clienteId);
@@ -74,14 +74,18 @@ namespace ErpGestao
             if (reader.Read())
             {
                 // Carregar os dados do cliente nos controles do formulário
-                //txtboxcodigofcfo.Text = reader["id_fcfo"].ToString();
+                txtboxcodigofcfo.Text = reader["fcfo_codigo"].ToString();
                 txtboxnomefantasiafcfo.Text = reader["fcfo_nome_fantasia"].ToString();
+                txtboxrazaosocialfcfo.Text = reader["fcfo_razao_social"].ToString();
                 msktxtboxcpfcnpjfcfo.Text = reader["fcfo_cpfcnpj"].ToString();
                 txtboxrgiefcfo.Text = reader["fcfo_rgie"].ToString();
                 txtboxenderecofcfo.Text = reader["fcfo_endereco"].ToString();
                 txtboxnumeroenderecofcfo.Text = reader["fcfo_endereco_numero"].ToString();
                 txtboxcomplementoenderecofcfo.Text = reader["fcfo_endereco_complemento"].ToString();
-               // cmbboxcidadefcfo.Text = reader["cidade_nome"].ToString() ;
+                txtboxcidade.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
+                txtboxuffcfo.Text = reader["cidade_uf"].ToString();
+                //txtboxcidade.Text = reader["cidade_nome"].ToString();
+                // cmbboxcidadefcfo.Text = reader["cidade_nome"].ToString(); //remover
                 txtboxcoordenadasfcfo.Text = reader["fcfo_coordenada"].ToString();
                 msktxtboxdatanascimentofcfo.Text = reader["fcfo_data_nascimento"] != DBNull.Value ? Convert.ToDateTime(reader["fcfo_data_nascimento"]).ToString("dd/MM/yyyy") : string.Empty;
                 msktxtboxdatacadastrofcfo.Text = Convert.ToDateTime(reader["fcfo_data_cadastro"]).ToString("dd/MM/yyyy");
@@ -109,11 +113,12 @@ namespace ErpGestao
                     pctqrcode.Image = null;
                 }
 
+
                 chkboxcliente.Checked = reader["fcfo_cliente"].ToString() == "S";
                 chkboxfornecedor.Checked = reader["fcfo_fornecedor"].ToString() == "S";
                 chkboxfuncionario.Checked = reader["fcfo_funcionario"].ToString() == "S";
                 chkboxmembro.Checked = reader["fcfo_membro"].ToString() == "S";
-                cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
+               // cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";//remover
             }
             reader.Close();
         }
@@ -126,20 +131,12 @@ namespace ErpGestao
                 return Image.FromStream(ms);
             }
         }
-                   
-                  
 
 
 
         private void GerarCodigoCliente()
         {
             txtboxcodigofcfo.Text = GeradorCodigo.GerarNovoCodigoCliente();
-        }
-             
-
-        private void cmbboxcidadefcfo_TextUpdate(object sender, EventArgs e)
-        {
-           
         }
 
         
@@ -171,35 +168,9 @@ namespace ErpGestao
             msktxtboxcpfcnpjfcfo.Mask = "000,000,000-00";
            msktxtboxcepfcfo.Mask = "00000-000";
 
-            try
-            {
-                PreencherComboBoxCidades();
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao carregar as cidades:{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
         }
-
-        private void PreencherComboBoxCidades()
-        {
-            // Obter a lista de cidades
-            List<Cidade> cidades = Cidade.ObterTodasCidades();
-
-            // Configurar as propriedades do ComboBox
-            cmbboxcidadefcfo.DisplayMember = "NomeComEstado";
-            cmbboxcidadefcfo.ValueMember = "Id";
-            cmbboxcidadefcfo.DataSource = cidades;
-
-            // Definir o índice 0 como o selecionado por padrão
-            if (cmbboxcidadefcfo.Items.Count > 0)
-            {
-                cmbboxcidadefcfo.SelectedIndex = 0;
-            }
-        }
-
-
+               
 
 
         private void cmbtipofcfo_SelectedIndexChanged(object sender, EventArgs e)
@@ -267,35 +238,8 @@ namespace ErpGestao
                 }
             }
         }
-
-       
-        // Evento DropDown do ComboBox
-        private void cmbboxcidadefcfo_DropDown(object sender, EventArgs e)
-        {
-            if (cmbboxcidadefcfo.DataSource == null)
-            {
-                PreencherComboBoxCidades();
-            }
-        }
-        private void cmbboxcidadefcfo_TextChanged(object sender, EventArgs e)
-        {
-            AtualizarEstadoCidade();
-        }
-
-        private void cmbboxcidadefcfo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            AtualizarEstadoCidade();
-        }
-
-        private void AtualizarEstadoCidade()
-        {
-            if (cmbboxcidadefcfo.SelectedItem is Cidade cidadeSelecionada)
-            {
-                txtboxuffcfo.Text = cidadeSelecionada.Uf;
-            }
-
-        }
-
+             
+        
         private void btncidadefcfo_Click(object sender, EventArgs e)
         {
             using (var frmSelecionarCidade = new frmSelecionarCidade())
@@ -305,30 +249,13 @@ namespace ErpGestao
                     var cidadeSelecionada = frmSelecionarCidade.CidadeSelecionada;
                     if (cidadeSelecionada != null)
                     {
-                        // Atualizar o ComboBox apenas com o Nome da Cidade
-                        cmbboxcidadefcfo.Text = cidadeSelecionada.Nome;
-
+                        
                         // Atualizar o TextBox com a UF do Estado
                         txtboxuffcfo.Text = cidadeSelecionada.Uf;
 
-                        // Redefinir o DataSource para garantir a atualização
-                        cmbboxcidadefcfo.DataSource = null;
-                        cmbboxcidadefcfo.DataSource = Cidade.ObterTodasCidades();
-                        cmbboxcidadefcfo.DisplayMember = "NomeComEstado"; // preencher Nome - UF
-                        cmbboxcidadefcfo.ValueMember = "Id";
-
-                        // Set the selected value explicitly
-                        foreach (var item in cmbboxcidadefcfo.Items)
-                        {
-                            if (((Cidade)item).Id == cidadeSelecionada.Id)
-                            {
-                                cmbboxcidadefcfo.SelectedItem = item;
-                                break;
-                            }
-                        }
-
-                        // Remover mensagem de depuração
-                        //MessageBox.Show($"Novo valor do ComboBox: {cmbboxcidadefcfo.Text}");
+                        // Atualizar o TextBox com a cidade selecionada
+                        txtboxcidade.Text = $"{cidadeSelecionada.Nome} - {cidadeSelecionada.Uf}";
+                                              
                     }
                 }
             }
@@ -396,7 +323,7 @@ namespace ErpGestao
                           $"Endereço: {txtboxenderecofcfo.Text}\n" +
                           $"Número: {txtboxnumeroenderecofcfo.Text}\n" +
                           $"Bairro: {txtboxbairrofcfo.Text}\n" +
-                          $"Cidade: {cmbboxcidadefcfo.Text}\n" +
+                          $"Cidade: {txtboxcidade.Text}\n" +
                           $"Estado: {txtboxuffcfo.Text}"+
                           $"Telefone: {msktxtboxtelefone1contatofcfo.Text}\n" +
                           $"E-mail: {txtboxemailfcfo.Text}";
@@ -421,13 +348,10 @@ namespace ErpGestao
                 txtboxrazaosocialfcfo,
                 txtboxenderecofcfo,
                 txtboxnumeroenderecofcfo,
-               // txtboxcomplementoenderecofcfo,
                 txtboxbairrofcfo,
-               // txtboxreferenciaenderecofcfo,
-                cmbboxcidadefcfo,
+                txtboxcidade,
                 msktxtboxcepfcfo,
-               // txtboxcoordenadasfcfo,
-                msktxtboxdatanascimentofcfo,
+               msktxtboxdatanascimentofcfo,
                 msktxtboxdatacadastrofcfo,
                 pctboxfcfo,
                 pctqrcode))
@@ -441,7 +365,7 @@ namespace ErpGestao
                 string endereco = txtboxenderecofcfo.Text;
                 string numero = txtboxnumeroenderecofcfo.Text;
                 string bairro = txtboxbairrofcfo.Text;
-                string cidade = cmbboxcidadefcfo.Text;
+                string cidade = txtboxcidade.Text;
                 string estado = txtboxuffcfo.Text;
                 string telefone = msktxtboxtelefone1contatofcfo.Text;
                 string email = txtboxemailfcfo.Text;
