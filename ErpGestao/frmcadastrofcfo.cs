@@ -53,7 +53,6 @@ namespace ErpGestao
         public void CarregarDadosCliente(int clienteId)
         {
             string query = @"
-<<<<<<< HEAD
 SELECT 
     f.fcfo_codigo, f.fcfo_tipo_pessoa, f.fcfo_cpfcnpj, f.fcfo_rgie, f.fcfo_isento,
     f.fcfo_nome_fantasia, f.fcfo_razao_social, f.fcfo_endereco, f.fcfo_endereco_numero,
@@ -67,21 +66,6 @@ LEFT JOIN
     cidade c ON f.fcfo_id_cidade = c.id
 WHERE 
     f.fcfo_codigo = @clienteId";
-=======
-    SELECT 
-        f.fcfo_codigo, f.fcfo_tipo_pessoa, f.fcfo_cpfcnpj, f.fcfo_rgie, f.fcfo_isento,
-        f.fcfo_nome_fantasia, f.fcfo_razao_social, f.fcfo_endereco, f.fcfo_endereco_numero,
-        f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
-        f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
-        f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
-        f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
-    FROM 
-        fcfo f
-    LEFT JOIN 
-        cidade c ON f.fcfo_id_cidade = c.id
-    WHERE 
-        f.fcfo_codigo = @clienteId";
->>>>>>> 7c637b2ca99f15ddf89645630752a546f2db7805
 
             SqlCommand cmd = new SqlCommand(query, conexaoBancoDeDados.ObterConexao());
             cmd.Parameters.AddWithValue("@clienteId", clienteId);
@@ -98,14 +82,10 @@ WHERE
                 txtboxenderecofcfo.Text = reader["fcfo_endereco"].ToString();
                 txtboxnumeroenderecofcfo.Text = reader["fcfo_endereco_numero"].ToString();
                 txtboxcomplementoenderecofcfo.Text = reader["fcfo_endereco_complemento"].ToString();
-<<<<<<< HEAD
                 txtboxcidade.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
                 txtboxuffcfo.Text = reader["cidade_uf"].ToString();
                 //txtboxcidade.Text = reader["cidade_nome"].ToString();
                 // cmbboxcidadefcfo.Text = reader["cidade_nome"].ToString(); //remover
-=======
-                cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
->>>>>>> 7c637b2ca99f15ddf89645630752a546f2db7805
                 txtboxcoordenadasfcfo.Text = reader["fcfo_coordenada"].ToString();
                 msktxtboxdatanascimentofcfo.Text = reader["fcfo_data_nascimento"] != DBNull.Value ? Convert.ToDateTime(reader["fcfo_data_nascimento"]).ToString("dd/MM/yyyy") : string.Empty;
                 msktxtboxdatacadastrofcfo.Text = Convert.ToDateTime(reader["fcfo_data_cadastro"]).ToString("dd/MM/yyyy");
@@ -138,10 +118,7 @@ WHERE
                 chkboxfornecedor.Checked = reader["fcfo_fornecedor"].ToString() == "S";
                 chkboxfuncionario.Checked = reader["fcfo_funcionario"].ToString() == "S";
                 chkboxmembro.Checked = reader["fcfo_membro"].ToString() == "S";
-<<<<<<< HEAD
                // cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";//remover
-=======
->>>>>>> 7c637b2ca99f15ddf89645630752a546f2db7805
             }
             reader.Close();
         }
@@ -154,12 +131,6 @@ WHERE
                 return Image.FromStream(ms);
             }
         }
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 7c637b2ca99f15ddf89645630752a546f2db7805
 
 
 
@@ -342,7 +313,7 @@ WHERE
 
 
         }
-
+        //meutoba
         private void GerarQRCode()
         {
             string data = $"Pessoa: {cmbtipofcfo.Text}\n" +
@@ -362,7 +333,7 @@ WHERE
             pctqrcode.Image = qrCode;
             pctqrcode.SizeMode = PictureBoxSizeMode.StretchImage;
         }
-
+        //meutoba2
         private void btnGerarQRCode_Click(object sender, EventArgs e)
         {
             GerarQRCode();
