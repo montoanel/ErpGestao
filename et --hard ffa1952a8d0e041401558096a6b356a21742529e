@@ -1,0 +1,156 @@
+[33mcommit d865f1b5663860f486fa8c7ef2f24a7630a02e52[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Merge: ff1a952 7c637b2
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sat Nov 30 18:30:10 2024 -0400
+
+    Resolver Conflitos
+
+[33mcommit ff1a952a8d0e041401558096a6b356a21742529e[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sat Nov 30 18:28:44 2024 -0400
+
+    FormularioClienteOK
+
+[33mcommit 6184aa4e27cb50a494ce30c2c28cbe1c8206546e[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sat Nov 30 15:19:21 2024 -0400
+
+    BotaoBuscarAlterafuncionais
+
+[33mcommit 01d82d077433f74cb5db59f87afb885816254282[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sat Nov 30 15:12:28 2024 -0400
+
+    BotaoAlterar_AposBuscaOk
+
+[33mcommit 7c637b2ca99f15ddf89645630752a546f2db7805[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Fri Nov 22 01:09:41 2024 -0400
+
+    Quase corrigido frmClientes
+
+[33mcommit 591ef32611e8170986c9adb8b3032708a051272e[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Fri Nov 22 01:05:35 2024 -0400
+
+    Correcao frmClientes
+
+[33mcommit efed71b4e92be075c5e0d789f9df6703483e2b26[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Fri Nov 22 00:02:32 2024 -0400
+
+    Quaaaaaaaaaaaaaaaaaaaseeeeeeeeeeeee la
+
+[33mcommit 56a675ae03197254e48370aa2d1b41fd42191046[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Thu Nov 21 23:09:02 2024 -0400
+
+    Quaaaaaaaaase fncionando o botao alterar
+
+[33mcommit 87e2746f77e49d0ea8b9d7db038e6f749c0c2ef0[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Thu Nov 21 20:24:25 2024 -0400
+
+    Antes alterar rowIndex
+
+[33mcommit 92f993caf611c3c76709c3d92ffc416bbbd297fd[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Thu Nov 21 17:13:14 2024 -0400
+
+    Utilizando string de conexao app.config
+
+[33mcommit 6bb8afc494b5460b06c210972635be5fdc03a071[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Thu Nov 21 16:23:48 2024 -0400
+
+    Ajustando app.config
+
+[33mcommit f037e639056c47c24ac0050707d35008ec69c69b[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Wed Nov 20 22:40:01 2024 -0400
+
+    validacao dados fcfo ao imprimir
+
+[33mcommit b152932ff3a8ab8f4580c6ac40b56e0d2ba105ea[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Wed Nov 20 16:11:27 2024 -0400
+
+    Por hora ok
+
+[33mcommit 2679cb721b5aeeca0a82465434819d17cff7f0d4[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Wed Nov 20 12:06:59 2024 -0400
+
+    Select tabela de cidades ok - falta botao selecionar
+
+[33mcommit a90430d73b3b1b3f555dcb76d6cdc4d5f815448d[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Mon Nov 18 21:05:15 2024 -0400
+
+    cidades ainda nao estao sendo fitlradas
+
+[33mcommit d17de05703f219e822129d9084ec89f7f34f69e0[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Mon Nov 18 18:21:18 2024 -0400
+
+    Antes de alterar classe cidade
+
+[33mcommit 89070c8ae697128f97b8ab18b54989f6657c187c[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sun Nov 17 23:48:55 2024 -0400
+
+    Select automatico
+
+[33mcommit 1eede6182491cd190a540cae242ab90572bb6138[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sun Nov 17 18:19:44 2024 -0400
+
+    Data grid view
+
+[33mcommit 41f6b5f5413984215abb69a607914ee6a12143eb[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sun Nov 17 03:24:29 2024 -0400
+
+    PdfGeneratorCadastroFCFO
+
+[33mcommit 651603f80a7d374cc84509ef8c5812bfab65d6f0[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sat Nov 16 13:20:55 2024 -0400
+
+    qrCode
+
+[33mcommit e8a827b3a602379991c34e7c19face13f94f4b8f[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Sat Nov 16 12:23:03 2024 -0400
+
+    Captura de Imagem
+
+[33mcommit 5ee91c3852b18880e156eabade580a1ee2f24083[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Fri Nov 15 17:34:03 2024 -0400
+
+    Antes de corrigir o autocompletar
+
+[33mcommit 3662472513c84e700ea5f53304a8b974f8d68ce0[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Fri Nov 15 16:22:52 2024 -0400
+
+    validacao campo cpfCnpj
+
+[33mcommit cc1506da8ed9482f4f861a1ebb1cbb48245fd6d5[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Fri Nov 15 10:49:11 2024 -0400
+
+    Segundo commit da aplicacao
+
+[33mcommit dda2682afad97f583503bcc9afe7432620fb05d3[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Thu Nov 14 23:03:55 2024 -0400
+
+    Adicionar arquivos de projeto.
+
+[33mcommit aa0dd2cdf55dc3fe0c7bdbe07403a28fe67dd377[m
+Author: montoanel <renatomontoanel@outlook.com>
+Date:   Thu Nov 14 23:03:53 2024 -0400
+
+    Adicione .gitattributes e .gitignore.
