@@ -37,7 +37,7 @@ namespace ErpGestao
 
 
             // Configurar propriedades de autocompletar combo box cidades
-           
+
 
         }
         // Construtor atualizado para aceitar clienteId e conexaoBancoDeDados
@@ -118,7 +118,7 @@ WHERE
                 chkboxfornecedor.Checked = reader["fcfo_fornecedor"].ToString() == "S";
                 chkboxfuncionario.Checked = reader["fcfo_funcionario"].ToString() == "S";
                 chkboxmembro.Checked = reader["fcfo_membro"].ToString() == "S";
-               // cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";//remover
+                // cmbboxcidadefcfo.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";//remover
             }
             reader.Close();
         }
@@ -139,7 +139,7 @@ WHERE
             txtboxcodigofcfo.Text = GeradorCodigo.GerarNovoCodigoCliente();
         }
 
-        
+
         private void label1_Click(object sender, EventArgs e)
         {
             // Lógica do evento de clique no label
@@ -148,9 +148,9 @@ WHERE
         private void chkboxcliente_CheckedChanged(object sender, EventArgs e)
         {
             // Verificar se pelo menos um CheckBox está marcado
-            if (!chkboxcliente.Checked && !chkboxfornecedor.Checked && !chkboxfuncionario.Checked && !chkboxmembro.Checked) 
+            if (!chkboxcliente.Checked && !chkboxfornecedor.Checked && !chkboxfuncionario.Checked && !chkboxmembro.Checked)
             { //Marcar chkboxcliente se todos estiverem desmarcados
-              chkboxcliente.Checked = true; 
+                chkboxcliente.Checked = true;
             }
         }
 
@@ -166,11 +166,11 @@ WHERE
             msktxtboxdatanascimentofcfo.Mask = "00/00/0000";
             msktxtboxdatacadastrofcfo.Mask = "00/00/0000";
             msktxtboxcpfcnpjfcfo.Mask = "000,000,000-00";
-           msktxtboxcepfcfo.Mask = "00000-000";
+            msktxtboxcepfcfo.Mask = "00000-000";
 
-            
+
         }
-               
+
 
 
         private void cmbtipofcfo_SelectedIndexChanged(object sender, EventArgs e)
@@ -238,8 +238,8 @@ WHERE
                 }
             }
         }
-             
-        
+
+
         private void btncidadefcfo_Click(object sender, EventArgs e)
         {
             using (var frmSelecionarCidade = new frmSelecionarCidade())
@@ -249,13 +249,13 @@ WHERE
                     var cidadeSelecionada = frmSelecionarCidade.CidadeSelecionada;
                     if (cidadeSelecionada != null)
                     {
-                        
+
                         // Atualizar o TextBox com a UF do Estado
                         txtboxuffcfo.Text = cidadeSelecionada.Uf;
 
                         // Atualizar o TextBox com a cidade selecionada
                         txtboxcidade.Text = $"{cidadeSelecionada.Nome} - {cidadeSelecionada.Uf}";
-                                              
+
                     }
                 }
             }
@@ -324,7 +324,7 @@ WHERE
                           $"Número: {txtboxnumeroenderecofcfo.Text}\n" +
                           $"Bairro: {txtboxbairrofcfo.Text}\n" +
                           $"Cidade: {txtboxcidade.Text}\n" +
-                          $"Estado: {txtboxuffcfo.Text}"+
+                          $"Estado: {txtboxuffcfo.Text}" +
                           $"Telefone: {msktxtboxtelefone1contatofcfo.Text}\n" +
                           $"E-mail: {txtboxemailfcfo.Text}";
 
@@ -342,6 +342,7 @@ WHERE
         private void btnimprimirfcfo_Click(object sender, EventArgs e)
         {
             if (ValidadorFormularioFCFO.VerificarCamposObrigatorios(
+                txtboxcodigofcfo,
                 msktxtboxcpfcnpjfcfo,
                 txtboxrgiefcfo,
                 txtboxnomefantasiafcfo,
@@ -351,7 +352,7 @@ WHERE
                 txtboxbairrofcfo,
                 txtboxcidade,
                 msktxtboxcepfcfo,
-               msktxtboxdatanascimentofcfo,
+                msktxtboxdatanascimentofcfo,
                 msktxtboxdatacadastrofcfo,
                 pctboxfcfo,
                 pctqrcode))
@@ -370,8 +371,6 @@ WHERE
                 string telefone = msktxtboxtelefone1contatofcfo.Text;
                 string email = txtboxemailfcfo.Text;
 
-
-
                 System.Drawing.Image fotoCliente = pctboxfcfo.Image;
                 System.Drawing.Image qrCodeImage = pctqrcode.Image;
 
@@ -379,6 +378,7 @@ WHERE
                     pessoa, cpfCnpj, rgIe, nome, endereco, numero, bairro, cidade, estado, telefone, email, fotoCliente, qrCodeImage);
             }
         }
+
 
 
         private void btncancelarfcfo_Click(object sender, EventArgs e)
@@ -396,11 +396,38 @@ WHERE
 
         private void btncancelarfcfo_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Alt && e.KeyCode == Keys.C)
+            if (e.Alt && e.KeyCode == Keys.C)
             {
                 btncancelarfcfo.PerformClick();//executa a acao do botao
             }
         }
+
+        private void btngravarfcfo_Click(object sender, EventArgs e)
+        {
+            // Chama a classe ValidadorFormularioFCFO para verificar os campos obrigatórios
+            if (ValidadorFormularioFCFO.VerificarCamposObrigatorios(
+                txtboxcodigofcfo, msktxtboxcpfcnpjfcfo, txtboxrgiefcfo, txtboxnomefantasiafcfo, txtboxrazaosocialfcfo,
+                txtboxenderecofcfo, txtboxnumeroenderecofcfo, txtboxbairrofcfo,
+                txtboxcidade, msktxtboxcepfcfo, msktxtboxdatanascimentofcfo, msktxtboxdatacadastrofcfo,
+                pctboxfcfo, pctqrcode))
+            {
+                // Se os dados estiverem corretos, exibe a MessageBox para confirmar a gravação
+                DialogResult resultado = MessageBox.Show("Confirmar gravação dos dados?", "Confirmação", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (resultado == DialogResult.OK)
+                {
+                    // Chama a classe GravadorDadosFCFO para gravar os dados no banco de dados
+                    GravadorDadosFCFO.GravarDados(
+                        txtboxcodigofcfo.Text, txtboxnomefantasiafcfo.Text, txtboxrazaosocialfcfo.Text, msktxtboxcpfcnpjfcfo.Text,
+                        txtboxrgiefcfo.Text, txtboxenderecofcfo.Text, txtboxnumeroenderecofcfo.Text, txtboxcomplementoenderecofcfo.Text,
+                        txtboxcidade.Text, txtboxcoordenadasfcfo.Text, msktxtboxdatanascimentofcfo.Text, msktxtboxdatacadastrofcfo.Text,
+                        txtboxnomecontatofcfo.Text, msktxtboxtelefone1contatofcfo.Text, msktxtboxtelefone2contatofcfo.Text, txtboxemailfcfo.Text,
+                        txtboxinstagramfcfo.Text, pctboxfcfo.Image, pctqrcode.Image);
+
+                    // Exibe uma mensagem de sucesso
+                    MessageBox.Show("Dados gravados com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
     }
 }
-

@@ -10,19 +10,21 @@ namespace ErpGestao
     public class ValidadorFormularioFCFO
     {
         public static bool VerificarCamposObrigatorios(
-            MaskedTextBox cpfCnpj,
-            TextBox rgIe,
-            TextBox nomeFantasia,
-            TextBox razaoSocial,
-            TextBox endereco,
-            TextBox numeroEndereco,
-            TextBox bairro,
-            TextBox cidade,
-            MaskedTextBox cep,
-            MaskedTextBox dataNascimento,
-            MaskedTextBox dataCadastro,
-            PictureBox fotoCliente,
-            PictureBox qrcodeCliente)
+
+                TextBox txtboxcodigofcfo,
+                MaskedTextBox cpfCnpj,
+                TextBox rgIe,
+                TextBox nomeFantasia,
+                TextBox razaoSocial,
+                TextBox endereco,
+                TextBox numeroEndereco,
+                TextBox bairro,
+                TextBox cidade,
+                MaskedTextBox cep,
+                MaskedTextBox dataNascimento,
+                MaskedTextBox dataCadastro,
+                PictureBox fotoCliente,
+                PictureBox qrcodeCliente)
         {
             if (string.IsNullOrWhiteSpace(UtilitariosRemoverMascaras.RemoverMascara(cpfCnpj)))
             {

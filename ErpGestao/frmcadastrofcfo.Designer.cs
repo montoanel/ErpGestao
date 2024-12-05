@@ -95,6 +95,7 @@
             pctqrcode = new PictureBox();
             btnGerarQRCode = new Button();
             txtboxcidade = new TextBox();
+            txtboxidcidade = new TextBox();
             pnldadoscadastraisfcfo.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pctboxfcfo).BeginInit();
@@ -578,6 +579,7 @@
             btngravarfcfo.TabIndex = 28;
             btngravarfcfo.Text = "&Gravar";
             btngravarfcfo.UseVisualStyleBackColor = true;
+            btngravarfcfo.Click += btngravarfcfo_Click;
             // 
             // btnimprimirfcfo
             // 
@@ -698,17 +700,27 @@
             // 
             // txtboxcidade
             // 
-            txtboxcidade.Location = new Point(12, 358);
+            txtboxcidade.Location = new Point(67, 358);
             txtboxcidade.Name = "txtboxcidade";
             txtboxcidade.ReadOnly = true;
-            txtboxcidade.Size = new Size(363, 31);
+            txtboxcidade.Size = new Size(308, 31);
             txtboxcidade.TabIndex = 100;
+            txtboxcidade.TextAlign = HorizontalAlignment.Center;
+            // 
+            // txtboxidcidade
+            // 
+            txtboxidcidade.Location = new Point(12, 360);
+            txtboxidcidade.Name = "txtboxidcidade";
+            txtboxidcidade.ReadOnly = true;
+            txtboxidcidade.Size = new Size(49, 31);
+            txtboxidcidade.TabIndex = 101;
             // 
             // frmcadastrofcfo
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1513, 694);
+            Controls.Add(txtboxidcidade);
             Controls.Add(txtboxcidade);
             Controls.Add(btnGerarQRCode);
             Controls.Add(pctqrcode);
@@ -856,5 +868,6 @@
         private PictureBox pctqrcode;
         private Button btnGerarQRCode;
         private TextBox txtboxcidade;
+        private TextBox txtboxidcidade;
     }
 }
