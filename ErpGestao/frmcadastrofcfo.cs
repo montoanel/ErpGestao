@@ -413,19 +413,48 @@ WHERE
                 DialogResult resultado = MessageBox.Show("Confirmar gravação dos dados?", "Confirmação", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (resultado == DialogResult.OK)
                 {
-                    // Chama a classe GravadorDadosFCFO para gravar os dados no banco de dados
-                    GravadorDadosFCFO.GravarDados(
-                        txtboxcodigofcfo.Text, txtboxnomefantasiafcfo.Text, txtboxrazaosocialfcfo.Text, msktxtboxcpfcnpjfcfo.Text,
-                        txtboxrgiefcfo.Text, txtboxenderecofcfo.Text, txtboxnumeroenderecofcfo.Text, txtboxcomplementoenderecofcfo.Text,
-                        txtboxcidade.Text, txtboxcoordenadasfcfo.Text, msktxtboxdatanascimentofcfo.Text, msktxtboxdatacadastrofcfo.Text,
-                        txtboxnomecontatofcfo.Text, msktxtboxtelefone1contatofcfo.Text, msktxtboxtelefone2contatofcfo.Text, txtboxemailfcfo.Text,
-                        txtboxinstagramfcfo.Text, pctboxfcfo.Image, pctqrcode.Image);
+                    try
+                    {
+                        // Validação do IdCidade
+                        if (!int.TryParse(txtboxidcidade.Text, out int idCidade))
+                        {
+                            MessageBox.Show("O valor do ID da cidade deve ser um número inteiro.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
 
-                    // Exibe uma mensagem de sucesso
-                    MessageBox.Show("Dados gravados com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        string tipoPessoa = "F"; // Ajuste para atribuir o valor correto para tipoPessoa (F, J, R)
+                                                 // Você pode modificar a atribuição acima conforme necessário para seu contexto
+
+                        // Determinação do valor de isento com base no checkbox
+                        string isento = chkboxcisentofcfo.Checked ? "S" : "N";
+
+                        // Chama a classe GravadorDadosFCFO para gravar os dados no banco de dados
+                        GravadorDadosFCFO.GravarDados(
+                            tipoPessoa, txtboxnomefantasiafcfo.Text, txtboxrazaosocialfcfo.Text, msktxtboxcpfcnpjfcfo.Text,
+                            txtboxrgiefcfo.Text, txtboxenderecofcfo.Text, txtboxnumeroenderecofcfo.Text, txtboxcomplementoenderecofcfo.Text,
+                            idCidade.ToString(), txtboxcoordenadasfcfo.Text, msktxtboxdatanascimentofcfo.Text, msktxtboxdatacadastrofcfo.Text,
+                            txtboxnomecontatofcfo.Text, msktxtboxtelefone1contatofcfo.Text, msktxtboxtelefone2contatofcfo.Text, txtboxemailfcfo.Text,
+                            txtboxinstagramfcfo.Text, pctboxfcfo.Image, pctqrcode.Image, isento);
+
+                        // Exibe uma mensagem de sucesso
+                        MessageBox.Show("Dados gravados com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Trata erros de gravação
+                        MessageBox.Show($"Erro ao gravar os dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
+
+
+
+
+
+
+
+
 
     }
 }

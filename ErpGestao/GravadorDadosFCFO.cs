@@ -10,10 +10,10 @@ namespace ErpGestao
     public class GravadorDadosFCFO
     {
         public static void GravarDados(
-            string codigo, string nomeFantasia, string razaoSocial, string cpfCnpj, string rgIe,
+            string tipoPessoa, string nomeFantasia, string razaoSocial, string cpfCnpj, string rgIe,
             string endereco, string enderecoNumero, string enderecoComplemento, string idCidade,
             string coordenada, string dataNascimento, string dataCadastro, string nomeContato,
-            string telefone1, string telefone2, string email, string instagram, Image foto, Image qrCode)
+            string telefone1, string telefone2, string email, string instagram, Image foto, Image qrCode, string isento)
         {
             ConexaoBancoDeDados conexaoBancoDeDados = new ConexaoBancoDeDados();
 
@@ -25,17 +25,17 @@ namespace ErpGestao
 
             string query = @"
                 INSERT INTO fcfo 
-                (fcfo_codigo, fcfo_nome_fantasia, fcfo_razao_social, fcfo_cpfcnpj, fcfo_rgie, 
+                (fcfo_tipo_pessoa, fcfo_nome_fantasia, fcfo_razao_social, fcfo_cpfcnpj, fcfo_rgie, 
                  fcfo_endereco, fcfo_endereco_numero, fcfo_endereco_complemento, fcfo_id_cidade, 
                  fcfo_coordenada, fcfo_data_nascimento, fcfo_data_cadastro, fcfo_nome_contato, 
                  fcfo_telefone1, fcfo_telefone2, fcfo_email, fcfo_instagram, fcfo_foto, fcfo_qrcode, 
-                 fcfo_cliente, fcfo_fornecedor, fcfo_funcionario, fcfo_membro) 
+                 fcfo_isento, fcfo_cliente, fcfo_fornecedor, fcfo_funcionario, fcfo_membro) 
                 VALUES 
-                (@Codigo, @NomeFantasia, @RazaoSocial, @CpfCnpj, @RgIe, 
+                (@TipoPessoa, @NomeFantasia, @RazaoSocial, @CpfCnpj, @RgIe, 
                  @Endereco, @EnderecoNumero, @EnderecoComplemento, @IdCidade, 
                  @Coordenada, @DataNascimento, @DataCadastro, @NomeContato, 
                  @Telefone1, @Telefone2, @Email, @Instagram, @Foto, @QrCode, 
-                 @ClienteFlag, @FornecedorFlag, @FuncionarioFlag, @MembroFlag)";
+                 @Isento, @ClienteFlag, @FornecedorFlag, @FuncionarioFlag, @MembroFlag)";
 
             using (SqlConnection conn = conexaoBancoDeDados.ObterConexao())
             {
@@ -47,7 +47,7 @@ namespace ErpGestao
                     }
 
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Codigo", int.Parse(codigo));
+                    cmd.Parameters.AddWithValue("@TipoPessoa", tipoPessoa);
                     cmd.Parameters.AddWithValue("@NomeFantasia", nomeFantasia);
                     cmd.Parameters.AddWithValue("@RazaoSocial", razaoSocial);
                     cmd.Parameters.AddWithValue("@CpfCnpj", cpfCnpj);
@@ -66,6 +66,7 @@ namespace ErpGestao
                     cmd.Parameters.AddWithValue("@Instagram", instagram);
                     cmd.Parameters.AddWithValue("@Foto", foto != null ? ImageToByteArray(foto) : (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@QrCode", qrCode != null ? ImageToByteArray(qrCode) : (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Isento", isento);
                     cmd.Parameters.AddWithValue("@ClienteFlag", 'S');
                     cmd.Parameters.AddWithValue("@FornecedorFlag", 'N');
                     cmd.Parameters.AddWithValue("@FuncionarioFlag", 'N');
