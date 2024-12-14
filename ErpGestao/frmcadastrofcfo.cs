@@ -59,7 +59,7 @@ SELECT
     f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
     f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
     f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
-    f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
+    f.fcfo_membro, f.fcfo_id_cidade, c.id as fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
 FROM 
     fcfo f
 LEFT JOIN 
@@ -82,10 +82,9 @@ WHERE
                 txtboxenderecofcfo.Text = reader["fcfo_endereco"].ToString();
                 txtboxnumeroenderecofcfo.Text = reader["fcfo_endereco_numero"].ToString();
                 txtboxcomplementoenderecofcfo.Text = reader["fcfo_endereco_complemento"].ToString();
+                txtboxidcidade.Text = reader["fcfo_id_cidade"].ToString();
                 txtboxcidade.Text = $"{reader["cidade_nome"]} - {reader["cidade_uf"]}";
                 txtboxuffcfo.Text = reader["cidade_uf"].ToString();
-                //txtboxcidade.Text = reader["cidade_nome"].ToString();
-                // cmbboxcidadefcfo.Text = reader["cidade_nome"].ToString(); //remover
                 txtboxcoordenadasfcfo.Text = reader["fcfo_coordenada"].ToString();
                 msktxtboxdatanascimentofcfo.Text = reader["fcfo_data_nascimento"] != DBNull.Value ? Convert.ToDateTime(reader["fcfo_data_nascimento"]).ToString("dd/MM/yyyy") : string.Empty;
                 msktxtboxdatacadastrofcfo.Text = Convert.ToDateTime(reader["fcfo_data_cadastro"]).ToString("dd/MM/yyyy");
@@ -250,10 +249,9 @@ WHERE
                     if (cidadeSelecionada != null)
                     {
 
-                        // Atualizar o TextBox com a UF do Estado
+                        // Atualizar o TextBox com ID - CIDADE - UF - UF
                         txtboxuffcfo.Text = cidadeSelecionada.Uf;
-
-                        // Atualizar o TextBox com a cidade selecionada
+                        txtboxidcidade.Text = cidadeSelecionada.Id.ToString();
                         txtboxcidade.Text = $"{cidadeSelecionada.Nome} - {cidadeSelecionada.Uf}";
 
                     }

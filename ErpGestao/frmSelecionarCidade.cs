@@ -35,7 +35,7 @@ namespace ErpGestao
             });
             dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
             {
-                HeaderText = "Código",
+                HeaderText = "Código IBGE",
                 DataPropertyName = "Codigo"
             });
             dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
@@ -104,7 +104,15 @@ namespace ErpGestao
                 switch (filtro)
                 {
                     case "ID":
-                        query += " WHERE c.id = @valor";
+                        if (int.TryParse(valor, out int id))
+                        {
+                            query += " WHERE c.id = @valor";
+                        }
+                        else
+                        {
+                            MessageBox.Show("O valor do ID deve ser um número inteiro.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return new List<Cidade>();
+                        }
                         break;
                     case "Código":
                         query += " WHERE c.codigo COLLATE Latin1_General_CI_AI LIKE @valor";
@@ -125,7 +133,14 @@ namespace ErpGestao
             {
                 if (!string.IsNullOrEmpty(valor))
                 {
-                    cmd.Parameters.AddWithValue("@valor", $"%{valor}%");
+                    if (filtro == "ID")
+                    {
+                        cmd.Parameters.AddWithValue("@valor", int.Parse(valor));
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@valor", $"%{valor}%");
+                    }
                 }
             });
         }

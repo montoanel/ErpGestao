@@ -40,7 +40,7 @@ namespace ErpGestao
             {
                 cmbbuscarpor.Items.Add(item.Value);
             }
-            cmbbuscarpor.SelectedIndex = 0;
+            cmbbuscarpor.SelectedIndex = 2;
 
             // Carregar clientes ao abrir o formulário
             CarregarClientes();
@@ -57,7 +57,7 @@ namespace ErpGestao
                 f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
                 f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
                 f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
-                f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
+                f.fcfo_membro, f.fcfo_id_cidade, c.id as fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
             FROM 
                 fcfo f
             LEFT JOIN 
@@ -191,7 +191,7 @@ namespace ErpGestao
                     f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
                     f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
                     f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
-                    f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
+                    f.fcfo_membro, f.fcfo_id_cidade, c.id as fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
                 FROM 
                     fcfo f
                 LEFT JOIN 
@@ -209,7 +209,7 @@ namespace ErpGestao
                     f.fcfo_endereco_complemento, f.fcfo_coordenada, f.fcfo_data_nascimento, f.fcfo_data_cadastro,
                     f.fcfo_nome_contato, f.fcfo_telefone1, f.fcfo_telefone2, f.fcfo_email, f.fcfo_instagram,
                     f.fcfo_foto, f.fcfo_qrcode, f.fcfo_cliente, f.fcfo_fornecedor, f.fcfo_funcionario,
-                    f.fcfo_membro, f.fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
+                    f.fcfo_membro, f.fcfo_id_cidade, c.id as fcfo_id_cidade, c.nome AS cidade_nome, c.uf AS cidade_uf
                 FROM 
                     fcfo f
                 LEFT JOIN 
