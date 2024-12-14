@@ -438,6 +438,7 @@ WHERE
 
                         // Exibe uma mensagem de sucesso
                         MessageBox.Show("Dados gravados com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
                     }
                     catch (Exception ex)
                     {
