@@ -17,6 +17,12 @@ namespace ErpGestao
         {
             ConexaoBancoDeDados conexaoBancoDeDados = new ConexaoBancoDeDados();
 
+            // Validação do IdCidade antes de usá-lo
+            if (!int.TryParse(idCidade, out int cidadeId))
+            {
+                throw new FormatException("O valor do IdCidade deve ser um número inteiro.");
+            }
+
             string query = @"
                 INSERT INTO fcfo 
                 (fcfo_codigo, fcfo_nome_fantasia, fcfo_razao_social, fcfo_cpfcnpj, fcfo_rgie, 
@@ -49,7 +55,7 @@ namespace ErpGestao
                     cmd.Parameters.AddWithValue("@Endereco", endereco);
                     cmd.Parameters.AddWithValue("@EnderecoNumero", enderecoNumero);
                     cmd.Parameters.AddWithValue("@EnderecoComplemento", enderecoComplemento);
-                    cmd.Parameters.AddWithValue("@IdCidade", int.Parse(idCidade));  // Utilizando diretamente o ID da cidade
+                    cmd.Parameters.AddWithValue("@IdCidade", cidadeId);  // Utilizando o ID da cidade validado
                     cmd.Parameters.AddWithValue("@Coordenada", coordenada);
                     cmd.Parameters.AddWithValue("@DataNascimento", DateTime.Parse(dataNascimento));
                     cmd.Parameters.AddWithValue("@DataCadastro", DateTime.Parse(dataCadastro));
