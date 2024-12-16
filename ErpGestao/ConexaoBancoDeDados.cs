@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
-using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 
 namespace ErpGestao
 {
@@ -17,7 +13,14 @@ namespace ErpGestao
 
         public ConexaoBancoDeDados()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["ErpGestaoConnectionString"].ConnectionString;
+            var connectionStringSetting = ConfigurationManager.ConnectionStrings["ErpGestaoConnectionString"];
+            if (connectionStringSetting == null || string.IsNullOrEmpty(connectionStringSetting.ConnectionString))
+            {
+                throw new Exception("A ConnectionString 'ErpGestaoConnectionString' não está configurada corretamente no arquivo de configuração.");
+            }
+
+            connectionString = connectionStringSetting.ConnectionString;
+            Console.WriteLine($"ConnectionString inicializada: {connectionString}");
             conexao = new SqlConnection(connectionString);
         }
 
@@ -29,32 +32,6 @@ namespace ErpGestao
                 connection.Open();
                 command.ExecuteNonQuery();
             }
-        }
-
-        public List<Cidade> ExecuteQueryWithReader(string query, Action<SqlCommand> configureCommand)
-        {
-            var cidades = new List<Cidade>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(query, connection);
-                configureCommand?.Invoke(command);
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        cidades.Add(new Cidade
-                        {
-                            Id = reader.GetInt32(0),
-                            Codigo = reader.GetString(1),
-                            Nome = reader.GetString(2),
-                            Uf = reader.GetString(3),
-                            Estado = reader.GetString(4) // Certifique-se de que a coluna `Estado` é uma string no SQL
-                        });
-                    }
-                }
-            }
-            return cidades;
         }
 
         public object ExecuteScalar(string query, Action<SqlCommand> configureCommand)
@@ -85,31 +62,32 @@ namespace ErpGestao
             return dataTable;
         }
 
-        // Método para abrir a conexão
         public bool AbrirConexao()
         {
             try
             {
+                Console.WriteLine("Tentando abrir a conexão...");
                 conexao.Open();
+                Console.WriteLine("Conexão aberta com sucesso.");
                 return true;
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Erro ao abrir a conexão: {ex.Message}");
                 MessageBox.Show($"Erro ao abrir a conexão: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
-        // Método para fechar a conexão
         public void FecharConexao()
         {
             if (conexao.State == ConnectionState.Open)
             {
                 conexao.Close();
+                Console.WriteLine("Conexão fechada.");
             }
         }
 
-        // Método para obter a conexão
         public SqlConnection ObterConexao()
         {
             return conexao;

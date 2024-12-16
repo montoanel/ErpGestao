@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace ErpGestao
@@ -8,60 +7,30 @@ namespace ErpGestao
     public partial class frmSelecionarCidade : Form
     {
         public Cidade CidadeSelecionada { get; private set; }
-        private ConexaoBancoDeDados conexaoBancoDeDados;
+        private CidadeDataAccess cidadeDataAccess;
 
         public frmSelecionarCidade()
         {
             InitializeComponent();
             InicializarComponentes();
-            conexaoBancoDeDados = new ConexaoBancoDeDados();
-            CarregarTodasCidades(); // Carregar todas as cidades ao inicializar
+            cidadeDataAccess = new CidadeDataAccess();
+            CarregarTodasCidades();
         }
 
         private void InicializarComponentes()
         {
-            // Preencher o ComboBox de filtro
             cmbfiltrocidades.Items.AddRange(new string[] { "ID", "Código", "Nome", "UF", "Nome Estado" });
-
-            // Definir o item padrão selecionado
             cmbfiltrocidades.SelectedIndex = 2;
-
-            // Configurar as colunas do DataGridView
             dgvcidades.AutoGenerateColumns = false;
-            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "ID",
-                DataPropertyName = "Id"
-            });
-            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "Código IBGE",
-                DataPropertyName = "Codigo"
-            });
-            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "Nome",
-                DataPropertyName = "Nome"
-            });
-            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "Estado",
-                DataPropertyName = "Estado"
-            });
-            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "UF",
-                DataPropertyName = "Uf"
-            });
+            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "ID", DataPropertyName = "Id" });
+            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Código IBGE", DataPropertyName = "Codigo" });
+            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Nome", DataPropertyName = "Nome" });
+            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Estado", DataPropertyName = "Estado" });
+            dgvcidades.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "UF", DataPropertyName = "Uf" });
 
-            // Vincular evento dos botões aos métodos
             btnfiltrarcidade.Click += new EventHandler(btnfiltrarcidade_Click);
             btnselecionar.Click += new EventHandler(btnselecionar_Click);
-
-            // Adicionar evento KeyPress ao TextBox
             txtboxfiltrarcidade.KeyPress += new KeyPressEventHandler(txtboxfiltrarcidade_KeyPress);
-
-            // Adicionar evento KeyDown ao DataGridView
             dgvcidades.KeyDown += new KeyEventHandler(dgvcidades_KeyDown);
         }
 
@@ -76,7 +45,12 @@ namespace ErpGestao
             string filtro = cmbfiltrocidades.SelectedItem?.ToString();
             string valor = txtboxfiltrarcidade.Text;
 
-            if (!string.IsNullOrEmpty(filtro) && !string.IsNullOrEmpty(valor))
+            if (string.IsNullOrWhiteSpace(valor))
+            {
+                // Recarregar todas as cidades se o campo de texto estiver vazio
+                CarregarTodasCidades();
+            }
+            else if (!string.IsNullOrEmpty(filtro) && !string.IsNullOrEmpty(valor))
             {
                 List<Cidade> cidadesFiltradas = BuscarCidades(filtro, valor);
                 dgvcidades.DataSource = cidadesFiltradas;
@@ -92,12 +66,13 @@ namespace ErpGestao
             }
         }
 
+
         private List<Cidade> BuscarCidades(string filtro, string valor)
         {
             var query = @"
-        SELECT c.id, c.codigo, c.nome, c.uf, e.nome AS estado
-        FROM cidade c
-        JOIN estado e ON c.estadoid = e.id";
+                SELECT c.id, c.codigo, c.nome, c.uf, e.nome AS estado
+                FROM cidade c
+                JOIN estado e ON c.estadoid = e.id";
 
             if (!string.IsNullOrEmpty(filtro))
             {
@@ -129,7 +104,7 @@ namespace ErpGestao
                 }
             }
 
-            return conexaoBancoDeDados.ExecuteQueryWithReader(query, (cmd) =>
+            return cidadeDataAccess.ObterCidades(query, (cmd) =>
             {
                 if (!string.IsNullOrEmpty(valor))
                 {
@@ -145,8 +120,6 @@ namespace ErpGestao
             });
         }
 
-
-        // Declarando a instância do seletor DataGridViewSelector.cs
         private DataGridViewSelector<Cidade> cidadeSelector = new DataGridViewSelector<Cidade>();
 
         private void btnselecionar_Click(object sender, EventArgs e)
@@ -160,7 +133,6 @@ namespace ErpGestao
                 this.Close();
             }
         }
-
 
         private void btncancelar_Click(object sender, EventArgs e)
         {
@@ -177,7 +149,6 @@ namespace ErpGestao
             }
         }
 
-        // Novo método para tratar o evento KeyDown do DataGridView
         private void dgvcidades_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
