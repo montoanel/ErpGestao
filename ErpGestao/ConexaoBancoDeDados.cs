@@ -90,7 +90,12 @@ namespace ErpGestao
 
         public SqlConnection ObterConexao()
         {
+            if (conexao.State == ConnectionState.Closed)
+            {
+                AbrirConexao();
+            }
             return conexao;
         }
+
     }
 }

@@ -402,52 +402,92 @@ WHERE
 
         private void btngravarfcfo_Click(object sender, EventArgs e)
         {
-            // Chama a classe ValidadorFormularioFCFO para verificar os campos obrigatórios
             if (ValidadorFormularioFCFO.VerificarCamposObrigatorios(
                 txtboxcodigofcfo, msktxtboxcpfcnpjfcfo, txtboxrgiefcfo, txtboxnomefantasiafcfo, txtboxrazaosocialfcfo,
                 txtboxenderecofcfo, txtboxnumeroenderecofcfo, txtboxbairrofcfo,
                 txtboxcidade, msktxtboxcepfcfo, msktxtboxdatanascimentofcfo, msktxtboxdatacadastrofcfo,
                 pctboxfcfo, pctqrcode))
             {
-                // Se os dados estiverem corretos, exibe a MessageBox para confirmar a gravação
                 DialogResult resultado = MessageBox.Show("Confirmar gravação dos dados?", "Confirmação", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (resultado == DialogResult.OK)
                 {
                     try
                     {
-                        // Validação do IdCidade
                         if (!int.TryParse(txtboxidcidade.Text, out int idCidade))
                         {
                             MessageBox.Show("O valor do ID da cidade deve ser um número inteiro.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
-                        string tipoPessoa = "F"; // Ajuste para atribuir o valor correto para tipoPessoa (F, J, R)
-                                                 // Você pode modificar a atribuição acima conforme necessário para seu contexto
-
-                        // Determinação do valor de isento com base no checkbox
+                        string tipoPessoa = "F";
                         string isento = chkboxcisentofcfo.Checked ? "S" : "N";
 
-                        // Chama a classe GravadorDadosFCFO para gravar os dados no banco de dados
-                        GravadorDadosFCFO.GravarDados(
-                            tipoPessoa, txtboxnomefantasiafcfo.Text, txtboxrazaosocialfcfo.Text, msktxtboxcpfcnpjfcfo.Text,
-                            txtboxrgiefcfo.Text, txtboxenderecofcfo.Text, txtboxnumeroenderecofcfo.Text, txtboxcomplementoenderecofcfo.Text,
-                            idCidade.ToString(), txtboxcoordenadasfcfo.Text, msktxtboxdatanascimentofcfo.Text, msktxtboxdatacadastrofcfo.Text,
-                            txtboxnomecontatofcfo.Text, msktxtboxtelefone1contatofcfo.Text, msktxtboxtelefone2contatofcfo.Text, txtboxemailfcfo.Text,
-                            txtboxinstagramfcfo.Text, pctboxfcfo.Image, pctqrcode.Image, isento);
+                        int? clienteId = null;
+                        if (!string.IsNullOrEmpty(txtboxcodigofcfo.Text))
+                        {
+                            clienteId = int.Parse(txtboxcodigofcfo.Text);
+                        }
 
-                        // Exibe uma mensagem de sucesso
+                        var data = new Dictionary<string, object>
+                {
+                    { "fcfo_tipo_pessoa", tipoPessoa },
+                    { "fcfo_nome_fantasia", txtboxnomefantasiafcfo.Text },
+                    { "fcfo_razao_social", txtboxrazaosocialfcfo.Text },
+                    { "fcfo_cpfcnpj", msktxtboxcpfcnpjfcfo.Text },
+                    { "fcfo_rgie", txtboxrgiefcfo.Text },
+                    { "fcfo_endereco", txtboxenderecofcfo.Text },
+                    { "fcfo_endereco_numero", txtboxnumeroenderecofcfo.Text },
+                    { "fcfo_endereco_complemento", txtboxcomplementoenderecofcfo.Text },
+                    { "fcfo_id_cidade", idCidade },
+                    { "fcfo_coordenada", txtboxcoordenadasfcfo.Text },
+                    { "fcfo_data_nascimento", DateTime.Parse(msktxtboxdatanascimentofcfo.Text) },
+                    { "fcfo_data_cadastro", DateTime.Parse(msktxtboxdatacadastrofcfo.Text) },
+                    { "fcfo_nome_contato", txtboxnomecontatofcfo.Text },
+                    { "fcfo_telefone1", msktxtboxtelefone1contatofcfo.Text },
+                    { "fcfo_telefone2", msktxtboxtelefone2contatofcfo.Text },
+                    { "fcfo_email", txtboxemailfcfo.Text },
+                    { "fcfo_instagram", txtboxinstagramfcfo.Text },
+                    { "fcfo_foto", pctboxfcfo.Image != null ? ImageToByteArray(pctboxfcfo.Image) : (object)DBNull.Value },
+                    { "fcfo_qrcode", pctqrcode.Image != null ? ImageToByteArray(pctqrcode.Image) : (object)DBNull.Value },
+                    { "fcfo_isento", isento }
+                };
+
+                        foreach (var pair in data)
+                        {
+                            Console.WriteLine($"{pair.Key}: {pair.Value}");
+                        }
+
+                        ConexaoBancoDeDados conexaoBancoDeDados = new ConexaoBancoDeDados();
+                        var dataUpdater = new DataUpdater(conexaoBancoDeDados);
+                        dataUpdater.SaveOrUpdate("fcfo", data, "fcfo_codigo", clienteId);
+
                         MessageBox.Show("Dados gravados com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();//fechar tela
+                        this.Close();
+                        
                     }
                     catch (Exception ex)
                     {
-                        // Trata erros de gravação
                         MessageBox.Show($"Erro ao gravar os dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
+
+        private byte[] ImageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+
+
+
+
+
+
+
 
 
 
